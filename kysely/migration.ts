@@ -4,8 +4,8 @@ type CustomMigration = { description: string; migration: Migration };
 
 export function createMigration(
   description: string,
-  up: (db: Kysely<unknown>) => Promise<void>,
-  down: (db: Kysely<unknown>) => Promise<void>,
+  up: (db: Kysely<any>) => Promise<void>,
+  down: (db: Kysely<any>) => Promise<void>,
 ): CustomMigration {
   return {
     description,
