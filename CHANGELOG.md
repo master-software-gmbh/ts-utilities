@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.0.0...v1.0.1) (2025-01-13)
+
+
+### Bug Fixes
+
+* migration db type ([5771c6a](https://github.com/master-software-gmbh/bun-utilities/commit/5771c6a47b6f2dd9fa5ea94d2b93a68e59716c0b))
+
 # 1.0.0 (2025-01-13)
 
 
