@@ -1,5 +1,6 @@
 import {
   type AlterTableBuilder,
+  type AlterTableColumnAlteringBuilder,
   type CreateTableBuilder,
   type Kysely,
   type Migration,
@@ -50,10 +51,10 @@ export function createTableMigration<TB extends string>(
   );
 }
 
-export function updateTableMigration<TB extends string>(
+export function updateTableMigration(
   tableName: string,
-  addColumns: (builder: AlterTableBuilder) => CreateTableBuilder<TB, never>,
-  removeColumns: (builder: AlterTableBuilder) => CreateTableBuilder<TB, never>,
+  addColumns: (builder: AlterTableBuilder) => AlterTableColumnAlteringBuilder,
+  removeColumns: (builder: AlterTableBuilder) => AlterTableColumnAlteringBuilder,
 ): CustomMigration {
   return createMigration(
     `update-table-${tableName}`,
