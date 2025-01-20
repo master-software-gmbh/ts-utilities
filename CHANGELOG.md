@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.4.0...v1.4.1) (2025-01-20)
+
+
+### Bug Fixes
+
+* convert to function ([9f84151](https://github.com/master-software-gmbh/bun-utilities/commit/9f84151c91ba1315a2ee96da0d302164eb601fc6))
+
 # [1.4.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.3.0...v1.4.0) (2025-01-20)
 
 
