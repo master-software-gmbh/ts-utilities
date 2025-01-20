@@ -1,7 +1,7 @@
 import {
   type AlterTableBuilder,
   type AlterTableColumnAlteringBuilder,
-  type CreateTableBuilder,
+  CreateTableBuilder,
   type Kysely,
   type Migration,
   type MigrationProvider,
@@ -25,28 +25,46 @@ export function createMigration(
   };
 }
 
+class EnhancedCreateTableBuilder<TB extends string> {
+  constructor(public rawBuilder: CreateTableBuilder<TB, never>) {}
+
+  /**
+   * Adds a non-nullable UUID column to the table with a default value.
+   * @param name The name of the column.
+   * @param primaryKey Whether the column should be a primary key. Defaults to true.
+   */
+  addUUIDColumn(name: string, primaryKey = true): this {
+    this.rawBuilder = this.rawBuilder.addColumn(name, 'text', (col) => {
+      let newCol = col.defaultTo(sql`(uuid())`).notNull();
+
+      if (primaryKey) {
+        newCol = newCol.primaryKey();
+      }
+
+      return newCol;
+    });
+
+    return this;
+  }
+
+  /**
+   * Adds a non-nullable timestamp column to the table with a default value of `now`.
+   * The timestamp stores the number of seconds since the Unix epoch.
+   * @param name Name of the column.
+   */
+  addTimestampColumn(name: string): this {
+    this.rawBuilder = this.rawBuilder.addColumn(name, 'integer', (col) => col.defaultTo(sql`(strftime('%s', 'now'))`).notNull());
+    return this;
+  }
+}
+
 export function createTableMigration<TB extends string>(
   tableName: string,
-  buildColumns: (builder: CreateTableBuilder<TB, never>) => CreateTableBuilder<TB, never>,
-  options: { id?: 'uuid'; created_at?: boolean } = {},
+  buildColumns: (builder: EnhancedCreateTableBuilder<TB>) => CreateTableBuilder<TB, never>,
 ): CustomMigration {
   return createMigration(
     `create-table-${tableName}`,
-    async ({ schema }) => {
-      let table = schema.createTable(tableName);
-
-      if (options.id === 'uuid') {
-        table = table.addColumn('id', 'text', (col) => col.defaultTo(sql`(uuid())`).primaryKey().notNull());
-      }
-
-      if (options.created_at) {
-        table = table.addColumn('created_at', 'integer', (col) =>
-          col.defaultTo(sql`(strftime('%s', 'now'))`).notNull(),
-        );
-      }
-
-      return buildColumns(table).execute();
-    },
+    async ({ schema }) => buildColumns(new EnhancedCreateTableBuilder(schema.createTable(tableName))).execute(),
     async ({ schema }) => schema.dropTable(tableName).execute(),
   );
 }

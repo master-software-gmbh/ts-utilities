@@ -3,8 +3,10 @@
   "version": "1.2.0",
   "type": "module",
   "exports": {
+    "./http": "./http/index.ts",
+    "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
-    "./http": "./http/index.ts"
+    "./time": "./time/index.ts"
   },
   "scripts": {
     "lint": "npx @biomejs/biome check --write ./"
