@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.3.0...v1.4.0) (2025-01-20)
+
+
+### Features
+
+* add zod utilities ([8da9ada](https://github.com/master-software-gmbh/bun-utilities/commit/8da9ada14a893f20e8d1dc847fe0a339aba0681a))
+
 # [1.3.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.2.0...v1.3.0) (2025-01-20)
 
 
