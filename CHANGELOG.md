@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.1.1...v1.2.0) (2025-01-20)
+
+
+### Features
+
+* add http utilities ([17b6d80](https://github.com/master-software-gmbh/bun-utilities/commit/17b6d8049d1d794071f3fbb9c1006e99f6effa80))
+
 ## [1.1.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.1.0...v1.1.1) (2025-01-20)
 
 
