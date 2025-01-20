@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.4.1...v1.5.0) (2025-01-20)
+
+
+### Features
+
+* add process utilities ([5f8b477](https://github.com/master-software-gmbh/bun-utilities/commit/5f8b477f88b6c5cf8809ffc440c3a3b7d5097333))
+
 ## [1.4.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.4.0...v1.4.1) (2025-01-20)
 
 
