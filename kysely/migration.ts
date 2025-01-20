@@ -1,4 +1,12 @@
-import { type CreateTableBuilder, type Kysely, type Migration, type MigrationProvider, Migrator, sql } from 'kysely';
+import {
+  type AlterTableBuilder,
+  type CreateTableBuilder,
+  type Kysely,
+  type Migration,
+  type MigrationProvider,
+  Migrator,
+  sql,
+} from 'kysely';
 
 type CustomMigration = { description: string; migration: Migration };
 
