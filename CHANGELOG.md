@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.0.1...v1.1.0) (2025-01-20)
+
+
+### Features
+
+* add update table migration helper ([20c29e0](https://github.com/master-software-gmbh/bun-utilities/commit/20c29e002f085f36d9945c7212afc6121543d9a4))
+
 ## [1.0.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.0.0...v1.0.1) (2025-01-13)
 
 
