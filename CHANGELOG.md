@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.1.0...v1.1.1) (2025-01-20)
+
+
+### Bug Fixes
+
+* column builder return types ([11c0567](https://github.com/master-software-gmbh/bun-utilities/commit/11c05671a5ac3e26c1bd86f80978ecf24234f6c0))
+
 # [1.1.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.0.1...v1.1.0) (2025-01-20)
 
 
