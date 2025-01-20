@@ -6,6 +6,7 @@
     "./http": "./http/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
+    "./process": "./process/index.ts",
     "./time": "./time/index.ts",
     "./zod": "./zod/index.ts"
   },
