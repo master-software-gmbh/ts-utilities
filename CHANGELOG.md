@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.2.0...v1.3.0) (2025-01-20)
+
+
+### Features
+
+* add time, json and migration utilities ([254c4cb](https://github.com/master-software-gmbh/bun-utilities/commit/254c4cb1d7c9fe4d8ac7b3af29da6acf4af44fb7))
+
 # [1.2.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.1.1...v1.2.0) (2025-01-20)
 
 
