@@ -50,6 +50,24 @@ export function createTableMigration<TB extends string>(
   );
 }
 
+export function updateTableMigration<TB extends string>(
+  tableName: string,
+  addColumns: (builder: AlterTableBuilder) => CreateTableBuilder<TB, never>,
+  removeColumns: (builder: AlterTableBuilder) => CreateTableBuilder<TB, never>,
+): CustomMigration {
+  return createMigration(
+    `update-table-${tableName}`,
+    async ({ schema }) => {
+      const table = schema.alterTable(tableName);
+      return addColumns(table).execute();
+    },
+    async ({ schema }) => {
+      const table = schema.alterTable(tableName);
+      return removeColumns(table).execute();
+    },
+  );
+}
+
 class InlineMigrationProvider implements MigrationProvider {
   constructor(private readonly migrations: CustomMigration[]) {
     this.migrations = migrations;
