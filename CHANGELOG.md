@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.6.0...v1.7.0) (2025-01-28)
+
+
+### Features
+
+* migrate to nix ([c3d300b](https://github.com/master-software-gmbh/bun-utilities/commit/c3d300b50a3b62f45de07ba32093be5bbb9b176b))
+
 # [1.6.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.5.0...v1.6.0) (2025-01-28)
 
 
