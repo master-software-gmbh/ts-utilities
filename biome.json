@@ -1,4 +1,4 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
-  "extends": ["@master-software/biome-configuration"]
+  "extends": ["/nix/store/9bf9wc80wihcp3ng4w4054s6fa43d4kl-biome.json"]
 }

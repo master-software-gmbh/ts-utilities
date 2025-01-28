@@ -1,7 +1,7 @@
 import {
   type AlterTableBuilder,
   type AlterTableColumnAlteringBuilder,
-  CreateTableBuilder,
+  type CreateTableBuilder,
   type Kysely,
   type Migration,
   type MigrationProvider,
@@ -53,7 +53,9 @@ class EnhancedCreateTableBuilder<TB extends string> {
    * @param name Name of the column.
    */
   addTimestampColumn(name: string): this {
-    this.rawBuilder = this.rawBuilder.addColumn(name, 'integer', (col) => col.defaultTo(sql`(strftime('%s', 'now'))`).notNull());
+    this.rawBuilder = this.rawBuilder.addColumn(name, 'integer', (col) =>
+      col.defaultTo(sql`(strftime('%s', 'now'))`).notNull(),
+    );
     return this;
   }
 }
