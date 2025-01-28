@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.5.0...v1.6.0) (2025-01-28)
+
+
+### Features
+
+* add logging module ([fc644ce](https://github.com/master-software-gmbh/bun-utilities/commit/fc644ce40dd439c899dd9de6304bbe90dabc3f2c))
+
 # [1.5.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.4.1...v1.5.0) (2025-01-20)
 
 
