@@ -1,5 +1,9 @@
-export function unixEpoch(): number {
-  return Math.floor(Date.now() / 1000);
+/**
+ * Returns the instant as Unix epoch time in seconds.
+ * Defaults to the current time.
+ */
+export function unixEpoch(instant?: Date): number {
+  return Math.floor((instant?.getTime() ?? Date.now()) / 1000);
 }
 
 export function daysToSeconds(days: number) {
