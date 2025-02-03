@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.8.0...v1.9.0) (2025-02-03)
+
+
+### Features
+
+* add logfmt logging format ([a1f9125](https://github.com/master-software-gmbh/bun-utilities/commit/a1f9125773c56e21ad584b50572765935d1f0cf6))
+
 # [1.8.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.7.0...v1.8.0) (2025-02-03)
 
 
