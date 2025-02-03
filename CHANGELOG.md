@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.7.0...v1.8.0) (2025-02-03)
+
+
+### Features
+
+* add tests ([c2abd6d](https://github.com/master-software-gmbh/bun-utilities/commit/c2abd6dc737e6fed1356521c3a533b2ccc0f217f))
+
 # [1.7.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.6.0...v1.7.0) (2025-01-28)
 
 
