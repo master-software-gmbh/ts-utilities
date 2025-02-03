@@ -8,6 +8,7 @@ import {
   Migrator,
   sql,
 } from 'kysely';
+import { logger } from '../logging';
 
 type CustomMigration = { description: string; migration: Migration };
 
@@ -113,15 +114,15 @@ export async function runMigrations(db: Kysely<any>, migrations: CustomMigration
 
   for (const result of results) {
     if (result.status === 'Success') {
-      console.log(`Migration "${result.migrationName}" executed successfully`);
+      logger.info(`Migration "${result.migrationName}" executed successfully`);
     } else if (result.status === 'Error') {
-      console.error(`Failed to execute migration "${result.migrationName}"`);
+      logger.error(`Failed to execute migration "${result.migrationName}"`);
     }
   }
 
   if (error) {
-    console.error(error);
+    logger.error('Failed to execute migrations', { error: JSON.stringify(error) });
   } else {
-    console.log('All migrations completed successfully');
+    logger.info('All migrations completed successfully');
   }
 }

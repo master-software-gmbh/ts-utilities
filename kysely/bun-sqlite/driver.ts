@@ -2,6 +2,7 @@ import { Database } from 'bun:sqlite';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { CompiledQuery, type DatabaseConnection, type Driver, type QueryResult } from 'kysely';
+import { logger } from '../../logging/index.ts';
 import type { BunSqliteDialectConfig } from './config.ts';
 
 export class BunSqliteDriver implements Driver {
@@ -25,7 +26,7 @@ export class BunSqliteDriver implements Driver {
       // Load all extensions at the specified folder
       for (const filename of await readdir(this.config.extensionsPath)) {
         const filepath = join(this.config.extensionsPath, filename);
-        console.log(`Loading SQLite extension from ${filepath}`);
+        logger.info(`Loading SQLite extension from ${filepath}`);
         this.db.loadExtension(filepath);
       }
     }
@@ -61,7 +62,7 @@ export class BunSqliteDriver implements Driver {
   }
 
   async destroy(): Promise<void> {
-    console.log('Closing SQLite database connection');
+    logger.info('Closing SQLite database connection');
     this.db?.close();
   }
 }
