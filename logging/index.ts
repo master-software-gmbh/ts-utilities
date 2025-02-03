@@ -1,39 +1,35 @@
 import type { JSONObject } from '../json';
+import { stringify } from './logfmt';
 
 export class LoggingService {
-  constructor(private readonly format: 'structured' | 'readable' = 'structured') {}
+  constructor(public format: 'json' | 'logfmt' = 'logfmt') {}
 
   debug(message: string, data: JSONObject = {}): void {
-    console.debug(this.serialize(message, data));
+    console.debug(this._serialize(message, data));
   }
 
   info(message: string, data: JSONObject = {}): void {
-    console.info(this.serialize(message, data));
+    console.info(this._serialize(message, data));
   }
 
   warn(message: string, data: JSONObject = {}): void {
-    console.warn(this.serialize(message, data));
+    console.warn(this._serialize(message, data));
   }
 
   error(message: string, data: JSONObject = {}): void {
-    console.error(this.serialize(message, data));
+    console.error(this._serialize(message, data));
   }
 
-  private serialize(message: string, properties: JSONObject = {}): string {
-    return this.format === 'structured'
-      ? this.serializeStructured(message, properties)
-      : this.serializeReadable(message, properties);
-  }
+  _serialize(message: string, properties: JSONObject = {}): string {
+    const data = { message, ...properties };
 
-  private serializeReadable(message: string, properties: JSONObject = {}): string {
-    return `${message}\n  ${Object.entries(properties)
-      .map(([key, value]) => `${key}=${JSON.stringify(value)}`)
-      .join('\n  ')}\n`;
-  }
-
-  private serializeStructured(message: string, properties: JSONObject = {}): string {
-    return JSON.stringify({ message, ...properties });
+    switch (this.format) {
+      case 'json':
+        return JSON.stringify(data);
+      case 'logfmt':
+        return stringify(data);
+    }
   }
 }
 
-export const logger = new LoggingService('readable');
+export const logger = new LoggingService('logfmt');
