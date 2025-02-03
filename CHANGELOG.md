@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.9.0...v1.10.0) (2025-02-03)
+
+
+### Features
+
+* use logger internally ([9b56cae](https://github.com/master-software-gmbh/bun-utilities/commit/9b56cae4d8d5d1e8106509a05c8286c17774562f))
+
 # [1.9.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.8.0...v1.9.0) (2025-02-03)
 
 
