@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { typedFetch } from '../http';
 
 export const AccessTokenResponse = z.object({
   access_token: z.string(),
@@ -61,65 +62,21 @@ async function makeAccessTokenRequest(
   clientId: string,
   clientSecret: string,
   body: Record<string, string>,
-): Promise<
-  | {
-      code: 'success';
-      data: AccessTokenResponse;
-    }
-  | {
-      code: 'unexpected_status_code';
-      text: string;
-    }
-  | {
-      code: 'unexpected_response_encoding';
-      message: string;
-    }
-  | {
-      code: 'unexpected_response_format';
-      message: string;
-    }
-> {
+) {
   const credentials = `${clientId}:${clientSecret}`;
   const encodedCredentials = Buffer.from(credentials).toString('base64');
 
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${encodedCredentials}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+  return typedFetch(
+    endpoint,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${encodedCredentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(body),
     },
-    body: new URLSearchParams(body),
-  });
-
-  if (!response.ok) {
-    return {
-      code: 'unexpected_status_code',
-      text: await response.text(),
-    };
-  }
-
-  let jsonData: unknown;
-
-  try {
-    jsonData = await response.json();
-  } catch (error) {
-    return {
-      code: 'unexpected_response_encoding',
-      message: JSON.stringify(error),
-    };
-  }
-
-  const parseResult = AccessTokenResponse.safeParse(jsonData);
-
-  if (parseResult.error) {
-    return {
-      code: 'unexpected_response_format',
-      message: parseResult.error.message,
-    };
-  }
-
-  return {
-    code: 'success',
-    data: parseResult.data,
-  };
+    (response) => response.json(),
+    AccessTokenResponse,
+  );
 }
