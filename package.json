@@ -1,6 +1,6 @@
 {
   "name": "@master-software/bun-utilities",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "type": "module",
   "exports": {
     "./http": "./http/index.ts",

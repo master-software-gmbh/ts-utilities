@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.10.0...v1.11.0) (2025-02-06)
+
+
+### Features
+
+* add tsconfig for applications ([047459e](https://github.com/master-software-gmbh/bun-utilities/commit/047459ee5899b6d784bf7bfc9ce53084621accf2))
+
 # [1.10.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.9.0...v1.10.0) (2025-02-03)
 
 
