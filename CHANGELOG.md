@@ -4,6 +4,16 @@
 ### Features
 
 * add config utility function ([96f8ca2](https://github.com/master-software-gmbh/bun-utilities/commit/96f8ca26bf9e50a3245c63becfd210c58f4a48e5))
+* add logging levels ([da20feb](https://github.com/master-software-gmbh/bun-utilities/commit/da20feb8e3a35f12c3f3758af87b10c7610e95a8))
+* add tsconfig for applications ([5a09707](https://github.com/master-software-gmbh/bun-utilities/commit/5a0970733e3a574ef87cf3aefe4d0a8532fcfe4f))
+* make file config optional ([79ac32e](https://github.com/master-software-gmbh/bun-utilities/commit/79ac32e1cb5db71b1b174c221cf1ccb840f5d30b))
+
+# [1.11.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.10.0...v1.11.0) (2025-02-06)
+
+
+### Features
+
+* add config utility function ([96f8ca2](https://github.com/master-software-gmbh/bun-utilities/commit/96f8ca26bf9e50a3245c63becfd210c58f4a48e5))
 * add tsconfig for applications ([5a09707](https://github.com/master-software-gmbh/bun-utilities/commit/5a0970733e3a574ef87cf3aefe4d0a8532fcfe4f))
 * make file config optional ([79ac32e](https://github.com/master-software-gmbh/bun-utilities/commit/79ac32e1cb5db71b1b174c221cf1ccb840f5d30b))
 
