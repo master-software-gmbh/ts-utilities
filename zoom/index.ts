@@ -53,3 +53,8 @@ export function signWebhookRequest(body: string, timestamp: string, secret: stri
 export function hashPayload(payload: string, secret: string): string {
   return createHmac('sha256', secret).update(payload).digest('hex');
 }
+
+export const OAuthEndpoint = {
+  Authorization: 'https://zoom.us/oauth/authorize',
+  AccessToken: 'https://zoom.us/oauth/token',
+};

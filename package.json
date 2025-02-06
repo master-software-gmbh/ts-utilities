@@ -8,6 +8,7 @@
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
     "./logging": "./logging/index.ts",
+    "./oauth": "./oauth/index.ts",
     "./process": "./process/index.ts",
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
