@@ -3,6 +3,15 @@
 
 ### Features
 
+* add config utility function ([96f8ca2](https://github.com/master-software-gmbh/bun-utilities/commit/96f8ca26bf9e50a3245c63becfd210c58f4a48e5))
+* add tsconfig for applications ([5a09707](https://github.com/master-software-gmbh/bun-utilities/commit/5a0970733e3a574ef87cf3aefe4d0a8532fcfe4f))
+* make file config optional ([79ac32e](https://github.com/master-software-gmbh/bun-utilities/commit/79ac32e1cb5db71b1b174c221cf1ccb840f5d30b))
+
+# [1.11.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.10.0...v1.11.0) (2025-02-06)
+
+
+### Features
+
 * add config utility function ([2026c3b](https://github.com/master-software-gmbh/bun-utilities/commit/2026c3b8dd405ed60f700b819a78e1b76b27afa8))
 * add tsconfig for applications ([047459e](https://github.com/master-software-gmbh/bun-utilities/commit/047459ee5899b6d784bf7bfc9ce53084621accf2))
 
