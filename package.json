@@ -12,7 +12,7 @@
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
     "./zod": "./zod/index.ts",
-    "./zoom": "./toom/index.ts"
+    "./zoom": "./zoom/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
