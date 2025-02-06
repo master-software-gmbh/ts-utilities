@@ -1,5 +1,6 @@
-import type { ZodSchema } from 'zod';
+import type { z, ZodSchema, ZodType } from 'zod';
 import { readFileSync } from 'node:fs';
+import { logger } from '../logging';
 
 export function setupConfig<E extends { CONFIG_FILEPATH: string }, F>(
   envSchema: ZodSchema<E>,
@@ -10,7 +11,14 @@ export function setupConfig<E extends { CONFIG_FILEPATH?: string }, F>(
   envSchema: ZodSchema<E>,
   fileSchema: ZodSchema<F>,
 ): { env: E; config?: F } {
-  const env = envSchema.parse(process.env);
+  let env: z.infer<ZodType<E>>;
+
+  try {
+    env = envSchema.parse(process.env);
+  } catch (error) {
+    logger.error('Failed to parse configuration from environment', { error: JSON.stringify(error) });
+    throw error;
+  }
 
   if (!env.CONFIG_FILEPATH) {
     return {
@@ -18,11 +26,16 @@ export function setupConfig<E extends { CONFIG_FILEPATH?: string }, F>(
     };
   }
 
-  const content = readFileSync(env.CONFIG_FILEPATH, 'utf-8');
-  const config = fileSchema.parse(JSON.parse(content));
+  try {
+    const content = readFileSync(env.CONFIG_FILEPATH, 'utf-8');
+    const config = fileSchema.parse(JSON.parse(content));
 
-  return {
-    env,
-    config,
-  };
+    return {
+      env,
+      config,
+    };
+  } catch (error) {
+    logger.error('Failed to parse configuration from file', { error: JSON.stringify(error) });
+    throw error;
+  }
 }
