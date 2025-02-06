@@ -3,6 +3,7 @@
   "version": "1.11.0",
   "type": "module",
   "exports": {
+    "./config": "./config/index.ts",
     "./http": "./http/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
