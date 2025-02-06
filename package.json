@@ -10,8 +10,9 @@
     "./logging": "./logging/index.ts",
     "./process": "./process/index.ts",
     "./time": "./time/index.ts",
+    "./tsconfig/app": "./tsconfig/app.json",
     "./zod": "./zod/index.ts",
-    "./tsconfig/app": "./tsconfig/app.json"
+    "./zoom": "./toom/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
