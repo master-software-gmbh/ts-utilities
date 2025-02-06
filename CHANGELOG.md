@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.11.0...v1.12.0) (2025-02-06)
+
+
+### Bug Fixes
+
+* export ([701911f](https://github.com/master-software-gmbh/bun-utilities/commit/701911f307a31bc47d6aec8fedf6509f1ba1f73d))
+
+
+### Features
+
+* add zoom utilities ([fba7688](https://github.com/master-software-gmbh/bun-utilities/commit/fba7688cb06f292302c2370423136cca7b463205))
+
 # [1.11.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.10.0...v1.11.0) (2025-02-06)
 
 
