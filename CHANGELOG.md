@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.13.0...v1.14.0) (2025-02-08)
+
+
+### Features
+
+* add storage module ([d5014dc](https://github.com/master-software-gmbh/bun-utilities/commit/d5014dc18cce76fc7b8002c930c12b16373a544e))
+
 # [1.13.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.12.0...v1.13.0) (2025-02-06)
 
 
