@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738092841,
-        "narHash": "sha256-7RBx6o4v5+VTpKbbdzKv7K9rv23RvV3qOp/vidweImc=",
+        "lastModified": 1738993990,
+        "narHash": "sha256-dlhBqTBgM6SGwhIWy23xHOffAQ/xeHmqOHjP6rNnQGw=",
         "owner": "master-software-gmbh",
         "repo": "nixos-utilities",
-        "rev": "307c377b54662f7e5c5f43f73c0935a61b9fdd02",
+        "rev": "50d9c901737be56fc0c1bd3e9baa6975ade50266",
         "type": "github"
       },
       "original": {

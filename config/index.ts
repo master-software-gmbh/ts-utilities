@@ -1,5 +1,5 @@
-import type { z, ZodSchema, ZodType } from 'zod';
 import { readFileSync } from 'node:fs';
+import type { ZodSchema, ZodType, z } from 'zod';
 import { logger } from '../logging';
 
 export function setupConfig<E extends { CONFIG_FILEPATH: string }, F>(
