@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.18.0...v1.19.0) (2025-02-09)
+
+
+### Features
+
+* set extension and mime type ([5cbc1e5](https://github.com/master-software-gmbh/bun-utilities/commit/5cbc1e546b6d1d2c769e0a5eac8da343c0037f62))
+
 # [1.18.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.17.0...v1.18.0) (2025-02-09)
 
 
