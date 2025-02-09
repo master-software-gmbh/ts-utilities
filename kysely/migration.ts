@@ -121,7 +121,7 @@ export async function runMigrations(db: Kysely<any>, migrations: CustomMigration
   }
 
   if (error) {
-    logger.error('Failed to execute migrations', { error: JSON.stringify(error) });
+    logger.error('Failed to execute migrations', { error });
   } else {
     logger.info('All migrations completed successfully');
   }

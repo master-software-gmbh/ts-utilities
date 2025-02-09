@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 import { S3Client } from 'bun';
 import type { Folder, StorageBackend } from './types';
+import { MimeTypeToFileExtension } from '../file';
 
 export class S3Storage implements StorageBackend {
   private readonly client: S3Client;
@@ -18,9 +19,13 @@ export class S3Storage implements StorageBackend {
     return this.client.file(key).stream();
   }
 
-  async createFile(source: ReadableStream, folder: Folder): Promise<string> {
-    const key = this.getUniqueFileKey(folder);
-    const writer = this.client.file(key).writer();
+  async createFile(source: ReadableStream, folder: Folder, type?: string): Promise<string> {
+    const key = this.getUniqueFileKey(folder, type);
+    const writer = this.client
+      .file(key, {
+        type,
+      })
+      .writer();
 
     for await (const chunk of source) {
       await writer.write(chunk);
@@ -35,7 +40,15 @@ export class S3Storage implements StorageBackend {
     await this.client.delete(key);
   }
 
-  private getUniqueFileKey(folder: Folder): string {
-    return [...folder.path, randomUUID()].join('/');
+  private getUniqueFileKey(folder: Folder, type?: string): string {
+    const extension = type ? MimeTypeToFileExtension[type]?.at(0) : undefined;
+
+    let filename = randomUUID();
+
+    if (extension) {
+      filename += `.${extension}`;
+    }
+
+    return [...folder.path, filename].join('/');
   }
 }

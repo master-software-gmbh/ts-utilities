@@ -13,9 +13,10 @@ export interface StorageBackend {
    * Creates a file
    * @param source stream of file content
    * @param folder folder to store the file in
+   * @param type MIME type of the file
    * @returns key of the file
    */
-  createFile(source: ReadableStream, folder: Folder): Promise<string>;
+  createFile(source: ReadableStream, folder: Folder, type?: string): Promise<string>;
 
   /**
    * Deletes a file

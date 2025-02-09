@@ -16,7 +16,7 @@ export function setupConfig<E extends { CONFIG_FILEPATH?: string }, F>(
   try {
     env = envSchema.parse(process.env);
   } catch (error) {
-    logger.error('Failed to parse configuration from environment', { error: JSON.stringify(error) });
+    logger.error('Failed to parse configuration from environment', { error });
     throw error;
   }
 
@@ -35,7 +35,7 @@ export function setupConfig<E extends { CONFIG_FILEPATH?: string }, F>(
       config,
     };
   } catch (error) {
-    logger.error('Failed to parse configuration from file', { error: JSON.stringify(error) });
+    logger.error('Failed to parse configuration from file', { error });
     throw error;
   }
 }
