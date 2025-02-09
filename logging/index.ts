@@ -1,9 +1,6 @@
-import type { JSONValue } from '../json';
 import { stringify } from './logfmt';
 
-type Context = { [key: string]: JSONValue } & {
-  error?: unknown;
-};
+type Context = { [key: string]: unknown };
 
 export class LoggingService {
   constructor(public format: 'json' | 'logfmt' = 'logfmt') {}
