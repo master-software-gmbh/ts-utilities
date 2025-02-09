@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.14.0...v1.15.0) (2025-02-09)
+
+
+### Features
+
+* add linkedin module ([ea52711](https://github.com/master-software-gmbh/bun-utilities/commit/ea5271140ffc12980763ac96ccd43652582f8603))
+
 # [1.14.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.13.0...v1.14.0) (2025-02-08)
 
 
