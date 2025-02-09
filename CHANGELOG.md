@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.16.0...v1.17.0) (2025-02-09)
+
+
+### Features
+
+* update logger ([769b599](https://github.com/master-software-gmbh/bun-utilities/commit/769b5995ebbd075bad1f3a033a66a6b0b79efbf0))
+
 # [1.16.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.15.0...v1.16.0) (2025-02-09)
 
 
