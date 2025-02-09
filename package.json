@@ -16,6 +16,7 @@
     "./http": "./http/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
+    "./linkedin": "./linkedin/index.ts",
     "./logging": "./logging/index.ts",
     "./oauth": "./oauth/index.ts",
     "./process": "./process/index.ts",
