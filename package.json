@@ -13,6 +13,7 @@
   },
   "exports": {
     "./config": "./config/index.ts",
+    "./file": "./file/index.ts",
     "./http": "./http/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
