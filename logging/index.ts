@@ -1,27 +1,31 @@
-import type { JSONObject } from '../json';
+import type { JSONValue } from '../json';
 import { stringify } from './logfmt';
+
+type Context = { [key: string]: JSONValue } & {
+  error?: unknown;
+};
 
 export class LoggingService {
   constructor(public format: 'json' | 'logfmt' = 'logfmt') {}
 
-  debug(message: string, data: JSONObject = {}): void {
-    console.debug(this._serialize(message, 'debug', data));
+  debug(message: string, context: Context = {}): void {
+    console.debug(this._serialize(message, 'debug', context));
   }
 
-  info(message: string, data: JSONObject = {}): void {
-    console.info(this._serialize(message, 'info', data));
+  info(message: string, context: Context = {}): void {
+    console.info(this._serialize(message, 'info', context));
   }
 
-  warn(message: string, data: JSONObject = {}): void {
-    console.warn(this._serialize(message, 'warn', data));
+  warn(message: string, context: Context = {}): void {
+    console.warn(this._serialize(message, 'warn', context));
   }
 
-  error(message: string, data: JSONObject = {}): void {
-    console.error(this._serialize(message, 'error', data));
+  error(message: string, context: Context = {}): void {
+    console.error(this._serialize(message, 'error', context));
   }
 
-  _serialize(message: string, level: string, properties: JSONObject = {}): string {
-    const data = { message, level, ...properties };
+  _serialize(message: string, level: string, context: Context = {}): string {
+    const data = { message, level, ...context };
 
     switch (this.format) {
       case 'json':

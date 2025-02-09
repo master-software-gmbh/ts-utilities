@@ -1,6 +1,6 @@
-import type { JSONObject } from '../json';
+import type { JSONValue } from '../json';
 
-export function stringify(data: JSONObject): string {
+export function stringify(data: { [x: string]: unknown | JSONValue }): string {
   return Object.keys(data)
     .map((key) => {
       let value = data[key];
@@ -15,11 +15,13 @@ export function stringify(data: JSONObject): string {
         value = value.toString();
       }
 
-      const needsQuoting = value.includes(' ') || value.includes('=');
-      const needsEscaping = value.includes('"') || value.includes('\\');
+      if (typeof value === 'string') {
+        const needsQuoting = value.includes(' ') || value.includes('=');
+        const needsEscaping = value.includes('"') || value.includes('\\');
 
-      if (needsEscaping) value = value.replace(/["\\]/g, '\\$&');
-      if (needsQuoting || needsEscaping) value = `"${value}"`;
+        if (needsEscaping) value = value.replace(/["\\]/g, '\\$&');
+        if (needsQuoting || needsEscaping) value = `"${value}"`;
+      }
 
       return `${key}=${value}`;
     })
