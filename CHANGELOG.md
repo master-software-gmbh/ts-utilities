@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.19.0...v1.20.0) (2025-02-10)
+
+
+### Features
+
+* add byte conversions ([1f73eab](https://github.com/master-software-gmbh/bun-utilities/commit/1f73eabd1e0b9a0513d2ec61b4bd6612bddde5d7))
+
 # [1.19.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.18.0...v1.19.0) (2025-02-09)
 
 
