@@ -26,11 +26,15 @@ export class LoggingService {
 
     switch (this.format) {
       case 'json':
-        return JSON.stringify(data);
+        try {
+          return JSON.stringify(data);
+        } catch (error) {
+          return String(data);
+        }
       case 'logfmt':
         return stringify(data);
     }
   }
 }
 
-export const logger = new LoggingService('logfmt');
+export const logger = new LoggingService('json');
