@@ -1,6 +1,6 @@
 {
   "name": "@master-software/bun-utilities",
-  "version": "1.21.0",
+  "version": "1.22.0",
   "type": "module",
   "devDependencies": {
     "@types/bun": "~1.1.0",

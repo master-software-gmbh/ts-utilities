@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.21.0...v1.22.0) (2025-02-11)
+
+
+### Features
+
+* add array and error modules ([0e17068](https://github.com/master-software-gmbh/bun-utilities/commit/0e17068ef365bd506f0013bc07a8fde7e81ac261))
+
 # [1.21.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.20.0...v1.21.0) (2025-02-10)
 
 
