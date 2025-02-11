@@ -24,6 +24,7 @@
     "./oauth": "./oauth/index.ts",
     "./process": "./process/index.ts",
     "./storage": "./storage/index.ts",
+    "./stream": "./stream/index.ts",
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
     "./zod": "./zod/index.ts",
