@@ -1,3 +1,5 @@
+import { logger } from '../logging';
+
 /**
  * Returns the instant as Unix epoch time in seconds.
  * Defaults to the current time.
@@ -16,4 +18,27 @@ export function hoursToSeconds(hours: number) {
 
 export function minutesToSeconds(minutes: number) {
   return minutes * 60;
+}
+
+/**
+ * Ensures that the execution takes at least the specified amount of time.
+ * @param operation operation to run
+ * @param minDuration minimum duration in milliseconds
+ * @returns result of the operation
+ */
+export async function withConstantTime<T>(operation: () => Promise<T>, minDuration: number): Promise<T> {
+  const start = Date.now();
+
+  const [result] = await Promise.all([operation(), new Promise((resolve) => setTimeout(resolve, minDuration))]);
+
+  const elapsed = Date.now() - start;
+
+  if (elapsed > minDuration + 5) {
+    logger.warn('Constant-time operation took longer than expected', {
+      duration_ms: elapsed,
+      min_duration_ms: minDuration,
+    });
+  }
+
+  return result;
 }
