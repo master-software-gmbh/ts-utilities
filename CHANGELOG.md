@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.22.0...v1.23.0) (2025-02-11)
+
+
+### Features
+
+* add stream module ([47f0294](https://github.com/master-software-gmbh/bun-utilities/commit/47f0294c8cacc77fadd1d123a39fa682b9c48542))
+
 # [1.22.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.21.0...v1.22.0) (2025-02-11)
 
 
