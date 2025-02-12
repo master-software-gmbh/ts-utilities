@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { stringify } from './logfmt';
+import { LoggingService } from '.';
 
 describe('logfmt.stringify', () => {
   it('simple key value pairs', () => {
@@ -56,5 +57,25 @@ describe('logfmt.stringify', () => {
   it('null is nothing', () => {
     const data = { foo: null };
     expect(stringify(data)).toBe('foo=');
+  });
+});
+
+const logger = new LoggingService();
+
+describe('data', () => {
+  it('simple key value pairs', () => {
+    const data = { foo: 'bar', a: 14 };
+    expect(logger._data('message', 'info', data)).toEqual({ message: 'message', level: 'info', foo: 'bar', a: 14 });
+  });
+
+  it('transforms message and level', () => {
+    const data = { message: 'hello', level: 'world', foo: 'bar' };
+    expect(logger._data('message', 'info', data)).toEqual({
+      message: 'message',
+      level: 'info',
+      foo: 'bar',
+      data_message: 'hello',
+      data_level: 'world',
+    });
   });
 });

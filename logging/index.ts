@@ -21,8 +21,13 @@ export class LoggingService {
     console.error(this._serialize(message, 'error', context));
   }
 
+  _data(message: string, level: string, context: Context = {}): { [key: string]: unknown } {
+    const { message: data_message, level: data_level, ...remaining } = context;
+    return { message, level, data_message, data_level, ...remaining };
+  }
+
   _serialize(message: string, level: string, context: Context = {}): string {
-    const data = { message, level, ...context };
+    const data = this._data(message, level, context);
 
     switch (this.format) {
       case 'json':
