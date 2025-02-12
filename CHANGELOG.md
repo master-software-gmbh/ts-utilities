@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.23.0...v1.24.0) (2025-02-12)
+
+
+### Features
+
+* logger and zoom module ([cdbb3a4](https://github.com/master-software-gmbh/bun-utilities/commit/cdbb3a4e4895fe8e3af0bda9233b3533a6ae0b96))
+
 # [1.23.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.22.0...v1.23.0) (2025-02-11)
 
 
