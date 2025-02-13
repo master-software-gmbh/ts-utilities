@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.25.0...v1.26.0) (2025-02-13)
+
+
+### Features
+
+* extend oauth client authentication method ([8527c0b](https://github.com/master-software-gmbh/bun-utilities/commit/8527c0b85516880ad3e779e2b6e3d0132cd2d9ef))
+
 # [1.25.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.24.0...v1.25.0) (2025-02-13)
 
 
