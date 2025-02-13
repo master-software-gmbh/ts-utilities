@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.27.0...v1.28.0) (2025-02-13)
+
+
+### Features
+
+* add promise support to compactMap ([81f1b9e](https://github.com/master-software-gmbh/bun-utilities/commit/81f1b9ee93a5f2123616adfd937a41ba64d08135))
+
 # [1.27.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.2...v1.27.0) (2025-02-13)
 
 
