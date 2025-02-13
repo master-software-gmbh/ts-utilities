@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.0...v1.26.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* export hubspot module ([11a294e](https://github.com/master-software-gmbh/bun-utilities/commit/11a294e98930bdd7f6e98579070da41c4f2f99ab))
+
 # [1.26.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.25.0...v1.26.0) (2025-02-13)
 
 
