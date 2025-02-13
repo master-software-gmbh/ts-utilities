@@ -17,6 +17,7 @@
     "./error": "./error/index.ts",
     "./file": "./file/index.ts",
     "./http": "./http/index.ts",
+    "./hubspot": "./hubspot/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
     "./linkedin": "./linkedin/index.ts",
