@@ -30,7 +30,7 @@ declare global {
      * @param transform - A function that transforms each element of the array.
      * @returns A new array containing the transformed elements, excluding any `null` or `undefined` values.
      */
-    compactMap<U = Exclude<T, null | undefined>>(transform?: (element: T) => U | null | undefined): U[];
+    compactMap<U = Exclude<T, null | undefined>>(transform?: (element: T) => Promise<U | null | undefined>): U[];
 
     /**
      * Calculates the numeric sum of each element's value at `key`
@@ -82,10 +82,10 @@ Array.prototype.shuffle = function () {
 };
 
 Array.prototype.compactMap = function <T extends U, U>(
-  transform: (element: T) => U | null | undefined = (e) => e,
+  transform: (element: T) => Promise<U | null | undefined> = async (e) => e,
 ): U[] {
-  return this.reduce((acc, element) => {
-    const result = transform(element);
+  return this.reduce(async (acc, element) => {
+    const result = await transform(element);
 
     if (result !== null && result !== undefined) {
       acc.push(result);
