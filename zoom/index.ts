@@ -60,6 +60,16 @@ export const OAuthEndpoint = {
   AccessToken: 'https://zoom.us/oauth/token',
 };
 
+export function getOAuthAuthorizationUrl(clientId: string, redirectUri: string): string {
+  const params = new URLSearchParams({
+    client_id: clientId,
+    response_type: 'code',
+    redirect_uri: redirectUri,
+  });
+
+  return `${OAuthEndpoint.Authorization}?${params.toString()}`;
+}
+
 export const User = z.object({
   id: z.string(),
   dept: z.string().optional(),
