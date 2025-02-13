@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.2...v1.27.0) (2025-02-13)
+
+
+### Features
+
+* add hubspot schema ([751ad37](https://github.com/master-software-gmbh/bun-utilities/commit/751ad37bab258c4198e0b7211d18b6e2232dccfa))
+
 ## [1.26.2](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.1...v1.26.2) (2025-02-13)
 
 
