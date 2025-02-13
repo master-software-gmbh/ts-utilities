@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.24.0...v1.25.0) (2025-02-13)
+
+
+### Features
+
+* add hubspot module ([1558ba9](https://github.com/master-software-gmbh/bun-utilities/commit/1558ba9d79b4745d38a6af151a5e9891a4e5848f))
+
 # [1.24.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.23.0...v1.24.0) (2025-02-12)
 
 
