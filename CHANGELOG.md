@@ -1,3 +1,10 @@
+## [1.26.2](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.1...v1.26.2) (2025-02-13)
+
+
+### Bug Fixes
+
+* params case ([f6d1d59](https://github.com/master-software-gmbh/bun-utilities/commit/f6d1d59f68bc562af015ed7bdc709e0960e279e6))
+
 ## [1.26.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.26.0...v1.26.1) (2025-02-13)
 
 
