@@ -30,8 +30,8 @@ export async function refreshAccessToken(
   method: 'basic' | 'body',
 ) {
   return makeAuthenticatedRequest(endpoint, method, {
-    clientId,
-    clientSecret,
+    client_id: clientId,
+    client_secret: clientSecret,
     refresh_token: refreshToken,
     grant_type: 'refresh_token',
     redirect_uri: redirectUri,
@@ -57,8 +57,8 @@ export async function requestAccessToken(
   method: 'basic' | 'body',
 ) {
   return makeAuthenticatedRequest(endpoint, method, {
-    clientId,
-    clientSecret,
+    client_id: clientId,
+    client_secret: clientSecret,
     code: authorizationCode,
     grant_type: 'authorization_code',
     redirect_uri: redirectUri,
@@ -68,12 +68,12 @@ export async function requestAccessToken(
 async function makeAuthenticatedRequest(
   endpoint: string,
   method: 'basic' | 'body',
-  data: { clientId: string; clientSecret: string } & Record<string, string>,
+  data: { client_id: string; client_secret: string } & Record<string, string>,
 ) {
   switch (method) {
     case 'basic': {
-      const { clientId, clientSecret, ...body } = data;
-      const credentials = `${clientId}:${clientSecret}`;
+      const { client_id, client_secret, ...body } = data;
+      const credentials = `${client_id}:${client_secret}`;
       const encodedCredentials = Buffer.from(credentials).toString('base64');
 
       return makeFormRequest(endpoint, body, {
