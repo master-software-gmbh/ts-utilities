@@ -18,6 +18,7 @@ export type AccessTokenResponse = z.infer<typeof AccessTokenResponse>;
  * @param clientSecret client secret
  * @param redirectUri redirect uri
  * @param refreshToken refresh token
+ * @param method authentication method
  * @returns access token response or an error message
  */
 export async function refreshAccessToken(
@@ -26,8 +27,11 @@ export async function refreshAccessToken(
   clientSecret: string,
   redirectUri: string,
   refreshToken: string,
+  method: 'basic' | 'body',
 ) {
-  return makeAccessTokenRequest(endpoint, clientId, clientSecret, {
+  return makeAuthenticatedRequest(endpoint, method, {
+    clientId,
+    clientSecret,
     refresh_token: refreshToken,
     grant_type: 'refresh_token',
     redirect_uri: redirectUri,
@@ -41,6 +45,7 @@ export async function refreshAccessToken(
  * @param clientSecret client secret
  * @param redirectUri redirect uri
  * @param authorizationCode authorization code
+ * @param method authentication method
  * @returns access token response or an error message
  */
 export async function requestAccessToken(
@@ -49,30 +54,46 @@ export async function requestAccessToken(
   clientSecret: string,
   redirectUri: string,
   authorizationCode: string,
+  method: 'basic' | 'body',
 ) {
-  return makeAccessTokenRequest(endpoint, clientId, clientSecret, {
+  return makeAuthenticatedRequest(endpoint, method, {
+    clientId,
+    clientSecret,
     code: authorizationCode,
     grant_type: 'authorization_code',
     redirect_uri: redirectUri,
   });
 }
 
-async function makeAccessTokenRequest(
+async function makeAuthenticatedRequest(
   endpoint: string,
-  clientId: string,
-  clientSecret: string,
-  body: Record<string, string>,
+  method: 'basic' | 'body',
+  data: { clientId: string; clientSecret: string } & Record<string, string>,
 ) {
-  const credentials = `${clientId}:${clientSecret}`;
-  const encodedCredentials = Buffer.from(credentials).toString('base64');
+  switch (method) {
+    case 'basic': {
+      const { clientId, clientSecret, ...body } = data;
+      const credentials = `${clientId}:${clientSecret}`;
+      const encodedCredentials = Buffer.from(credentials).toString('base64');
 
+      return makeFormRequest(endpoint, body, {
+        Authorization: `Basic ${encodedCredentials}`,
+      });
+    }
+
+    case 'body':
+      return makeFormRequest(endpoint, data);
+  }
+}
+
+async function makeFormRequest(endpoint: string, body: Record<string, string>, headers?: Record<string, string>) {
   return typedFetch(
     endpoint,
     {
       method: 'POST',
       headers: {
-        Authorization: `Basic ${encodedCredentials}`,
         'Content-Type': 'application/x-www-form-urlencoded',
+        ...headers,
       },
       body: new URLSearchParams(body),
     },
