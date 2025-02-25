@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.28.0...v1.29.0) (2025-02-25)
+
+
+### Features
+
+* update tsconfig and array module ([2fc8358](https://github.com/master-software-gmbh/bun-utilities/commit/2fc8358e1cfb1ffe86d8e18cd8e803a93035b243))
+
 # [1.28.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.27.0...v1.28.0) (2025-02-13)
 
 
