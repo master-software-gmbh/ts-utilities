@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.29.0...v1.30.0) (2025-02-28)
+
+
+### Features
+
+* add dms module, refactor migration helpers ([31c3b7b](https://github.com/master-software-gmbh/bun-utilities/commit/31c3b7ba94cfb4999b3fc3398392bb47ffe11e15))
+
 # [1.29.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.28.0...v1.29.0) (2025-02-25)
 
 
