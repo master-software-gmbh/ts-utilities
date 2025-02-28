@@ -1,128 +1,104 @@
-import {
-  type AlterTableBuilder,
-  type AlterTableColumnAlteringBuilder,
-  type CreateTableBuilder,
-  type Kysely,
-  type Migration,
-  type MigrationProvider,
-  Migrator,
-  sql,
-} from 'kysely';
+import { CreateTableBuilder, type Migration, type MigrationProvider, type Migrator, sql } from 'kysely';
 import { logger } from '../logging';
 
-type CustomMigration = { description: string; migration: Migration };
-
-export function createMigration(
-  description: string,
-  up: (db: Kysely<any>) => Promise<void>,
-  down: (db: Kysely<any>) => Promise<void>,
-): CustomMigration {
+export function inlineMigrations(migrations: Record<string, Migration>): MigrationProvider {
   return {
-    description,
-    migration: {
-      up,
-      down,
+    async getMigrations() {
+      return migrations;
     },
   };
 }
 
-class EnhancedCreateTableBuilder<TB extends string> {
-  constructor(public rawBuilder: CreateTableBuilder<TB, never>) {}
+/**
+ * A migration provider that combines multiple migration providers into a single provider.
+ * Migrations are ordered by the order in which the providers are passed to the constructor.
+ * If multiple providers contain migrations with the same name, an error is thrown.
+ */
+export class CompositeMigrationProvider implements MigrationProvider {
+  private readonly providers: MigrationProvider[];
 
-  /**
-   * Adds a non-nullable UUID column to the table with a default value.
-   * @param name The name of the column.
-   * @param primaryKey Whether the column should be a primary key. Defaults to true.
-   */
-  addUUIDColumn(name: string, primaryKey = true): this {
-    this.rawBuilder = this.rawBuilder.addColumn(name, 'text', (col) => {
-      let newCol = col.defaultTo(sql`(uuid())`).notNull();
-
-      if (primaryKey) {
-        newCol = newCol.primaryKey();
-      }
-
-      return newCol;
-    });
-
-    return this;
-  }
-
-  /**
-   * Adds a non-nullable timestamp column to the table with a default value of `now`.
-   * The timestamp stores the number of seconds since the Unix epoch.
-   * @param name Name of the column.
-   */
-  addTimestampColumn(name: string): this {
-    this.rawBuilder = this.rawBuilder.addColumn(name, 'integer', (col) =>
-      col.defaultTo(sql`(strftime('%s', 'now'))`).notNull(),
-    );
-    return this;
-  }
-}
-
-export function createTableMigration<TB extends string>(
-  tableName: string,
-  buildColumns: (builder: EnhancedCreateTableBuilder<TB>) => CreateTableBuilder<TB, never>,
-): CustomMigration {
-  return createMigration(
-    `create-table-${tableName}`,
-    async ({ schema }) => buildColumns(new EnhancedCreateTableBuilder(schema.createTable(tableName))).execute(),
-    async ({ schema }) => schema.dropTable(tableName).execute(),
-  );
-}
-
-export function updateTableMigration(
-  tableName: string,
-  addColumns: (builder: AlterTableBuilder) => AlterTableColumnAlteringBuilder,
-  removeColumns: (builder: AlterTableBuilder) => AlterTableColumnAlteringBuilder,
-): CustomMigration {
-  return createMigration(
-    `update-table-${tableName}`,
-    async ({ schema }) => {
-      const table = schema.alterTable(tableName);
-      return addColumns(table).execute();
-    },
-    async ({ schema }) => {
-      const table = schema.alterTable(tableName);
-      return removeColumns(table).execute();
-    },
-  );
-}
-
-class InlineMigrationProvider implements MigrationProvider {
-  constructor(private readonly migrations: CustomMigration[]) {
-    this.migrations = migrations;
+  constructor(providers: MigrationProvider[]) {
+    this.providers = providers;
   }
 
   async getMigrations(): Promise<Record<string, Migration>> {
-    return Object.fromEntries(
-      this.migrations.map((migration, index) => {
-        return [`${(index + 1).toString().padStart(4, '0')}-${migration.description}`, migration.migration];
-      }),
-    );
+    const migrations: Record<string, Migration> = {};
+
+    for (const provider of this.providers) {
+      for (const [name, migration] of Object.entries(await provider.getMigrations())) {
+        if (migrations[name]) {
+          throw new Error(`Duplicate migration name: ${name}`);
+        }
+
+        migrations[name] = migration;
+      }
+    }
+
+    return migrations;
   }
 }
 
-export async function runMigrations(db: Kysely<any>, migrations: CustomMigration[]) {
-  const migrator = new Migrator({
-    db,
-    provider: new InlineMigrationProvider(migrations),
-  });
+export async function runMigrations(migrator: Migrator) {
+  const { error, results } = await migrator.migrateToLatest();
 
-  const { error, results = [] } = await migrator.migrateToLatest();
+  if (!results) {
+    logger.error('Failed to execute migrations', { error });
+    return;
+  }
 
   for (const result of results) {
     if (result.status === 'Success') {
-      logger.info(`Migration "${result.migrationName}" executed successfully`);
+      logger.info('Migration executed successfully', {
+        name: result.migrationName,
+      });
     } else if (result.status === 'Error') {
-      logger.error(`Failed to execute migration "${result.migrationName}"`);
+      logger.error('Failed to execute migration', {
+        error,
+      });
     }
   }
 
-  if (error) {
-    logger.error('Failed to execute migrations', { error });
-  } else {
+  if (!error) {
     logger.info('All migrations completed successfully');
   }
 }
+
+declare module 'kysely' {
+  interface CreateTableBuilder<TB extends string, C extends string = never> {
+    /**
+     * Adds a non-nullable UUID column to the table with a default value.
+     * @param name The name of the column.
+     * @param primaryKey Whether the column should be a primary key. Defaults to true.
+     */
+    addUUIDColumn(name: string, primaryKey?: boolean): CreateTableBuilder<TB, C>;
+
+    /**
+     * Adds a non-nullable timestamp column to the table with a default value of `now`.
+     * The timestamp stores the number of seconds since the Unix epoch.
+     * @param name Name of the column.
+     */
+    addTimestampColumn(name: string): CreateTableBuilder<TB, C>;
+  }
+}
+
+CreateTableBuilder.prototype.addUUIDColumn = function (
+  this: CreateTableBuilder<string, string>,
+  name: string,
+  primaryKey = true,
+) {
+  return this.addColumn(name, 'text', (col) => {
+    col = col.defaultTo(sql`(uuid())`).notNull();
+
+    if (primaryKey) {
+      col = col.primaryKey();
+    }
+
+    return col;
+  });
+};
+
+CreateTableBuilder.prototype.addTimestampColumn = function (this: CreateTableBuilder<string, string>, name: string) {
+  return this.addColumn(name, 'integer', (col) => {
+    return col.defaultTo(sql`(strftime('%s', 'now'))`).notNull();
+  });
+};

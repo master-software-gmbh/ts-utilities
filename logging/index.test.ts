@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
-import { stringify } from './logfmt';
 import { LoggingService } from '.';
+import { stringify } from './logfmt';
 
 describe('logfmt.stringify', () => {
   it('simple key value pairs', () => {

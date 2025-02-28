@@ -30,7 +30,9 @@ declare global {
      * @param transform - A function that transforms each element of the array.
      * @returns A new array containing the transformed elements, excluding any `null` or `undefined` values.
      */
-    compactMap<U = Exclude<T, null | undefined>>(transform?: (element: T) => Promise<U | null | undefined>): Promise<U[]>;
+    compactMap<U = Exclude<T, null | undefined>>(
+      transform?: (element: T) => Promise<U | null | undefined>,
+    ): Promise<U[]>;
 
     /**
      * Calculates the numeric sum of each element's value at `key`

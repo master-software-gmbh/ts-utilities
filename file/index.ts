@@ -2,7 +2,7 @@ export const C = {
   kbToBytes: (kb: number) => kb * 1024,
   mbToBytes: (mb: number) => mb * 1024 * 1024,
   gbToBytes: (gb: number) => gb * 1024 * 1024 * 1024,
-}
+};
 
 export const MimeType = {
   applicationOctetStream: 'application/octet-stream',
