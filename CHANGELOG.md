@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.30.0...v1.31.0) (2025-02-28)
+
+
+### Features
+
+* add crypto module ([63fc729](https://github.com/master-software-gmbh/bun-utilities/commit/63fc729843b5312d04403a7a50b570b93f2ead1d))
+
 # [1.30.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.29.0...v1.30.0) (2025-02-28)
 
 
