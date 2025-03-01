@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.31.0...v1.32.0) (2025-03-01)
+
+
+### Features
+
+* migrate config to standard schema ([eaa1b0f](https://github.com/master-software-gmbh/bun-utilities/commit/eaa1b0f27f3153e23a190588d21c5da35d9e6f03))
+
 # [1.31.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.30.0...v1.31.0) (2025-02-28)
 
 
