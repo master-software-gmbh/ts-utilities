@@ -1,3 +1,15 @@
+# [1.33.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.32.0...v1.33.0) (2025-03-03)
+
+
+### Bug Fixes
+
+* interface export ([b80bbed](https://github.com/master-software-gmbh/bun-utilities/commit/b80bbed6d3e1459547118614230e5424b0967584))
+
+
+### Features
+
+* upgrade bun and typescript ([002d527](https://github.com/master-software-gmbh/bun-utilities/commit/002d5274359cca25fded915c2f6fecc122d74030))
+
 # [1.32.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.31.0...v1.32.0) (2025-03-01)
 
 
