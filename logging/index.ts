@@ -1,12 +1,13 @@
 import { stringify } from './logfmt';
 
 type Context = { [key: string]: unknown };
+type Format = 'json' | 'logfmt';
 
 export class LoggingService {
-  constructor(public format: 'json' | 'logfmt' = 'logfmt') {}
+  public format: Format;
 
-  debug(message: string, context: Context = {}): void {
-    console.debug(this._serialize(message, 'debug', context));
+  constructor(format: Format) {
+    this.format = format;
   }
 
   info(message: string, context: Context = {}): void {

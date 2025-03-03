@@ -60,7 +60,7 @@ describe('logfmt.stringify', () => {
   });
 });
 
-const logger = new LoggingService();
+const logger = new LoggingService('logfmt');
 
 describe('data', () => {
   it('simple key value pairs', () => {

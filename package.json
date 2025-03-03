@@ -6,8 +6,8 @@
     "@standard-schema/spec": "^1.0.0"
   },
   "devDependencies": {
-    "@types/bun": "~1.1.18",
-    "typescript": "^5.7.3"
+    "@types/bun": "~1.2.4",
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "kysely": "^0.27.5",

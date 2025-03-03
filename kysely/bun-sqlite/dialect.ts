@@ -13,7 +13,11 @@ import type { BunSqliteDialectConfig } from './config.ts';
 import { BunSqliteDriver } from './driver.ts';
 
 export class BunSqliteDialect implements Dialect {
-  constructor(private config: BunSqliteDialectConfig) {}
+  private config: BunSqliteDialectConfig;
+
+  constructor(config: BunSqliteDialectConfig) {
+    this.config = config;
+  }
 
   createDriver(): Driver {
     return new BunSqliteDriver(this.config);
