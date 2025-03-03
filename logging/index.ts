@@ -10,6 +10,10 @@ export class LoggingService {
     this.format = format;
   }
 
+  debug(message: string, context: Context = {}): void {
+    console.debug(this._serialize(message, 'debug', context));
+  }
+
   info(message: string, context: Context = {}): void {
     console.info(this._serialize(message, 'info', context));
   }
