@@ -1,2 +1,2 @@
-export * from './interface';
+export * from './interface.d';
 export * from './bun-crypto';
