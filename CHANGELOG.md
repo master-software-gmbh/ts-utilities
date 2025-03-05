@@ -1,3 +1,15 @@
+# [1.34.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.33.0...v1.34.0) (2025-03-05)
+
+
+### Bug Fixes
+
+* add debug function ([b8e09ef](https://github.com/master-software-gmbh/bun-utilities/commit/b8e09ef4a68200b32230beb33e05ee771af4b428))
+
+
+### Features
+
+* add cms module ([e949e2f](https://github.com/master-software-gmbh/bun-utilities/commit/e949e2fbcbb691792a2fe087ce721d395823325d))
+
 # [1.33.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.32.0...v1.33.0) (2025-03-03)
 
 
