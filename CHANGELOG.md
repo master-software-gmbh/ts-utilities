@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.34.0...v1.35.0) (2025-03-05)
+
+
+### Features
+
+* export cms db type ([7bb9ae0](https://github.com/master-software-gmbh/bun-utilities/commit/7bb9ae0d8dcc3bd749e593c5ecd5b6f4d7b2897a))
+
 # [1.34.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.33.0...v1.34.0) (2025-03-05)
 
 
