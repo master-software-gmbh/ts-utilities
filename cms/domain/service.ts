@@ -73,7 +73,7 @@ export class CmsService<DocumentSchema> {
     title: string,
     blocks: {
       type: string;
-      content: string;
+      content: unknown;
     }[],
   ) {
     const document = await this.repository.findById(id);
