@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.35.0...v1.35.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* content type ([cf6de70](https://github.com/master-software-gmbh/bun-utilities/commit/cf6de705999b92304b128c09e73aa04319796bdc))
+
 # [1.35.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.34.0...v1.35.0) (2025-03-05)
 
 
