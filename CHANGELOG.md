@@ -1,3 +1,10 @@
+# [1.38.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.37.0...v1.38.0) (2025-03-07)
+
+
+### Features
+
+* add stripe module ([ab144f4](https://github.com/master-software-gmbh/bun-utilities/commit/ab144f4ffd15d5fc213a0ceba573371fcd28b53a))
+
 # [1.37.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.36.0...v1.37.0) (2025-03-07)
 
 
