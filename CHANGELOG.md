@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.35.1...v1.36.0) (2025-03-07)
+
+
+### Features
+
+* add zip function ([752c70b](https://github.com/master-software-gmbh/bun-utilities/commit/752c70bbca1ec937ea0146dcf714c0cd06ca33c2))
+
 ## [1.35.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.35.0...v1.35.1) (2025-03-05)
 
 
