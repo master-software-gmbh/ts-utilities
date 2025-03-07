@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@types/bun": "~1.2.4",
+    "stripe": "^17.7.0",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
@@ -36,6 +37,7 @@
     "./process": "./process/index.ts",
     "./storage": "./storage/index.ts",
     "./stream": "./stream/index.ts",
+    "./stripe": "./stripe/index.ts",
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
     "./zod": "./zod/index.ts",
@@ -43,6 +45,9 @@
   },
   "peerDependenciesMeta": {
     "jszip": {
+      "optional": true
+    },
+    "stripe": {
       "optional": true
     }
   }
