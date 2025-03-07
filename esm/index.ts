@@ -8,7 +8,13 @@ import { logger } from '../logging';
  */
 export async function loadModule<T>(name: string): Promise<T> {
   try {
-    return await import(name);
+    const module = await import(name);
+
+    if ('default' in module) {
+      return module.default;
+    }
+
+    return module;
   } catch (error) {
     logger.error('Failed to dynamically load module', { name, error });
     throw new Error(`Failed to dynamically load module ${name}`);
