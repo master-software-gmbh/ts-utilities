@@ -1,3 +1,5 @@
+import { loadModule } from '../esm';
+
 export const C = {
   kbToBytes: (kb: number) => kb * 1024,
   mbToBytes: (mb: number) => mb * 1024 * 1024,
@@ -60,3 +62,21 @@ export const MimeTypeToFileExtension: {
   [MimeType.textJavascript]: [FileExtension.js],
   [MimeType.textPlain]: [FileExtension.txt, FileExtension.log, FileExtension.md],
 };
+
+/**
+ * Creates a zip file from the given source files.
+ * @param sourceFiles list of files to include in the archive
+ * @returns zip file as a Uint8Array
+ */
+export async function createZipFile(sourceFiles: { filename: string; content: string }[]): Promise<Uint8Array> {
+  const JSZip = await loadModule<typeof import('jszip')>('jszip');
+  const zipFile = new JSZip();
+
+  for (const file of sourceFiles) {
+    zipFile.file(file.filename, file.content);
+  }
+
+  return zipFile.generateAsync({
+    type: 'uint8array',
+  });
+}

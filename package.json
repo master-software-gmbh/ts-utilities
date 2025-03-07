@@ -12,6 +12,7 @@
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
+    "jszip": "^3.10.1",
     "kysely": "^0.27.5",
     "kysely-codegen": "^0.18.0",
     "zod": "^3.24.2"
@@ -23,6 +24,7 @@
     "./crypto": "./crypto/index.ts",
     "./dms": "./dms/index.ts",
     "./error": "./error/index.ts",
+    "./esm": "./esm/index.ts",
     "./file": "./file/index.ts",
     "./http": "./http/index.ts",
     "./hubspot": "./hubspot/index.ts",
@@ -38,5 +40,10 @@
     "./tsconfig/app": "./tsconfig/app.json",
     "./zod": "./zod/index.ts",
     "./zoom": "./zoom/index.ts"
+  },
+  "peerDependenciesMeta": {
+    "jszip": {
+      "optional": true
+    }
   }
 }
