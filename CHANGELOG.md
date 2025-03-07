@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.36.0...v1.37.0) (2025-03-07)
+
+
+### Features
+
+* return default export ([207bd74](https://github.com/master-software-gmbh/bun-utilities/commit/207bd7418365e00ea591055275eb8d6f227583d0))
+
 # [1.36.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.35.1...v1.36.0) (2025-03-07)
 
 
