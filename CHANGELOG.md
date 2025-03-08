@@ -1,3 +1,10 @@
+# [1.39.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.38.0...v1.39.0) (2025-03-08)
+
+
+### Features
+
+* export domain module ([bb29717](https://github.com/master-software-gmbh/bun-utilities/commit/bb297173a069b60d5a803b4797017b366f41656d))
+
 # [1.38.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.37.0...v1.38.0) (2025-03-07)
 
 
