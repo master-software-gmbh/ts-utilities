@@ -24,6 +24,7 @@
     "./config": "./config/index.ts",
     "./crypto": "./crypto/index.ts",
     "./dms": "./dms/index.ts",
+    "./domain": "./domain/index.ts",
     "./error": "./error/index.ts",
     "./esm": "./esm/index.ts",
     "./file": "./file/index.ts",
