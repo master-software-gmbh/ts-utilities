@@ -1,3 +1,10 @@
+## [1.42.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.0...v1.42.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* schema quoting ([6996234](https://github.com/master-software-gmbh/bun-utilities/commit/69962342eead2b7e4ad368e3dd295c0c5b4d1618))
+
 # [1.42.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.41.0...v1.42.0) (2025-03-11)
 
 
