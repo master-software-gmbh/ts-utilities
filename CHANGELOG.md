@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.40.0...v1.41.0) (2025-03-11)
+
+
+### Features
+
+* update queries ([39d9df2](https://github.com/master-software-gmbh/bun-utilities/commit/39d9df2e7b756006a039787708b8a85065cd6291))
+
 # [1.40.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.39.0...v1.40.0) (2025-03-11)
 
 
