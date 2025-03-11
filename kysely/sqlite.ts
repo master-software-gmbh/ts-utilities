@@ -10,7 +10,11 @@ export function enableForeignKeys(): CompiledQuery {
 /**
  * Returns a query that enables Write-Ahead Logging (WAL) mode.
  */
-export function enableWalMode(): CompiledQuery {
+export function enableWalMode(schema?: string): CompiledQuery {
+  if (schema) {
+    return CompiledQuery.raw(`PRAGMA ${schema}.journal_mode = WAL;`);
+  }
+
   return CompiledQuery.raw('PRAGMA journal_mode = WAL;');
 }
 
