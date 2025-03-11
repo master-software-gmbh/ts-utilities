@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.39.0...v1.40.0) (2025-03-11)
+
+
+### Features
+
+* add result module ([f89fc46](https://github.com/master-software-gmbh/bun-utilities/commit/f89fc461e6ae806e57f0d8baa022e30b8e137c87))
+
 # [1.39.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.38.0...v1.39.0) (2025-03-08)
 
 
