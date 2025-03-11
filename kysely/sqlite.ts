@@ -1,15 +1,22 @@
-import { CompiledQuery, type DatabaseConnection } from 'kysely';
+import { CompiledQuery } from 'kysely';
 
 /**
- * Enables foreign key constraints for the given database connection.
+ * Returns a query that enables foreign key constraints.
  */
-export async function enableForeignKeys(connection: DatabaseConnection): Promise<void> {
-  await connection.executeQuery(CompiledQuery.raw('PRAGMA foreign_keys = ON;'));
+export function enableForeignKeys(): CompiledQuery {
+  return CompiledQuery.raw('PRAGMA foreign_keys = ON;');
 }
 
 /**
- * Enables Write-Ahead Logging (WAL) mode for the given database connection.
+ * Returns a query that enables Write-Ahead Logging (WAL) mode.
  */
-export async function enableWalMode(connection: DatabaseConnection): Promise<void> {
-  await connection.executeQuery(CompiledQuery.raw('PRAGMA journal_mode = WAL;'));
+export function enableWalMode(): CompiledQuery {
+  return CompiledQuery.raw('PRAGMA journal_mode = WAL;');
+}
+
+/**
+ * Returns a query that lists attached databases.
+ */
+export function listDatabases(): CompiledQuery {
+  return CompiledQuery.raw('PRAGMA database_list;');
 }

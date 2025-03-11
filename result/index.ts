@@ -4,7 +4,9 @@ export function error<T extends string>(error: T): Result<never, T> {
   return { success: false, error };
 }
 
-export function success<T>(data: T): Result<T, never> {
+export function success<T extends undefined>(): Result<undefined, never>;
+export function success<T>(data: T): Result<T, never>;
+export function success<T>(data?: T): Result<T | undefined, never> {
   return { success: true, data };
 }
 
