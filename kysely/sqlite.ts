@@ -12,7 +12,7 @@ export function enableForeignKeys(): CompiledQuery {
  */
 export function enableWalMode(schema?: string): CompiledQuery {
   if (schema) {
-    return CompiledQuery.raw(`PRAGMA ${schema}.journal_mode = WAL;`);
+    return CompiledQuery.raw(`PRAGMA "${schema}".journal_mode = WAL;`);
   }
 
   return CompiledQuery.raw('PRAGMA journal_mode = WAL;');
