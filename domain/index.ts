@@ -1,1 +1,1 @@
-export * from './repository.d';
+export * from './repository';

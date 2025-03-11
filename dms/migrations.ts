@@ -1,5 +1,6 @@
 import type { Migration, MigrationProvider } from 'kysely';
 import '../kysely/migration';
+import { adHocGeneration } from '../kysely';
 
 export class DmsMigrations implements MigrationProvider {
   private readonly fileRef?: string;
@@ -60,4 +61,8 @@ export class DmsMigrations implements MigrationProvider {
       },
     };
   }
+}
+
+if (import.meta.main) {
+  await adHocGeneration(import.meta.dir, new DmsMigrations());
 }

@@ -4,6 +4,7 @@ import type { CmsDocument } from './document';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
+import { error, success, successful, type Result } from '../../result';
 
 export class CmsService<DocumentSchema> {
   private readonly repository: CmsRepository;
@@ -20,7 +21,7 @@ export class CmsService<DocumentSchema> {
       type: string;
       content: unknown;
     }[],
-  ): Promise<DocumentSchema> {
+  ): Promise<Result<DocumentSchema, 'validation_failed'>> {
     const id = randomUUID();
     const date = new Date();
 
@@ -39,33 +40,34 @@ export class CmsService<DocumentSchema> {
       })),
     };
 
-    const validatedDocument = await this.validateDocument(document);
+    const result = await this.validateDocument(document);
 
-    if (!validatedDocument) {
+    if (!result.success) {
       logger.error('Failed to validate CMS document', { id, title });
-      throw new Error('Failed to validate CMS document');
+      return error('validation_failed');
     }
 
     await this.repository.insert(document);
 
     logger.info('Created CMS document', { id, title });
 
-    return validatedDocument;
+    return result;
   }
 
-  async getDocumentById(id: string): Promise<DocumentSchema | null> {
-    const document = await this.repository.findById(id);
+  async getDocumentById(id: string): Promise<Result<DocumentSchema, 'document_not_found' | 'validation_failed'>> {
+    const result = await this.repository.findById(id);
 
-    if (!document) {
-      return null;
+    if (!result.success) {
+      return error('document_not_found');
     }
 
-    return this.validateDocument(document);
+    return this.validateDocument(result.data);
   }
 
   async getDocuments(): Promise<DocumentSchema[]> {
-    const documents = await this.repository.findAll();
-    return documents.compactMap((document) => this.validateDocument(document));
+    const documents = successful(await this.repository.findAll());
+    const results = await documents.compactMapAsync((document) => this.validateDocument(document));
+    return successful(results);
   }
 
   async updateDocument(
@@ -75,17 +77,18 @@ export class CmsService<DocumentSchema> {
       type: string;
       content: unknown;
     }[],
-  ) {
-    const document = await this.repository.findById(id);
+  ): Promise<Result<undefined, 'document_not_found' | 'validation_failed'>> {
+    const result = await this.repository.findById(id);
 
-    if (!document) {
-      throw new Error('Document not found');
+    if (!result.success) {
+      logger.error('Failed to find CMS document', { id, title });
+      return error('document_not_found');
     }
 
     const updatedDocument = {
       id,
       title,
-      createdAt: document.createdAt,
+      createdAt: result.data.createdAt,
       updatedAt: new Date(),
       blocks: blocks.map((block) => ({
         documentId: id,
@@ -101,28 +104,30 @@ export class CmsService<DocumentSchema> {
 
     if (!validatedDocument) {
       logger.error('Failed to validate CMS document', { id, title });
-      throw new Error('Failed to validate CMS document');
+      return error('validation_failed');
     }
 
     logger.info('Updated CMS document', { id, title });
 
     await this.repository.update(updatedDocument);
+
+    return success(undefined);
   }
 
   deleteDocument(id: string) {
     return this.repository.delete(id);
   }
 
-  private async validateDocument(document: CmsDocument): Promise<DocumentSchema | null> {
+  private async validateDocument(document: CmsDocument): Promise<Result<DocumentSchema, 'validation_failed'>> {
     const result = await this.documentSchema['~standard'].validate(document);
 
     if (result.issues) {
       const paths = result.issues.map((issue) => getDotPath(issue));
       logger.error('Document validation failed', { id: document.id, title: document.title, paths });
 
-      return null;
+      return error('validation_failed');
     }
 
-    return result.value;
+    return success(result.value);
   }
 }

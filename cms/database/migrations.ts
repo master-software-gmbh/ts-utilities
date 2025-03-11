@@ -1,4 +1,5 @@
 import type { Migration, MigrationProvider } from 'kysely';
+import { adHocGeneration } from '../../kysely';
 
 export class CmsMigrations implements MigrationProvider {
   async getMigrations(): Promise<Record<string, Migration>> {
@@ -37,4 +38,8 @@ export class CmsMigrations implements MigrationProvider {
       },
     };
   }
+}
+
+if (import.meta.main) {
+  await adHocGeneration(import.meta.dir, new CmsMigrations());
 }

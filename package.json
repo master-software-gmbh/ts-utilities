@@ -36,6 +36,7 @@
     "./logging": "./logging/index.ts",
     "./oauth": "./oauth/index.ts",
     "./process": "./process/index.ts",
+    "./result": "./result/index.ts",
     "./storage": "./storage/index.ts",
     "./stream": "./stream/index.ts",
     "./stripe": "./stripe/index.ts",

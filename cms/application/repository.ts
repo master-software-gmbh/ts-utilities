@@ -4,6 +4,7 @@ import type { CmsRepository } from '../domain/repository';
 import type { DB } from '../database/types';
 import type { CmsBlock } from '../domain/block';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
+import { error, success, type Result } from '../../result';
 
 export class CmsRepositoryImpl implements CmsRepository {
   private readonly database: Kysely<DB>;
@@ -78,7 +79,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async findById(id: string): Promise<CmsDocument | null> {
+  async findById(id: string): Promise<Result<CmsDocument, 'entity_not_found' | 'mapping_error'>> {
     const result = await this.database
       .selectFrom('cms_document')
       .selectAll()
@@ -101,13 +102,13 @@ export class CmsRepositoryImpl implements CmsRepository {
       .executeTakeFirst();
 
     if (!result) {
-      return null;
+      return error('entity_not_found');
     }
 
     return this.mapDocument(result);
   }
 
-  async findAll(): Promise<CmsDocument[]> {
+  async findAll(): Promise<Result<CmsDocument, 'entity_not_found' | 'mapping_error'>[]> {
     const results = await this.database
       .selectFrom('cms_document')
       .selectAll()
@@ -132,14 +133,14 @@ export class CmsRepositoryImpl implements CmsRepository {
     return results.map((row) => this.mapDocument(row));
   }
 
-  private mapDocument(row: DB['cms_document'] & { blocks: DB['cms_block'][] }): CmsDocument {
-    return {
+  private mapDocument(row: DB['cms_document'] & { blocks: DB['cms_block'][] }): Result<CmsDocument, never> {
+    return success({
       id: row.id,
       title: row.title,
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
       blocks: row.blocks.map((row) => this.mapBlock(row)),
-    };
+    });
   }
 
   private mapBlock(row: DB['cms_block']): CmsBlock {
