@@ -1,3 +1,10 @@
+# [1.42.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.41.0...v1.42.0) (2025-03-11)
+
+
+### Features
+
+* enable wal per schema ([96769d4](https://github.com/master-software-gmbh/bun-utilities/commit/96769d45653892a75b2169f80daa7ee921bb6182))
+
 # [1.41.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.40.0...v1.41.0) (2025-03-11)
 
 
