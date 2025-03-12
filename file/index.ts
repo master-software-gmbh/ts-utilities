@@ -10,6 +10,12 @@ export const MimeType = {
   applicationOctetStream: 'application/octet-stream',
   applicationPdf: 'application/pdf',
 
+  audioAac: 'audio/aac',
+  audioMpeg: 'audio/mpeg',
+  audioOgg: 'audio/ogg',
+  audioWav: 'audio/wav',
+  audioWebm: 'audio/webm',
+
   imageAvif: 'image/avif',
   imageGif: 'image/gif',
   imageJpeg: 'image/jpeg',
@@ -26,41 +32,26 @@ export const MimeType = {
 
 export type MimeType = (typeof MimeType)[keyof typeof MimeType];
 
-export const FileExtension = {
-  avif: 'avif',
-  css: 'css',
-  gif: 'gif',
-  html: 'html',
-  jpeg: 'jpeg',
-  jpg: 'jpg',
-  js: 'js',
-  log: 'log',
-  md: 'md',
-  pdf: 'pdf',
-  png: 'png',
-  svg: 'svg',
-  tiff: 'tiff',
-  txt: 'txt',
-  webp: 'webp',
-} as const;
-
-export type FileExtension = (typeof FileExtension)[keyof typeof FileExtension];
-
 export const MimeTypeToFileExtension: {
-  [type: string]: FileExtension[];
+  [type: string]: string[];
 } = {
-  [MimeType.applicationPdf]: [FileExtension.pdf],
-  [MimeType.imageAvif]: [FileExtension.avif],
-  [MimeType.imageGif]: [FileExtension.gif],
-  [MimeType.imageJpeg]: [FileExtension.jpg, FileExtension.jpeg],
-  [MimeType.imagePng]: [FileExtension.png],
-  [MimeType.imageSvg]: [FileExtension.svg],
-  [MimeType.imageTiff]: [FileExtension.tiff],
-  [MimeType.imageWebp]: [FileExtension.webp],
-  [MimeType.textCss]: [FileExtension.css],
-  [MimeType.textHtml]: [FileExtension.html],
-  [MimeType.textJavascript]: [FileExtension.js],
-  [MimeType.textPlain]: [FileExtension.txt, FileExtension.log, FileExtension.md],
+  [MimeType.applicationPdf]: ['pdf'],
+  [MimeType.audioAac]: ['aac'],
+  [MimeType.audioMpeg]: ['mp3'],
+  [MimeType.audioOgg]: ['ogg'],
+  [MimeType.audioWav]: ['wav'],
+  [MimeType.audioWebm]: ['webm'],
+  [MimeType.imageAvif]: ['avif'],
+  [MimeType.imageGif]: ['gif'],
+  [MimeType.imageJpeg]: ['jpeg', 'jpg'],
+  [MimeType.imagePng]: ['png'],
+  [MimeType.imageSvg]: ['svg'],
+  [MimeType.imageTiff]: ['tiff'],
+  [MimeType.imageWebp]: ['webp'],
+  [MimeType.textCss]: ['css'],
+  [MimeType.textHtml]: ['html'],
+  [MimeType.textJavascript]: ['js'],
+  [MimeType.textPlain]: ['txt', 'log', 'md'],
 };
 
 /**

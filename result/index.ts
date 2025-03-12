@@ -1,3 +1,5 @@
+import '../array';
+
 export type Result<T, E extends string> = { success: true; data: T } | { success: false; error: E };
 
 export function error<T extends string>(error: T): Result<never, T> {
