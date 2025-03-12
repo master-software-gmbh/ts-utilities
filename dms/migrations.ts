@@ -2,7 +2,7 @@ import type { Migration, MigrationProvider } from 'kysely';
 import '../kysely/migration';
 import { adHocGeneration } from '../kysely';
 
-export class DmsMigrations implements MigrationProvider {
+export class DmsMigrationProvider implements MigrationProvider {
   private readonly fileRef?: string;
   private readonly creatorRef?: string;
 
@@ -13,7 +13,7 @@ export class DmsMigrations implements MigrationProvider {
 
   async getMigrations(): Promise<Record<string, Migration>> {
     return {
-      '0001_create_dms_document': {
+      '0001_add_dms_document_table': {
         up: (db) => {
           return db.schema
             .createTable('dms_document')
@@ -25,7 +25,7 @@ export class DmsMigrations implements MigrationProvider {
           return db.schema.dropTable('dms_document').execute();
         },
       },
-      '0002_create_dms_revision': {
+      '0002_add_dms_revision_table': {
         up: (db) => {
           return db.schema
             .createTable('dms_revision')
@@ -64,5 +64,5 @@ export class DmsMigrations implements MigrationProvider {
 }
 
 if (import.meta.main) {
-  await adHocGeneration(import.meta.dir, new DmsMigrations());
+  await adHocGeneration(import.meta.dir, new DmsMigrationProvider());
 }
