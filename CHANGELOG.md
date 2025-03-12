@@ -1,3 +1,10 @@
+# [1.43.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.2...v1.43.0) (2025-03-12)
+
+
+### Features
+
+* add audio mime types ([1afa5a3](https://github.com/master-software-gmbh/bun-utilities/commit/1afa5a362b6bf140085788db0c430d858af614c0))
+
 ## [1.42.2](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.1...v1.42.2) (2025-03-12)
 
 ## [1.42.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.0...v1.42.1) (2025-03-11)
