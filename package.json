@@ -9,13 +9,15 @@
   },
   "devDependencies": {
     "@types/bun": "~1.2.4",
+    "@types/mjml": "^4.7.4",
     "stripe": "^17.7.0",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
-    "kysely-codegen": "^0.18.0"
+    "kysely-codegen": "^0.18.0",
+    "mjml": "^4.15.3"
   },
   "exports": {
     "./array": "./array/index.ts",
@@ -24,6 +26,7 @@
     "./crypto": "./crypto/index.ts",
     "./dms": "./dms/index.ts",
     "./domain": "./domain/index.ts",
+    "./email": "./email/index.ts",
     "./error": "./error/index.ts",
     "./esm": "./esm/index.ts",
     "./file": "./file/index.ts",
@@ -51,6 +54,9 @@
       "optional": true
     },
     "kysely-codegen": {
+      "optional": true
+    },
+    "mjml": {
       "optional": true
     },
     "stripe": {
