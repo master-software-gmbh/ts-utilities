@@ -1,3 +1,5 @@
+## [1.43.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.43.0...v1.43.1) (2025-03-13)
+
 # [1.43.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.2...v1.43.0) (2025-03-12)
 
 
