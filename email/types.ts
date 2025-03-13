@@ -37,7 +37,7 @@ export const MessageResponseSchema = object({
     messages: record(
       string(),
       object({
-        id: string(),
+        id: number(),
         token: string(),
       }),
     ),
