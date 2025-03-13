@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.43.1...v1.44.0) (2025-03-13)
+
+
+### Features
+
+* add email service ([ba388f0](https://github.com/master-software-gmbh/bun-utilities/commit/ba388f0125c72913b8f00d0ca77148aafd87e4f9))
+
 ## [1.43.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.43.0...v1.43.1) (2025-03-13)
 
 # [1.43.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.42.2...v1.43.0) (2025-03-12)
