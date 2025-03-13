@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { description, enum_, number, object, pipe, string, uuid, type InferOutput } from 'valibot';
 
 export const DocumentStatus = {
   draft: 'draft',
@@ -13,9 +13,9 @@ export const DocumentStatus = {
  *
  * The current version of a document is the latest revision.
  */
-export const Document = z.object({
-  id: z.string().uuid(),
-  status: z.nativeEnum(DocumentStatus),
+export const Document = object({
+  id: pipe(string(), uuid()),
+  status: enum_(DocumentStatus),
 });
 
 /**
@@ -23,15 +23,15 @@ export const Document = z.object({
  * different types of content such as text, images, pdfs, etc.
  * All content is stored as a file.
  */
-export const Revision = z.object({
-  id: z.string().uuid(),
-  title: z.string(),
-  fileId: z.string(),
-  creatorId: z.string(),
-  documentId: z.string().uuid(),
-  createdAt: z.number().describe('UNIX timestamp'),
+export const Revision = object({
+  id: pipe(string(), uuid()),
+  title: string(),
+  fileId: string(),
+  creatorId: string(),
+  documentId: pipe(string(), uuid()),
+  createdAt: pipe(number(), description('UNIX timestamp')),
 });
 
 export type DocumentStatus = keyof typeof DocumentStatus;
-export type Document = z.infer<typeof Document>;
-export type Revision = z.infer<typeof Revision>;
+export type Document = InferOutput<typeof Document>;
+export type Revision = InferOutput<typeof Revision>;

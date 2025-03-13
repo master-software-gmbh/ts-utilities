@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { array, number, object, string, type InferOutput } from 'valibot';
 
 export const OAuthEndpoint = {
   Authorization: 'https://app.hubspot.com/oauth/authorize',
@@ -29,16 +29,16 @@ export function getOAuthAuthorizationUrl(
   return `${OAuthEndpoint.Authorization}?${params.toString()}`;
 }
 
-export const AccessTokenMetadata = z.object({
-  token: z.string(),
-  user: z.string(),
-  hub_domain: z.string(),
-  scopes: z.array(z.string()),
-  token_type: z.string(),
-  expires_in: z.number(),
-  hub_id: z.number(),
-  app_id: z.number(),
-  user_id: z.number(),
+export const AccessTokenMetadata = object({
+  token: string(),
+  user: string(),
+  hub_domain: string(),
+  scopes: array(string()),
+  token_type: string(),
+  expires_in: number(),
+  hub_id: number(),
+  app_id: number(),
+  user_id: number(),
 });
 
-export type AccessTokenMetadata = z.infer<typeof AccessTokenMetadata>;
+export type AccessTokenMetadata = InferOutput<typeof AccessTokenMetadata>;

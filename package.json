@@ -15,8 +15,7 @@
   "peerDependencies": {
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
-    "kysely-codegen": "^0.18.0",
-    "zod": "^3.24.2"
+    "kysely-codegen": "^0.18.0"
   },
   "exports": {
     "./array": "./array/index.ts",
@@ -42,11 +41,16 @@
     "./stripe": "./stripe/index.ts",
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
-    "./zod": "./zod/index.ts",
     "./zoom": "./zoom/index.ts"
   },
   "peerDependenciesMeta": {
     "jszip": {
+      "optional": true
+    },
+    "kysely": {
+      "optional": true
+    },
+    "kysely-codegen": {
       "optional": true
     },
     "stripe": {

@@ -1,4 +1,4 @@
-import type { z } from 'zod';
+import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 /**
  * The maximum age of a cookie in seconds.
@@ -7,7 +7,7 @@ import type { z } from 'zod';
  */
 export const MAX_COOKIE_AGE = 34560000;
 
-export async function typedFetch<T, S extends z.ZodType<T>>(
+export async function typedFetch<T, S extends StandardSchemaV1<unknown, T>>(
   input: string | URL | Request,
   init: RequestInit | undefined,
   decode: (response: Response) => Promise<unknown>,
@@ -15,7 +15,7 @@ export async function typedFetch<T, S extends z.ZodType<T>>(
 ): Promise<
   | {
       code: 'success';
-      data: z.infer<S>;
+      data: StandardSchemaV1.InferOutput<S>;
     }
   | {
       code: 'request_failed';
@@ -27,7 +27,7 @@ export async function typedFetch<T, S extends z.ZodType<T>>(
     }
   | {
       code: 'parsing_failed';
-      message: string;
+      issues: Readonly<StandardSchemaV1.Issue[]>;
     }
 > {
   const response = await fetch(input, init);
@@ -50,17 +50,17 @@ export async function typedFetch<T, S extends z.ZodType<T>>(
     };
   }
 
-  const parseResult = schema.safeParse(decodedData);
+  const parseResult = await schema["~standard"].validate(decodedData);
 
-  if (parseResult.error) {
+  if (parseResult.issues) {
     return {
       code: 'parsing_failed',
-      message: parseResult.error.message,
+      issues: parseResult.issues,
     };
   }
 
   return {
     code: 'success',
-    data: parseResult.data,
+    data: parseResult.value,
   };
 }

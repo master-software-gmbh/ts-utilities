@@ -1,15 +1,15 @@
-import { z } from 'zod';
+import { object, string, number, optional, description, pipe, type InferOutput, picklist } from 'valibot';
 import { typedFetch } from '../http';
 
-export const AccessTokenResponse = z.object({
-  access_token: z.string(),
-  token_type: z.enum(['bearer', 'Bearer']),
-  refresh_token: z.string(),
-  expires_in: z.number().optional().describe('Token expiration time in seconds'),
-  scope: z.string().optional(),
+export const AccessTokenResponse = object({
+  access_token: string(),
+  token_type: picklist(['bearer', 'Bearer']),
+  refresh_token: string(),
+  expires_in: optional(pipe(number(), description('Token expiration time in seconds'))),
+  scope: optional(string()),
 });
 
-export type AccessTokenResponse = z.infer<typeof AccessTokenResponse>;
+export type AccessTokenResponse = InferOutput<typeof AccessTokenResponse>;
 
 /**
  * Exchanges the refresh token for an access token.

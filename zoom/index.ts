@@ -1,5 +1,5 @@
 import { createHmac } from 'node:crypto';
-import { z } from 'zod';
+import { array, boolean, number, object, optional, string, type InferOutput } from 'valibot';
 
 /**
  * Validates the request signature.
@@ -70,47 +70,47 @@ export function getOAuthAuthorizationUrl(clientId: string, redirectUri: string):
   return `${OAuthEndpoint.Authorization}?${params.toString()}`;
 }
 
-export const User = z.object({
-  id: z.string(),
-  dept: z.string().optional(),
-  email: z.string(),
-  first_name: z.string(),
-  last_login_time: z.string(),
-  last_name: z.string(),
-  pmi: z.number(),
-  role_name: z.string(),
-  timezone: z.string(),
-  type: z.number(),
-  use_pmi: z.boolean(),
-  display_name: z.string(),
-  account_id: z.string(),
-  cms_user_id: z.string(),
-  company: z.string().optional(),
-  user_created_at: z.string(),
-  group_ids: z.array(z.string()),
-  im_group_ids: z.array(z.string()),
-  jid: z.string(),
-  job_title: z.string(),
-  language: z.string(),
-  location: z.string(),
-  login_types: z.array(z.number()),
-  personal_meeting_url: z.string(),
-  phone_numbers: z
-    .array(
-      z.object({
-        code: z.string().optional(),
-        country: z.string().optional(),
-        label: z.string().optional(),
-        number: z.string().optional(),
-        verified: z.boolean().optional(),
+export const User = object({
+  id: string(),
+  dept: optional(string()),
+  email: string(),
+  first_name: string(),
+  last_login_time: string(),
+  last_name: string(),
+  pmi: number(),
+  role_name: string(),
+  timezone: string(),
+  type: number(),
+  use_pmi: boolean(),
+  display_name: string(),
+  account_id: string(),
+  cms_user_id: string(),
+  company: optional(string()),
+  user_created_at: string(),
+  group_ids: array(string()),
+  im_group_ids: array(string()),
+  jid: string(),
+  job_title: string(),
+  language: string(),
+  location: string(),
+  login_types: array(number()),
+  personal_meeting_url: string(),
+  phone_numbers: optional(
+    array(
+      object({
+        code: optional(string()),
+        country: optional(string()),
+        label: optional(string()),
+        number: optional(string()),
+        verified: optional(boolean()),
       }),
-    )
-    .optional(),
-  verified: z.number(),
-  status: z.string(),
-  cost_center: z.string(),
-  role_id: z.string(),
-  cluster: z.string(),
+    ),
+  ),
+  verified: number(),
+  status: string(),
+  cost_center: string(),
+  role_id: string(),
+  cluster: string(),
 });
 
-export type User = z.infer<typeof User>;
+export type User = InferOutput<typeof User>;
