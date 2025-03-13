@@ -1,3 +1,10 @@
+## [1.44.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.44.0...v1.44.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* message response schema ([b3b3a32](https://github.com/master-software-gmbh/bun-utilities/commit/b3b3a32d6a71189e11d929b380c0972047c09c0c))
+
 # [1.44.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.43.1...v1.44.0) (2025-03-13)
 
 
