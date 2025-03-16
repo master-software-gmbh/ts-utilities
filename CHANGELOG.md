@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.44.1...v1.45.0) (2025-03-16)
+
+
+### Features
+
+* add fallback function ([315d4e6](https://github.com/master-software-gmbh/bun-utilities/commit/315d4e6da97df06557818bbeaa46d5d81826a135))
+
 ## [1.44.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.44.0...v1.44.1) (2025-03-13)
 
 
