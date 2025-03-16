@@ -21,3 +21,13 @@ export function successful<T, E extends string>(results: Result<T, E>[]): T[] {
     return null;
   });
 }
+
+export async function fallback<T>(action: () => Promise<Result<T, string>>, fallback: T): Promise<T> {
+  const result = await action();
+
+  if (result.success) {
+    return result.data;
+  }
+
+  return fallback;
+}
