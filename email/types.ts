@@ -1,4 +1,4 @@
-import { number, object, record, string, type InferOutput } from 'valibot';
+import { type InferOutput, number, object, record, string } from 'valibot';
 
 export interface EmailServerConfig {
   url: string;

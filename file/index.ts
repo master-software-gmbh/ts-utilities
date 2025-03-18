@@ -1,5 +1,5 @@
 import { loadModule } from '../esm';
-import { error, success, type Result } from '../result';
+import { type Result, error, success } from '../result';
 
 export const C = {
   kbToBytes: (kb: number) => kb * 1024,

@@ -1,5 +1,5 @@
 import { logger } from '../logging';
-import { error, success, type Result } from '../result';
+import { type Result, error, success } from '../result';
 
 /**
  * Function to dynamically load a module

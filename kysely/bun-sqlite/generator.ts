@@ -1,10 +1,10 @@
 import { resolve } from 'path';
+import { rm } from 'fs/promises';
 import { Kysely, type MigrationProvider, Migrator } from 'kysely';
 import { type GeneratorDialect, SqliteAdapter, SqliteIntrospectorDialect } from 'kysely-codegen';
 import * as codegen from 'kysely-codegen';
 import { runMigrations } from '../migration';
 import { BunSqliteDialect } from './dialect';
-import { rm } from 'fs/promises';
 
 export class BunSqliteGeneratorDialect extends SqliteIntrospectorDialect implements GeneratorDialect {
   readonly adapter = new SqliteAdapter();

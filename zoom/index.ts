@@ -1,5 +1,5 @@
 import { createHmac } from 'node:crypto';
-import { array, boolean, number, object, optional, string, type InferOutput } from 'valibot';
+import { type InferOutput, array, boolean, number, object, optional, string } from 'valibot';
 
 /**
  * Validates the request signature.

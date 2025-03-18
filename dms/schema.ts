@@ -1,4 +1,4 @@
-import { description, enum_, number, object, pipe, string, uuid, type InferOutput } from 'valibot';
+import { type InferOutput, description, enum_, number, object, pipe, string, uuid } from 'valibot';
 
 export const DocumentStatus = {
   draft: 'draft',

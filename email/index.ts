@@ -1,8 +1,8 @@
 import { loadModule } from '../esm';
 import { typedFetch } from '../http';
 import { logger } from '../logging';
-import { error, success, type Result } from '../result';
-import { MessageResponseSchema, type EmailServerConfig, type Message, type MessageResponse } from './types';
+import { type Result, error, success } from '../result';
+import { type EmailServerConfig, type Message, type MessageResponse, MessageResponseSchema } from './types';
 
 export class TransactionalEmailService {
   private readonly config: EmailServerConfig;

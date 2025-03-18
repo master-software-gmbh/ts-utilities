@@ -1,6 +1,6 @@
 import type { StandardSchemaV1 } from '@standard-schema/spec';
-import { error, success, type Result } from '../result';
 import { logger } from '../logging';
+import { type Result, error, success } from '../result';
 
 /**
  * The maximum age of a cookie in seconds.

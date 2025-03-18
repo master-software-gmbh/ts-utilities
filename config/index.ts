@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { logger } from '../logging';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
+import { logger } from '../logging';
 
 export async function setupConfig<E extends { CONFIG_FILEPATH: string }, F>(
   envSchema: StandardSchemaV1<E>,

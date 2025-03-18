@@ -1,4 +1,4 @@
-import { object, string, number, optional, description, pipe, type InferOutput, picklist } from 'valibot';
+import { type InferOutput, description, number, object, optional, picklist, pipe, string } from 'valibot';
 import { typedFetch } from '../http';
 
 export const AccessTokenResponse = object({
