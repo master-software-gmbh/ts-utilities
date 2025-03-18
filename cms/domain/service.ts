@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto';
-import type { CmsRepository } from './repository';
-import type { CmsDocument } from './document';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
-import { error, success, successful, type Result } from '../../result';
+import { type Result, error, success, successful } from '../../result';
+import type { CmsRepository } from './repository';
+import type { CmsDocument } from './types';
 
 export class CmsService<DocumentSchema> {
   private readonly repository: CmsRepository;

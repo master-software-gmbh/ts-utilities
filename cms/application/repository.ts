@@ -1,10 +1,9 @@
 import type { Kysely } from 'kysely';
-import type { CmsDocument } from '../domain/document';
-import type { CmsRepository } from '../domain/repository';
-import type { DB } from '../database/types';
-import type { CmsBlock } from '../domain/block';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
-import { error, success, type Result } from '../../result';
+import { type Result, error, success } from '../../result';
+import type { DB } from '../database/types';
+import type { CmsRepository } from '../domain/repository';
+import type { CmsBlock, CmsDocument } from '../domain/types';
 
 export class CmsRepositoryImpl implements CmsRepository {
   private readonly database: Kysely<DB>;

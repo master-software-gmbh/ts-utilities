@@ -1,9 +1,10 @@
-import type { CmsBlock } from './block';
+import { type InferOutput, date, nonEmpty, object, pipe, string } from 'valibot';
 
-export interface CmsDocument {
-  id: string;
-  title: string;
-  createdAt: Date;
-  updatedAt: Date;
-  blocks: CmsBlock[];
-}
+export const DocumentSchema = object({
+  id: pipe(string(), nonEmpty()),
+  title: pipe(string(), nonEmpty()),
+  createdAt: pipe(date()),
+  updatedAt: pipe(date()),
+});
+
+export type Document = InferOutput<typeof DocumentSchema>;
