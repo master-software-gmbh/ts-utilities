@@ -1,3 +1,10 @@
+# [1.47.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.46.0...v1.47.0) (2025-03-25)
+
+
+### Features
+
+* add debounce function ([d7473c3](https://github.com/master-software-gmbh/bun-utilities/commit/d7473c3181633e221cc4b759677b6516944bc12b))
+
 # [1.46.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.45.1...v1.46.0) (2025-03-25)
 
 
