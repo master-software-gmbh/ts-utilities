@@ -2,8 +2,9 @@ import type { Kysely } from 'kysely';
 import { jsonArrayFrom } from 'kysely/helpers/sqlite';
 import { type Result, error, success } from '../../result';
 import type { DB } from '../database/types';
+import type { BaseBlock } from '../domain/blocks';
+import type { BaseDocument } from '../domain/document';
 import type { CmsRepository } from '../domain/repository';
-import type { CmsBlock, CmsDocument } from '../domain/types';
 
 export class CmsRepositoryImpl implements CmsRepository {
   private readonly database: Kysely<DB>;
@@ -12,7 +13,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     this.database = database;
   }
 
-  async insert(entity: CmsDocument): Promise<void> {
+  async insert(entity: BaseDocument): Promise<void> {
     await this.database.transaction().execute(async (transaction) => {
       await transaction
         .insertInto('cms_document')
@@ -42,7 +43,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async update(entity: CmsDocument): Promise<void> {
+  async update(entity: BaseDocument): Promise<void> {
     await this.database.transaction().execute(async (transaction) => {
       await transaction
         .updateTable('cms_document')
@@ -78,7 +79,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async findById(id: string): Promise<Result<CmsDocument, 'entity_not_found' | 'mapping_error'>> {
+  async findById(id: string): Promise<Result<BaseDocument, 'entity_not_found' | 'mapping_error'>> {
     const result = await this.database
       .selectFrom('cms_document')
       .selectAll()
@@ -107,7 +108,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     return this.mapDocument(result);
   }
 
-  async findAll(): Promise<Result<CmsDocument, 'entity_not_found' | 'mapping_error'>[]> {
+  async findAll(): Promise<Result<BaseDocument, 'entity_not_found' | 'mapping_error'>[]> {
     const results = await this.database
       .selectFrom('cms_document')
       .selectAll()
@@ -132,7 +133,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     return results.map((row) => this.mapDocument(row));
   }
 
-  private mapDocument(row: DB['cms_document'] & { blocks: DB['cms_block'][] }): Result<CmsDocument, never> {
+  private mapDocument(row: DB['cms_document'] & { blocks: DB['cms_block'][] }): Result<BaseDocument, never> {
     return success({
       id: row.id,
       title: row.title,
@@ -142,7 +143,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  private mapBlock(row: DB['cms_block']): CmsBlock {
+  private mapBlock(row: DB['cms_block']): BaseBlock {
     return {
       id: row.id,
       type: row.type,

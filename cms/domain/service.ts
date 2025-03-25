@@ -3,10 +3,11 @@ import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
 import { type Result, error, success, successful } from '../../result';
+import type { BaseDocument } from './document';
 import type { CmsRepository } from './repository';
-import type { CmsDocument } from './types';
+import type { BaseBlock } from './blocks';
 
-export class CmsService<DocumentSchema> {
+export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends BaseDocument> {
   private readonly repository: CmsRepository;
   private readonly documentSchema: StandardSchemaV1<DocumentSchema>;
 
@@ -17,10 +18,7 @@ export class CmsService<DocumentSchema> {
 
   async createDocument(
     title: string,
-    blocks: {
-      type: string;
-      content: unknown;
-    }[],
+    blocks: Pick<BlockSchema, 'type' | 'content'>[],
   ): Promise<Result<DocumentSchema, 'validation_failed'>> {
     const id = randomUUID();
     const date = new Date();
@@ -73,10 +71,7 @@ export class CmsService<DocumentSchema> {
   async updateDocument(
     id: string,
     title: string,
-    blocks: {
-      type: string;
-      content: unknown;
-    }[],
+    blocks: Pick<BlockSchema, 'type' | 'content'>[],
   ): Promise<Result<undefined, 'document_not_found' | 'validation_failed'>> {
     const result = await this.repository.findById(id);
 
@@ -118,7 +113,7 @@ export class CmsService<DocumentSchema> {
     return this.repository.delete(id);
   }
 
-  private async validateDocument(document: CmsDocument): Promise<Result<DocumentSchema, 'validation_failed'>> {
+  private async validateDocument(document: BaseDocument): Promise<Result<DocumentSchema, 'validation_failed'>> {
     const result = await this.documentSchema['~standard'].validate(document);
 
     if (result.issues) {

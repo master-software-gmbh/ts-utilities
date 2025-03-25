@@ -1,4 +1,4 @@
 import type { Repository } from '../../domain/repository';
-import type { CmsDocument } from './types';
+import type { BaseDocument } from './document';
 
-export type CmsRepository = Repository<CmsDocument>;
+export type CmsRepository = Repository<BaseDocument>;

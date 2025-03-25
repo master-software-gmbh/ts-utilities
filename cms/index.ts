@@ -5,4 +5,3 @@ export * from './domain/repository';
 export * from './domain/service';
 export * from './domain/blocks';
 export * from './domain/document';
-export * from './domain/types';
