@@ -42,3 +42,19 @@ export async function withConstantTime<T>(operation: () => Promise<T>, minDurati
 
   return result;
 }
+
+/**
+ * Creates a debounced version of the given function.
+ * @param callback function to debounce
+ * @param wait delay in milliseconds
+ */
+export function debounce<T extends Array<unknown>, U>(callback: (...args: T) => U, wait: number) {
+  let timeoutId: number | undefined;
+
+  return (...args: T) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback(...args);
+    }, wait);
+  };
+}
