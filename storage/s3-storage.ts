@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { S3Client } from 'bun';
-import { MimeTypeToFileExtension } from '../file';
+import { MimeTypeToFileExtension } from '../file/utilities';
 import type { Folder, StorageBackend } from './types';
 
 export class S3Storage implements StorageBackend {
