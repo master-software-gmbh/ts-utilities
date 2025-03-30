@@ -1,3 +1,10 @@
+# [1.48.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.47.0...v1.48.0) (2025-03-30)
+
+
+### Features
+
+* add file module ([192c992](https://github.com/master-software-gmbh/bun-utilities/commit/192c992f8c1851dac5e1305f3b9b8a6f540dba3e))
+
 # [1.47.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.46.0...v1.47.0) (2025-03-25)
 
 
