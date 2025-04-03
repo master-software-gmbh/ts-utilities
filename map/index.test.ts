@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { compareRecords } from '.';
+import { compareRecords, mapFields } from '.';
 
 describe('compareRecords', () => {
   it('should detect missing number attribute', () => {
@@ -129,5 +129,33 @@ describe('compareRecords', () => {
     );
 
     expect(result).toBe(true);
+  });
+});
+
+describe('mapFields', () => {
+  it('should map fields with equal length', () => {
+    const fields = {
+      a: [0, 1, 2],
+      b: ['a', 'b', 'c'],
+    };
+
+    expect(mapFields(fields)).toEqual([
+      { a: 0, b: 'a' },
+      { a: 1, b: 'b' },
+      { a: 2, b: 'c' },
+    ]);
+  });
+
+  it('should map fields with different lengths', () => {
+    const fields = {
+      a: [0, 1],
+      b: ['a', 'b', 'c'],
+    };
+
+    expect(mapFields(fields)).toEqual([
+      { a: 0, b: 'a' },
+      { a: 1, b: 'b' },
+      { b: 'c' },
+    ]);
   });
 });

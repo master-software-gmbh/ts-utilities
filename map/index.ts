@@ -24,3 +24,19 @@ export function compareRecords(
 
   return true;
 }
+
+export function mapFields<T extends Record<string, unknown[]>>(data: T): Array<{ [K in keyof T]: T[K][number] }> {
+  const result: Array<{ [K in keyof T]: T[K][number] }> = [];
+
+  for (const [key, values] of Object.entries(data)) {
+    for (const [index, value] of values.entries()) {
+      if (!result[index]) {
+        result[index] = {} as { [K in keyof T]: T[K][number] };
+      }
+
+      result[index][key as keyof T] = value as T[keyof T][number];
+    }
+  }
+
+  return result;
+}
