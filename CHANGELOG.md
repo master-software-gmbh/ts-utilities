@@ -1,3 +1,10 @@
+# [1.51.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.50.0...v1.51.0) (2025-04-03)
+
+
+### Features
+
+* add sqlite blob storage ([ae25ed8](https://github.com/master-software-gmbh/bun-utilities/commit/ae25ed84aff96399ebc22a8d66a9b25762be1b45))
+
 # [1.50.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.49.0...v1.50.0) (2025-04-03)
 
 
