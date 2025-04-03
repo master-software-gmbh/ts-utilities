@@ -1,6 +1,8 @@
 import '../array';
 
-export type Result<T, E extends string> = { success: true; data: T } | { success: false; error: E };
+export type Result<T, E extends string> =
+  | { success: true; data: T; error?: undefined }
+  | { success: false; error: E; data?: undefined };
 
 export function error<T extends string>(error: T): Result<never, T> {
   return { success: false, error };
