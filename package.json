@@ -28,6 +28,7 @@
     "./cms": "./cms/index.ts",
     "./config": "./config/index.ts",
     "./crypto": "./crypto/index.ts",
+    "./date": "./date/index.ts",
     "./dms": "./dms/index.ts",
     "./domain": "./domain/index.ts",
     "./email": "./email/index.ts",
