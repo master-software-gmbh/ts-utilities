@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.48.0...v1.49.0) (2025-04-03)
+
+
+### Features
+
+* add mapFields function ([25fc9e9](https://github.com/master-software-gmbh/bun-utilities/commit/25fc9e9884f9b1c94f7019a81ef6edd219a6199b))
+
 # [1.48.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.47.0...v1.48.0) (2025-03-30)
 
 
