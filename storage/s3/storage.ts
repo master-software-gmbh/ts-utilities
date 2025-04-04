@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
 import { S3Client } from 'bun';
 import { MimeTypeToFileExtension } from '../../file/utilities';
-import { error, success, type Result } from '../../result';
-import { type StorageBackend, type Folder, ROOT_FOLDER } from '../types';
+import { type Result, error, success } from '../../result';
+import { type Folder, ROOT_FOLDER, type StorageBackend } from '../types';
 
 export class S3Storage implements StorageBackend {
   private readonly client: S3Client;

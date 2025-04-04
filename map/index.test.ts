@@ -152,10 +152,6 @@ describe('mapFields', () => {
       b: ['a', 'b', 'c'],
     };
 
-    expect(mapFields(fields)).toEqual([
-      { a: 0, b: 'a' },
-      { a: 1, b: 'b' },
-      { b: 'c' },
-    ]);
+    expect(mapFields(fields)).toEqual([{ a: 0, b: 'a' }, { a: 1, b: 'b' }, { b: 'c' }]);
   });
 });

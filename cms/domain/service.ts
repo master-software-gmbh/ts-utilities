@@ -3,9 +3,9 @@ import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
 import { type Result, error, success, successful } from '../../result';
+import type { BaseBlock } from './blocks';
 import type { BaseDocument } from './document';
 import type { CmsRepository } from './repository';
-import type { BaseBlock } from './blocks';
 
 export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends BaseDocument> {
   private readonly repository: CmsRepository;

@@ -1,5 +1,6 @@
+import { randomUUID } from 'crypto';
 import type { Kysely } from 'kysely';
-import { error, success, type Result } from '../../result';
+import { type Result, error, success } from '../../result';
 import type { Folder, StorageBackend } from '../types';
 import type { DB } from './types';
 
@@ -27,7 +28,7 @@ export class SqliteStorage implements StorageBackend {
   }
 
   async createFile(source: ReadableStream, _folder?: Folder, _type?: string): Promise<string> {
-    const key = crypto.randomUUID();
+    const key = randomUUID();
 
     const data = Buffer.from(await Bun.readableStreamToArrayBuffer(source));
 

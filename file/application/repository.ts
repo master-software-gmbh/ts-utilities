@@ -1,5 +1,5 @@
 import type { Kysely, Selectable } from 'kysely';
-import { error, success, type Result } from '../../result';
+import { type Result, error, success } from '../../result';
 import { FileEntity } from '../domain/file';
 import type { FileRepository } from '../domain/repository';
 import type { DB } from '../infrastructure/types';
@@ -42,11 +42,7 @@ export class FileRepositoryImpl implements FileRepository {
   }
 
   async findById(id: string): Promise<Result<FileEntity, 'entity_not_found' | 'mapping_error'>> {
-    const row = await this.database
-      .selectFrom('file')
-      .selectAll()
-      .where('file.id', '=', id)
-      .executeTakeFirst();
+    const row = await this.database.selectFrom('file').selectAll().where('file.id', '=', id).executeTakeFirst();
 
     if (!row) {
       return error('entity_not_found');
@@ -61,6 +57,14 @@ export class FileRepositoryImpl implements FileRepository {
   }
 
   private mapFile(row: Selectable<DB['file']>): Result<FileEntity, 'mapping_error'> {
-    return success(new FileEntity(row.id, row.key, row.name, row.type, new Date(row.created_at)));
+    return success(
+      new FileEntity({
+        id: row.id,
+        key: row.key,
+        name: row.name,
+        type: row.type,
+        createdAt: new Date(row.created_at),
+      }),
+    );
   }
 }
