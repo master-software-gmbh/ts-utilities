@@ -13,6 +13,7 @@ export interface File {
   created_at: Generated<number>;
   id: Generated<string>;
   key: string;
+  name: Generated<string>;
   type: string;
 }
 

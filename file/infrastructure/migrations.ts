@@ -19,6 +19,17 @@ export class FileMigrationProvider implements MigrationProvider {
           return db.schema.dropTable('file').execute();
         },
       },
+      '0002_update_file_table': {
+        up(db) {
+          return db.schema
+            .alterTable('file')
+            .addColumn('name', 'text', (col) => col.notNull().defaultTo(''))
+            .execute();
+        },
+        down(db) {
+          return db.schema.alterTable('file').dropColumn('name').execute();
+        },
+      },
     };
   }
 }

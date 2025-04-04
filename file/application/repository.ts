@@ -17,6 +17,7 @@ export class FileRepositoryImpl implements FileRepository {
       .values({
         id: entity.id,
         key: entity.key,
+        name: entity.name,
         type: entity.type,
         created_at: entity.createdAt.getTime(),
       })
@@ -28,6 +29,7 @@ export class FileRepositoryImpl implements FileRepository {
       .updateTable('file')
       .set({
         key: entity.key,
+        name: entity.name,
         type: entity.type,
         created_at: entity.createdAt.getTime(),
       })
@@ -59,6 +61,6 @@ export class FileRepositoryImpl implements FileRepository {
   }
 
   private mapFile(row: Selectable<DB['file']>): Result<FileEntity, 'mapping_error'> {
-    return success(new FileEntity(row.id, row.key, row.type, new Date(row.created_at)));
+    return success(new FileEntity(row.id, row.key, row.name, row.type, new Date(row.created_at)));
   }
 }
