@@ -1,3 +1,10 @@
+# [1.52.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.51.0...v1.52.0) (2025-04-04)
+
+
+### Features
+
+* add name attribute to files ([1b42990](https://github.com/master-software-gmbh/bun-utilities/commit/1b42990fcfec2ad4da3e7a972f32ad39563986b8))
+
 # [1.51.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.50.0...v1.51.0) (2025-04-03)
 
 
