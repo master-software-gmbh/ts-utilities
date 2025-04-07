@@ -1,3 +1,10 @@
+# [1.53.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.52.1...v1.53.0) (2025-04-07)
+
+
+### Features
+
+* add date utilities ([18961bb](https://github.com/master-software-gmbh/bun-utilities/commit/18961bbeed42a9fc99ca9aa01d9d81e02f9d3b24))
+
 ## [1.52.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.52.0...v1.52.1) (2025-04-04)
 
 # [1.52.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.51.0...v1.52.0) (2025-04-04)
