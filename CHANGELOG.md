@@ -1,3 +1,10 @@
+# [1.54.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.53.0...v1.54.0) (2025-04-08)
+
+
+### Features
+
+* add function to load and validate json files ([8ec632e](https://github.com/master-software-gmbh/bun-utilities/commit/8ec632e1d9053047b6feb8263142fb03d3ea162a))
+
 # [1.53.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.52.1...v1.53.0) (2025-04-07)
 
 
