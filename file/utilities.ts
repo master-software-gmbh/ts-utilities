@@ -1,5 +1,8 @@
+import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { loadModule } from '../esm';
 import { type Result, error, success } from '../result';
+import { readFile } from 'fs/promises';
+import { logger } from '../logging';
 
 export const C = {
   kbToBytes: (kb: number) => kb * 1024,
@@ -81,4 +84,36 @@ export async function createZipFile(
   });
 
   return success(zipFile);
+}
+
+export async function typedJsonFile<T, S extends StandardSchemaV1<unknown, T>>(
+  filepath: string,
+  schema: S,
+): Promise<Result<StandardSchemaV1.InferOutput<S>, 'reading_failed' | 'decoding_failed' | 'validation_failed'>> {
+  let stringData: string;
+
+  try {
+    stringData = await readFile(filepath, 'utf-8');
+  } catch (e) {
+    logger.error('Failed to read data file', { filepath, error: e });
+    return error('reading_failed');
+  }
+
+  let jsonData: unknown;
+
+  try {
+    jsonData = JSON.parse(stringData);
+  } catch (e) {
+    logger.error('Failed to decode data file', { filepath, error: e });
+    return error('decoding_failed');
+  }
+
+  const data = await schema['~standard'].validate(jsonData);
+
+  if (data.issues) {
+    logger.error('Failed to validate data file', { filepath, issues: data.issues });
+    return error('validation_failed');
+  }
+
+  return success(data.value);
 }
