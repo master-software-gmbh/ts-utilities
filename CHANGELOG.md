@@ -1,3 +1,10 @@
+# [1.55.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.54.0...v1.55.0) (2025-04-09)
+
+
+### Features
+
+* add file service ([129572f](https://github.com/master-software-gmbh/bun-utilities/commit/129572fe698588e41681ed37cb0eae22be8c6155))
+
 # [1.54.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.53.0...v1.54.0) (2025-04-08)
 
 
