@@ -6,6 +6,7 @@ export class FileEntity {
   name: string;
   type: string;
   createdAt: Date;
+  data: ReadableStream | null;
 
   constructor(data: {
     id?: string;
@@ -13,11 +14,13 @@ export class FileEntity {
     name: string;
     type: string;
     createdAt?: Date;
+    data?: ReadableStream | null;
   }) {
     this.id = data.id ?? randomUUID();
     this.key = data.key;
     this.name = data.name;
     this.type = data.type;
+    this.data = data.data ?? null;
     this.createdAt = data.createdAt ?? new Date();
   }
 }
