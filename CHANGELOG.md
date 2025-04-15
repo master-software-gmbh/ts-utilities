@@ -1,3 +1,10 @@
+# [1.56.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.55.0...v1.56.0) (2025-04-15)
+
+
+### Features
+
+* add math module ([3bbb3dc](https://github.com/master-software-gmbh/bun-utilities/commit/3bbb3dcf51b1f538b2dd42f37906df86393c2543))
+
 # [1.55.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.54.0...v1.55.0) (2025-04-09)
 
 
