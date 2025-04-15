@@ -6,5 +6,9 @@
  * @returns extracted username or null if not found
  */
 export function parseUsername(input: string): string | null {
+  if (input.length > 2048) {
+    return null;
+  }
+
   return /([^\/]+)[\/]?$/.exec(input)?.at(1) ?? null;
 }

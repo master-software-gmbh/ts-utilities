@@ -8,7 +8,7 @@
     "valibot": "^1.0.0-rc.3"
   },
   "devDependencies": {
-    "@types/bun": "~1.2.4",
+    "@types/bun": "1.2.8",
     "@types/mjml": "^4.7.4",
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
@@ -37,11 +37,13 @@
     "./file": "./file/index.ts",
     "./http": "./http/index.ts",
     "./hubspot": "./hubspot/index.ts",
+    "./interface": "./interface/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
     "./lenses": "./lenses/index.ts",
     "./linkedin": "./linkedin/index.ts",
     "./logging": "./logging/index.ts",
+    "./math": "./math/index.ts",
     "./map": "./map/index.ts",
     "./oauth": "./oauth/index.ts",
     "./process": "./process/index.ts",

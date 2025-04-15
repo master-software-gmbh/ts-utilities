@@ -1,8 +1,8 @@
 import type { StandardSchemaV1 } from '@standard-schema/spec';
-import { loadModule } from '../esm';
-import { type Result, error, success } from '../result';
 import { readFile } from 'fs/promises';
+import { loadModule } from '../esm';
 import { logger } from '../logging';
+import { type Result, error, success } from '../result';
 
 export const C = {
   kbToBytes: (kb: number) => kb * 1024,
