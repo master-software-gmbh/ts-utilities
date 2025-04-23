@@ -1,3 +1,10 @@
+# [1.59.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.58.0...v1.59.0) (2025-04-23)
+
+
+### Features
+
+* extract error info ([2392ce8](https://github.com/master-software-gmbh/bun-utilities/commit/2392ce87ce662824aaa2c8e339e634ef23e522fe))
+
 # [1.58.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.57.0...v1.58.0) (2025-04-23)
 
 
