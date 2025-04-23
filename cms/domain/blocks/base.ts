@@ -6,7 +6,6 @@ export const BaseBlockSchema = object({
   type: pipe(string(), nonEmpty()),
   createdAt: pipe(date()),
   updatedAt: pipe(date()),
-  documentId: pipe(string(), nonEmpty()),
   content: unknown(),
 });
 

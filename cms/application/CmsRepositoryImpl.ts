@@ -173,7 +173,6 @@ export class CmsRepositoryImpl implements CmsRepository {
       id: row.id,
       type: row.type,
       content: row.content,
-      documentId: row.document_id,
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
     };
