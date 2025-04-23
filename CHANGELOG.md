@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.57.0...v1.58.0) (2025-04-23)
+
+
+### Features
+
+* remove timestamps from cms block ([94789be](https://github.com/master-software-gmbh/bun-utilities/commit/94789bea8979df3d1c7cd41766f1a3ceb49424d8))
+
 # [1.57.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.56.2...v1.57.0) (2025-04-23)
 
 
