@@ -26,11 +26,6 @@ export class LoggingService {
     console.error(this._serialize(message, 'error', context));
   }
 
-  _data(message: string, level: string, context: Context = {}): { [key: string]: unknown } {
-    const { message: data_message, level: data_level, ...remaining } = context;
-    return { message, level, data_message, data_level, ...remaining };
-  }
-
   _serialize(message: string, level: string, context: Context = {}): string {
     const data = this._data(message, level, context);
 
@@ -44,6 +39,28 @@ export class LoggingService {
       case 'logfmt':
         return stringify(data);
     }
+  }
+
+  _data(message: string, level: string, context: Context = {}): { [key: string]: unknown } {
+    const { message: data_message, level: data_level, error, ...remaining } = context;
+
+    const updatedContext: Context = {
+      level,
+      message,
+      data_level,
+      data_message,
+      ...remaining,
+    };
+
+    if (error && error instanceof Error) {
+      updatedContext['error'] = {
+        name: error.name,
+        stack: error.stack,
+        message: error.message,
+      };
+    }
+
+    return updatedContext;
   }
 }
 

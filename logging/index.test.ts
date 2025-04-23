@@ -78,4 +78,21 @@ describe('data', () => {
       data_level: 'world',
     });
   });
+
+  it('extracts error message and stack', () => {
+    const error = new TypeError('Test error');
+    const data = { message: 'hello', foo: 'bar', error };
+
+    expect(logger._data('message', 'info', data)).toEqual({
+      foo: 'bar',
+      level: 'info',
+      message: 'message',
+      data_message: 'hello',
+      error: {
+        name: error.name,
+        stack: error.stack,
+        message: error.message,
+      },
+    });
+  });
 });
