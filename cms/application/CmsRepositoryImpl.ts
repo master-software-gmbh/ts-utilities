@@ -77,8 +77,6 @@ export class CmsRepositoryImpl implements CmsRepository {
             type: block.type,
             document_id: entity.id,
             content: JSON.stringify(block.content),
-            created_at: block.createdAt.getTime(),
-            updated_at: block.updatedAt.getTime(),
           })),
         )
         .execute();
@@ -102,14 +100,7 @@ export class CmsRepositoryImpl implements CmsRepository {
         jsonArrayFrom(
           eb
             .selectFrom('cms_block')
-            .select([
-              'cms_block.id',
-              'cms_block.type',
-              'cms_block.content',
-              'cms_block.created_at',
-              'cms_block.updated_at',
-              'cms_block.document_id',
-            ])
+            .select(['cms_block.id', 'cms_block.type', 'cms_block.content', 'cms_block.document_id'])
             .where('cms_block.document_id', '=', eb.ref('cms_document.id')),
         ).as('blocks'),
       )
@@ -131,14 +122,7 @@ export class CmsRepositoryImpl implements CmsRepository {
         jsonArrayFrom(
           eb
             .selectFrom('cms_block')
-            .select([
-              'cms_block.id',
-              'cms_block.type',
-              'cms_block.content',
-              'cms_block.created_at',
-              'cms_block.updated_at',
-              'cms_block.document_id',
-            ])
+            .select(['cms_block.id', 'cms_block.type', 'cms_block.content', 'cms_block.document_id'])
             .where('cms_block.document_id', '=', eb.ref('cms_document.id')),
         ).as('blocks'),
       )
@@ -173,8 +157,6 @@ export class CmsRepositoryImpl implements CmsRepository {
       id: row.id,
       type: row.type,
       content: row.content,
-      createdAt: new Date(row.created_at),
-      updatedAt: new Date(row.updated_at),
     };
   }
 }

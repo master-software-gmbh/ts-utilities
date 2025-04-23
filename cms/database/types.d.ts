@@ -5,11 +5,9 @@
 
 export interface CmsBlock {
   content: string;
-  created_at: number;
   document_id: string;
   id: string;
   type: string;
-  updated_at: number;
 }
 
 export interface CmsDocument {

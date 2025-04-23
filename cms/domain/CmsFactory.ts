@@ -17,11 +17,7 @@ export class CmsFactory {
   }
 
   buildRichTextBlock(): RichTextBlock {
-    const date = new Date();
-
     return {
-      createdAt: date,
-      updatedAt: date,
       id: randomUUID(),
       type: 'rich-text',
       content: {

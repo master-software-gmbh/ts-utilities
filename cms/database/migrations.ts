@@ -36,6 +36,16 @@ export class CmsMigrations implements MigrationProvider {
           return db.schema.dropTable('cms_block').execute();
         },
       },
+      '0003_update_cms_block_table': {
+        up(db) {
+          return db.schema.alterTable('cms_block').dropColumn('created_at').execute();
+        },
+      },
+      '0004_update_cms_block_table': {
+        up(db) {
+          return db.schema.alterTable('cms_block').dropColumn('updated_at').execute();
+        },
+      },
     };
   }
 }

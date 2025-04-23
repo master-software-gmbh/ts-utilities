@@ -1,11 +1,9 @@
-import { type InferOutput, date, nonEmpty, object, pipe, string, unknown } from 'valibot';
+import { type InferOutput, nonEmpty, object, pipe, string, unknown } from 'valibot';
 import type { FileRefBlock, HeadingBlock, RichTextBlock } from '.';
 
 export const BaseBlockSchema = object({
   id: pipe(string(), nonEmpty()),
   type: pipe(string(), nonEmpty()),
-  createdAt: pipe(date()),
-  updatedAt: pipe(date()),
   content: unknown(),
 });
 
