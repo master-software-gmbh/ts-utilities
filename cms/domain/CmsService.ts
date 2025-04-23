@@ -1,13 +1,11 @@
-import { randomUUID } from 'crypto';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
 import { type Result, error, success, successful } from '../../result';
-import type { BaseBlock } from './blocks';
 import type { BaseDocument } from './document';
 import type { CmsRepository } from './CmsRepository';
 
-export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends BaseDocument> {
+export class CmsService<DocumentSchema extends BaseDocument> {
   private readonly repository: CmsRepository;
   private readonly documentSchema: StandardSchemaV1<DocumentSchema>;
 
@@ -16,40 +14,19 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
     this.documentSchema = documentSchema;
   }
 
-  async createDocument(
-    title: string,
-    blocks: Pick<BlockSchema, 'type' | 'content'>[],
-  ): Promise<Result<DocumentSchema, 'validation_failed'>> {
-    const id = randomUUID();
-    const date = new Date();
-
-    const document = {
-      id,
-      title,
-      createdAt: date,
-      updatedAt: date,
-      blocks: blocks.map((block) => ({
-        documentId: id,
-        createdAt: date,
-        updatedAt: date,
-        id: randomUUID(),
-        type: block.type,
-        content: block.content,
-      })),
-    };
-
+  async saveDocument(document: DocumentSchema): Promise<Result<void, 'validation_failed'>> {
     const result = await this.validateDocument(document);
 
     if (!result.success) {
-      logger.error('Failed to validate CMS document', { id, title });
+      logger.error('Failed to validate CMS document', { id: document.id, title: document.title });
       return error('validation_failed');
     }
 
-    await this.repository.add(document);
+    await this.repository.save(document);
 
-    logger.info('Created CMS document', { id, title });
+    logger.info('Saved CMS document', { id: document.id, title: document.title });
 
-    return result;
+    return success();
   }
 
   async getDocumentById(id: string): Promise<Result<DocumentSchema, 'document_not_found' | 'validation_failed'>> {
@@ -64,53 +41,22 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
 
   async getDocuments(): Promise<DocumentSchema[]> {
     const documents = await this.repository.all();
-    const results = await documents.compactMapAsync((document) => this.validateDocument(document));
+    const promises = documents.map((document) => this.validateDocument(document));
+    const results = await Promise.all(promises);
+
     return successful(results);
   }
 
-  async updateDocument(
-    id: string,
-    title: string,
-    blocks: Pick<BlockSchema, 'type' | 'content'>[],
-  ): Promise<Result<undefined, 'document_not_found' | 'validation_failed'>> {
-    const result = await this.repository.ofId(id);
+  async deleteDocument(id: string): Promise<Result<void, 'document_not_found'>> {
+    const result = await this.repository.remove(id);
 
-    if (!result.success) {
-      logger.error('Failed to find CMS document', { id, title });
+    if (result.error) {
       return error('document_not_found');
     }
 
-    const updatedDocument = {
-      id,
-      title,
-      createdAt: result.data.createdAt,
-      updatedAt: new Date(),
-      blocks: blocks.map((block) => ({
-        documentId: id,
-        id: randomUUID(),
-        type: block.type,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        content: block.content,
-      })),
-    };
+    logger.info('Deleted CMS document', { id });
 
-    const validatedDocument = await this.validateDocument(updatedDocument);
-
-    if (!validatedDocument) {
-      logger.error('Failed to validate CMS document', { id, title });
-      return error('validation_failed');
-    }
-
-    logger.info('Updated CMS document', { id, title });
-
-    await this.repository.update(updatedDocument);
-
-    return success(undefined);
-  }
-
-  deleteDocument(id: string) {
-    return this.repository.remove(id);
+    return success();
   }
 
   private async validateDocument(document: BaseDocument): Promise<Result<DocumentSchema, 'validation_failed'>> {
