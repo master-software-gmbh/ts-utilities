@@ -5,7 +5,7 @@ import { logger } from '../../logging';
 import { type Result, error, success, successful } from '../../result';
 import type { BaseBlock } from './blocks';
 import type { BaseDocument } from './document';
-import type { CmsRepository } from './repository';
+import type { CmsRepository } from './CmsRepository';
 
 export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends BaseDocument> {
   private readonly repository: CmsRepository;
@@ -45,7 +45,7 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
       return error('validation_failed');
     }
 
-    await this.repository.insert(document);
+    await this.repository.add(document);
 
     logger.info('Created CMS document', { id, title });
 
@@ -53,7 +53,7 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
   }
 
   async getDocumentById(id: string): Promise<Result<DocumentSchema, 'document_not_found' | 'validation_failed'>> {
-    const result = await this.repository.findById(id);
+    const result = await this.repository.ofId(id);
 
     if (!result.success) {
       return error('document_not_found');
@@ -63,7 +63,7 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
   }
 
   async getDocuments(): Promise<DocumentSchema[]> {
-    const documents = successful(await this.repository.findAll());
+    const documents = await this.repository.all();
     const results = await documents.compactMapAsync((document) => this.validateDocument(document));
     return successful(results);
   }
@@ -73,7 +73,7 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
     title: string,
     blocks: Pick<BlockSchema, 'type' | 'content'>[],
   ): Promise<Result<undefined, 'document_not_found' | 'validation_failed'>> {
-    const result = await this.repository.findById(id);
+    const result = await this.repository.ofId(id);
 
     if (!result.success) {
       logger.error('Failed to find CMS document', { id, title });
@@ -110,7 +110,7 @@ export class CmsService<BlockSchema extends BaseBlock, DocumentSchema extends Ba
   }
 
   deleteDocument(id: string) {
-    return this.repository.delete(id);
+    return this.repository.remove(id);
   }
 
   private async validateDocument(document: BaseDocument): Promise<Result<DocumentSchema, 'validation_failed'>> {
