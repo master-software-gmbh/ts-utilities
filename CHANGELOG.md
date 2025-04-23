@@ -1,3 +1,10 @@
+# [1.60.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.59.0...v1.60.0) (2025-04-23)
+
+
+### Features
+
+* convert document factory to builder ([a5f819d](https://github.com/master-software-gmbh/ts-utilities/commit/a5f819db142713a707f7765983e0225f876c64ec))
+
 # [1.59.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.58.0...v1.59.0) (2025-04-23)
 
 
