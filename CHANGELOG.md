@@ -1,3 +1,10 @@
+# [1.57.0](https://github.com/master-software-gmbh/bun-utilities/compare/v1.56.2...v1.57.0) (2025-04-23)
+
+
+### Features
+
+* add cms factory ([e8be144](https://github.com/master-software-gmbh/bun-utilities/commit/e8be1448fa44605ecfe64a89e7e7dc6a6c35fbb4))
+
 ## [1.56.2](https://github.com/master-software-gmbh/bun-utilities/compare/v1.56.1...v1.56.2) (2025-04-23)
 
 ## [1.56.1](https://github.com/master-software-gmbh/bun-utilities/compare/v1.56.0...v1.56.1) (2025-04-23)
