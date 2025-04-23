@@ -1,21 +1,21 @@
 {
-  "name": "@master-software/bun-utilities",
+  "name": "@master-software/ts-utilities",
   "version": "1.59.0",
   "type": "module",
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
     "@standard-schema/utils": "^0.3.0",
-    "valibot": "^1.0.0-rc.3"
+    "valibot": "^1.0.0"
   },
   "devDependencies": {
-    "@types/bun": "1.2.8",
+    "@types/bun": "1.2.10",
     "@types/mjml": "^4.7.4",
     "jszip": "^3.10.1",
-    "kysely": "^0.27.5",
-    "kysely-codegen": "^0.18.0",
+    "kysely": "^0.28.1",
+    "kysely-codegen": "^0.18.3",
     "mjml": "^4.15.3",
-    "stripe": "^17.7.0",
-    "typescript": "^5.8.2"
+    "stripe": "^18.0.0",
+    "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "jszip": "^3.10.1",
