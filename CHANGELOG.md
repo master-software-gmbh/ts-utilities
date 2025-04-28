@@ -1,3 +1,10 @@
+# [1.61.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.60.0...v1.61.0) (2025-04-28)
+
+
+### Features
+
+* export interfaces ([eec2edd](https://github.com/master-software-gmbh/ts-utilities/commit/eec2edda3a4700062df1702d8cae834f4bf9ff03))
+
 # [1.60.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.59.0...v1.60.0) (2025-04-23)
 
 
