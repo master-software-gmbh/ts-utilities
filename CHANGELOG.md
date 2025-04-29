@@ -1,3 +1,10 @@
+# [1.62.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.61.0...v1.62.0) (2025-04-29)
+
+
+### Features
+
+* add location module ([efe0479](https://github.com/master-software-gmbh/ts-utilities/commit/efe04791db4cc0eb35deca2e93ab7d84a55eaab8))
+
 # [1.61.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.60.0...v1.61.0) (2025-04-28)
 
 
