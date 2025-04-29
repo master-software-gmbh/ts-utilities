@@ -25,7 +25,7 @@ const FormattableText = object({
 
 const StructuredFormat = object({
   mainText: FormattableText,
-  secondaryText: FormattableText,
+  secondaryText: optional(FormattableText),
 });
 
 export const PlacesAutocompleteResponse = object({
@@ -34,8 +34,8 @@ export const PlacesAutocompleteResponse = object({
       object({
         placePrediction: object({
           place: string(),
-          text: FormattableText,
           placeId: string(),
+          text: FormattableText,
           types: array(string()),
           structuredFormat: StructuredFormat,
           distanceMeters: optional(number()),
