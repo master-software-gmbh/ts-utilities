@@ -1,3 +1,10 @@
+## [1.62.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.1...v1.62.2) (2025-04-29)
+
+
+### Bug Fixes
+
+* response mapping ([46f2540](https://github.com/master-software-gmbh/ts-utilities/commit/46f254066aee37bf3a9dc99f676e24588e178fd9))
+
 ## [1.62.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.0...v1.62.1) (2025-04-29)
 
 
