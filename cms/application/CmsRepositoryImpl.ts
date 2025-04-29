@@ -126,7 +126,7 @@ export class CmsRepositoryImpl implements CmsRepository {
             .where('cms_block.document_id', '=', eb.ref('cms_document.id')),
         ).as('blocks'),
       )
-      .orderBy('cms_document.updated_at desc')
+      .orderBy('cms_document.updated_at', 'desc')
       .execute();
 
     return results.map((row) => this.mapDocument(row));

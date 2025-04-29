@@ -1,4 +1,4 @@
-import { CreateTableBuilder, type Migration, type MigrationProvider, type Migrator, sql } from 'kysely';
+import { CreateTableBuilder, type Kysely, type Migration, type MigrationProvider, type Migrator, sql } from 'kysely';
 import { logger } from '../logging';
 
 export function inlineMigrations(migrations: Record<string, Migration>): MigrationProvider {
@@ -63,6 +63,27 @@ export async function runMigrations(migrator: Migrator) {
   }
 }
 
+export async function updateTable(
+  db: Kysely<any>,
+  tableName: string,
+  newTable: (db: CreateTableBuilder<string, never>) => CreateTableBuilder<string, never>,
+  convertRow?: (row: Record<string, unknown>) => Record<string, unknown>,
+) {
+  await db.transaction().execute(async (transaction) => {
+    await newTable(transaction.schema.createTable(`${tableName}_tmp`)).execute();
+
+    const data = await transaction.selectFrom(tableName).selectAll().execute();
+
+    if (data.length > 0) {
+      const transformedData = convertRow ? data.map(convertRow) : data;
+      await transaction.insertInto(`${tableName}_tmp`).values(transformedData).execute();
+    }
+
+    await transaction.schema.dropTable(tableName).execute();
+    await transaction.schema.alterTable(`${tableName}_tmp`).renameTo(tableName).execute();
+  });
+}
+
 declare module 'kysely' {
   interface CreateTableBuilder<TB extends string, C extends string = never> {
     /**
@@ -74,7 +95,7 @@ declare module 'kysely' {
 
     /**
      * Adds a non-nullable timestamp column to the table with a default value of `now`.
-     * The timestamp stores the number of seconds since the Unix epoch.
+     * The timestamp stores the number of *milliseconds* since the Unix epoch.
      * @param name Name of the column.
      */
     addTimestampColumn(name: string): CreateTableBuilder<TB, C>;
@@ -99,6 +120,6 @@ CreateTableBuilder.prototype.addUUIDColumn = function (
 
 CreateTableBuilder.prototype.addTimestampColumn = function (this: CreateTableBuilder<string, string>, name: string) {
   return this.addColumn(name, 'integer', (col) => {
-    return col.defaultTo(sql`(strftime('%s', 'now'))`).notNull();
+    return col.defaultTo(sql`(CAST(unixepoch('subsec') * 1000 AS INTEGER))`).notNull();
   });
 };
