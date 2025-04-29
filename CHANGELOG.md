@@ -1,3 +1,10 @@
+# [1.63.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.2...v1.63.0) (2025-04-29)
+
+
+### Features
+
+* update kysely utilities ([2e57731](https://github.com/master-software-gmbh/ts-utilities/commit/2e57731d47639f2e4110891ebea7c45459dfcdf9))
+
 ## [1.62.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.1...v1.62.2) (2025-04-29)
 
 
