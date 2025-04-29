@@ -1,3 +1,10 @@
+## [1.62.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.0...v1.62.1) (2025-04-29)
+
+
+### Bug Fixes
+
+* response schema ([c19a812](https://github.com/master-software-gmbh/ts-utilities/commit/c19a8129cbdcb9c4cc1251a2d5c253ac47884201))
+
 # [1.62.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.61.0...v1.62.0) (2025-04-29)
 
 
