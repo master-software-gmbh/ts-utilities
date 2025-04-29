@@ -54,7 +54,7 @@ export class GoogleMapsGeocodingService implements GeocodingService {
         return {
           id: prediction.placePrediction.placeId,
           mainText: prediction.placePrediction.structuredFormat.mainText.text,
-          secondaryText: prediction.placePrediction.structuredFormat.secondaryText.text,
+          secondaryText: prediction.placePrediction.structuredFormat.secondaryText?.text,
         };
       }
 

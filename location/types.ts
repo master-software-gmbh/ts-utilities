@@ -8,7 +8,7 @@ export interface PredictionInput {
 }
 
 export interface PredictionOutput {
-  predictions: { id: string; mainText: string; secondaryText: string }[];
+  predictions: { id: string; mainText: string; secondaryText?: string }[];
 }
 
 const FormattableText = object({
