@@ -1,3 +1,10 @@
+# [1.64.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.63.0...v1.64.0) (2025-05-01)
+
+
+### Features
+
+* add redirect middleware ([eb4fa1c](https://github.com/master-software-gmbh/ts-utilities/commit/eb4fa1c6f655ce7919e4b8944bc03e17913c5f13))
+
 # [1.63.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.62.2...v1.63.0) (2025-04-29)
 
 
