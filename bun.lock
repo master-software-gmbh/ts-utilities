@@ -11,6 +11,7 @@
       "devDependencies": {
         "@types/bun": "1.2.10",
         "@types/mjml": "^4.7.4",
+        "hono": "^4.7.8",
         "jszip": "^3.10.1",
         "kysely": "^0.28.1",
         "kysely-codegen": "^0.18.3",
@@ -194,6 +195,8 @@
     "hasown": ["hasown@2.0.2", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ=="],
 
     "he": ["he@1.2.0", "", { "bin": { "he": "bin/he" } }, "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw=="],
+
+    "hono": ["hono@4.7.8", "", {}, "sha512-PCibtFdxa7/Ldud9yddl1G81GjYaeMYYTq4ywSaNsYbB1Lug4mwtOMJf2WXykL0pntYwmpRJeOI3NmoDgD+Jxw=="],
 
     "html-minifier": ["html-minifier@4.0.0", "", { "dependencies": { "camel-case": "^3.0.0", "clean-css": "^4.2.1", "commander": "^2.19.0", "he": "^1.2.0", "param-case": "^2.1.1", "relateurl": "^0.2.7", "uglify-js": "^3.5.1" }, "bin": { "html-minifier": "./cli.js" } }, "sha512-aoGxanpFPLg7MkIl/DDFYtb0iWz7jMFGqFhvEDZga6/4QTjneiD8I/NXL1x5aaoCp7FSIT6h/OhykDdPsbtMig=="],
 
