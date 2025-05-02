@@ -1,3 +1,10 @@
+# [1.66.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.65.0...v1.66.0) (2025-05-02)
+
+
+### Features
+
+* add pdf module ([f17b92b](https://github.com/master-software-gmbh/ts-utilities/commit/f17b92b1e66bc2c52adbdc3b7878452cb95260dc))
+
 # [1.65.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.64.0...v1.65.0) (2025-05-02)
 
 
