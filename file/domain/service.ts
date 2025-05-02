@@ -1,5 +1,5 @@
 import type { Folder, StorageBackend } from '../../storage';
-import { FileEntity } from './file';
+import { FileEntity, type FileInput } from './file';
 import type { FileRepository } from './FileRepository';
 
 export class FileService {
@@ -11,7 +11,7 @@ export class FileService {
     this.fileRepository = fileRepository;
   }
 
-  async createFile(source: File, folder?: Folder): Promise<FileEntity> {
+  async createFile(source: FileInput, folder?: Folder): Promise<FileEntity> {
     const key = await this.backend.createFile(source.stream(), folder, source.type);
     const file = new FileEntity({ key: key, name: source.name, type: source.type });
 

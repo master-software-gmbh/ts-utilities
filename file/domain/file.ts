@@ -1,5 +1,11 @@
 import { randomUUID } from 'crypto';
 
+export interface FileInput {
+  name: string;
+  type: string;
+  stream: () => ReadableStream;
+}
+
 export class FileEntity {
   id: string;
   key: string;
