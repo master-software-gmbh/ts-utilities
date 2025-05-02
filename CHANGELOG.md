@@ -1,3 +1,10 @@
+# [1.65.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.64.0...v1.65.0) (2025-05-02)
+
+
+### Features
+
+* add valibot module ([5da0261](https://github.com/master-software-gmbh/ts-utilities/commit/5da02610dc8fbcd0ceb2d7eaa9b2cce47ecb5594))
+
 # [1.64.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.63.0...v1.64.0) (2025-05-01)
 
 
