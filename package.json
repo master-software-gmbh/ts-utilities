@@ -51,6 +51,7 @@
     "./math": "./math/index.ts",
     "./map": "./map/index.ts",
     "./oauth": "./oauth/index.ts",
+    "./pdf": "./pdf/index.ts",
     "./process": "./process/index.ts",
     "./result": "./result/index.ts",
     "./storage": "./storage/index.ts",

@@ -1,6 +1,6 @@
 import type { Folder, StorageBackend } from '../../storage';
 import { FileEntity } from './file';
-import type { FileRepository } from './repository';
+import type { FileRepository } from './FileRepository';
 
 export class FileService {
   private readonly backend: StorageBackend;
