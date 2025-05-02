@@ -1,3 +1,5 @@
+## [1.66.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.66.0...v1.66.1) (2025-05-02)
+
 # [1.66.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.65.0...v1.66.0) (2025-05-02)
 
 
