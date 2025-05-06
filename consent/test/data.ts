@@ -10,18 +10,18 @@ export const subject2 = randomUUID();
 
 export const data1 = [
   new Consent({
-    id: consent2,
-    purpose: purpose,
-    subject: subject2,
-    status: ConsentStatus.Denied,
-    createdAt: new Date('2025-05-05'),
-  }),
-  new Consent({
     id: randomUUID(),
     purpose: purpose,
     subject: subject2,
     status: ConsentStatus.Granted,
     createdAt: new Date('2025-02-05'),
+  }),
+  new Consent({
+    id: consent2,
+    purpose: purpose,
+    subject: subject2,
+    status: ConsentStatus.Denied,
+    createdAt: new Date('2025-05-05'),
   }),
   new Consent({
     id: consent1,
@@ -34,15 +34,15 @@ export const data1 = [
     id: randomUUID(),
     purpose: purpose,
     subject: subject1,
-    status: ConsentStatus.Denied,
-    createdAt: new Date('2025-01-04'),
+    status: ConsentStatus.Granted,
+    createdAt: new Date('2025-01-01'),
   }),
   new Consent({
     id: randomUUID(),
     purpose: purpose,
     subject: subject1,
-    status: ConsentStatus.Granted,
-    createdAt: new Date('2025-01-01'),
+    status: ConsentStatus.Denied,
+    createdAt: new Date('2025-01-04'),
   }),
 ];
 

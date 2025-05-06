@@ -10,22 +10,37 @@ describe('ConsentService', () => {
     const service = new ConsentService(mockRepository(data1));
     const result = await service.getLatestConsents(purpose);
 
-    expect(result).toEqual([
-      new Consent({
+    expect(result).toEqual({
+      [subject2]: new Consent({
         id: consent2,
         purpose: purpose,
         subject: subject2,
         status: ConsentStatus.Denied,
         createdAt: new Date('2025-05-05'),
       }),
-      new Consent({
+      [subject1]: new Consent({
         id: consent1,
         purpose: purpose,
         subject: subject1,
         status: ConsentStatus.Granted,
         createdAt: new Date('2025-01-05'),
       }),
-    ]);
+    });
+  });
+
+  it('should return latest consents', async () => {
+    const service = new ConsentService(mockRepository(data1));
+    const result = await service.getLatestConsents(purpose, ConsentStatus.Granted);
+
+    expect(result).toEqual({
+      [subject1]: new Consent({
+        id: consent1,
+        purpose: purpose,
+        subject: subject1,
+        status: ConsentStatus.Granted,
+        createdAt: new Date('2025-01-05'),
+      }),
+    });
   });
 
   it('should return latest consent', async () => {
