@@ -29,6 +29,7 @@
     "./array": "./array/index.ts",
     "./cms": "./cms/index.ts",
     "./config": "./config/index.ts",
+    "./consent": "./consent/index.ts",
     "./country": "./country/index.ts",
     "./crypto": "./crypto/index.ts",
     "./date": "./date/index.ts",
