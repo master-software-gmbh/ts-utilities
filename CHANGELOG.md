@@ -1,3 +1,10 @@
+# [1.67.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.66.1...v1.67.0) (2025-05-06)
+
+
+### Features
+
+* add consent module ([3e57711](https://github.com/master-software-gmbh/ts-utilities/commit/3e577116d25e3b67ea15931cd4ba0b81930d5d17))
+
 ## [1.66.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.66.0...v1.66.1) (2025-05-02)
 
 # [1.66.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.65.0...v1.66.0) (2025-05-02)
