@@ -1,3 +1,10 @@
+## [1.69.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.69.1...v1.69.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* latest consent calculation ([602c8dd](https://github.com/master-software-gmbh/ts-utilities/commit/602c8dde33a5ae5aa65138695b10243f8d3ccb25))
+
 ## [1.69.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.69.0...v1.69.1) (2025-05-06)
 
 
