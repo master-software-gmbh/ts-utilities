@@ -1,3 +1,10 @@
+## [1.67.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.0...v1.67.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* export consent module ([7cbfcf0](https://github.com/master-software-gmbh/ts-utilities/commit/7cbfcf0487eca93fad1f3976b016ab5ca58ceedc))
+
 # [1.67.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.66.1...v1.67.0) (2025-05-06)
 
 
