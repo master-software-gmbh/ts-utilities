@@ -34,18 +34,20 @@ export class ConsentService {
   async getLatestConsents(purpose: string, status?: ConsentStatus): Promise<Record<string, Consent>> {
     const consents = await this.repository.byPurpose(purpose).all();
 
-    return consents.reduce((acc: Record<string, Consent>, consent: Consent) => {
+    const latestConsents = consents.reduce((acc: Record<string, Consent>, consent: Consent) => {
       const currentConsent = acc[consent.subject];
 
       if (!currentConsent || currentConsent.createdAt < consent.createdAt) {
-        if (status && consent.status !== status) {
-          delete acc[consent.subject];
-        } else {
-          acc[consent.subject] = consent;
-        }
+        acc[consent.subject] = consent;
       }
 
       return acc;
     }, {});
+
+    if (status) {
+      return Object.fromEntries(Object.entries(latestConsents).filter(([, consent]) => consent.status === status));
+    }
+
+    return latestConsents;
   }
 }
