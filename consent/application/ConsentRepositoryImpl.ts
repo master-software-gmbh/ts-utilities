@@ -57,7 +57,7 @@ export class ConsentRepositoryImpl implements ConsentRepository {
 
   async add(entity: Consent): Promise<Result<void, 'entity_already_exists'>> {
     return this.database.transaction().execute(async (transaction) => {
-      const exists = await this.doesConsentExist(entity.id);
+      const exists = await this.doesConsentExist(transaction, entity.id);
 
       if (exists) {
         return error('entity_already_exists');
@@ -98,8 +98,8 @@ export class ConsentRepositoryImpl implements ConsentRepository {
       .execute();
   }
 
-  private doesConsentExist(id: string): Promise<boolean> {
-    return this.database
+  private doesConsentExist(transaction: Kysely<DB>, id: string): Promise<boolean> {
+    return transaction
       .selectFrom('consent')
       .select('consent.id')
       .where('consent.id', '=', id)
