@@ -1,3 +1,10 @@
+# [1.69.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.68.0...v1.69.0) (2025-05-06)
+
+
+### Features
+
+* add valibot helper function ([8181485](https://github.com/master-software-gmbh/ts-utilities/commit/81814858bfc3874c4903aa0931f38dbf74cf88ad))
+
 # [1.68.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.2...v1.68.0) (2025-05-06)
 
 
