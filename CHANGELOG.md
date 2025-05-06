@@ -1,3 +1,10 @@
+## [1.67.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.1...v1.67.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* use transaction ([0a95c42](https://github.com/master-software-gmbh/ts-utilities/commit/0a95c42f195491c17119e4d877306f48d5132800))
+
 ## [1.67.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.0...v1.67.1) (2025-05-06)
 
 
