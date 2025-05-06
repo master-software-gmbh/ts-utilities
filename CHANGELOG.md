@@ -1,3 +1,10 @@
+# [1.68.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.2...v1.68.0) (2025-05-06)
+
+
+### Features
+
+* return latest consents as a map ([2d73a93](https://github.com/master-software-gmbh/ts-utilities/commit/2d73a9350ab7a432cfef43e67f31143dda975747))
+
 ## [1.67.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.67.1...v1.67.2) (2025-05-06)
 
 
