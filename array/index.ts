@@ -40,6 +40,13 @@ declare global {
     ): Promise<U[]>;
 
     /**
+     * Maps the elements of the array to the value at `key`
+     * @param this
+     * @param key
+     */
+    mapToKey<K extends keyof T>(this: (T & Record<K, unknown>)[], key: K): T[K][];
+
+    /**
      * Calculates the numeric sum of each element's value at `key`
      * @param key
      */
@@ -116,6 +123,10 @@ Array.prototype.compactMapAsync = function <T extends U, U>(
 
     return acc;
   }, Promise.resolve([]));
+};
+
+Array.prototype.mapToKey = function <T, K extends keyof T>(this: (T & Record<K, unknown>)[], key: K): T[K][] {
+  return this.map((element) => element[key]);
 };
 
 Array.prototype.sum = function (key) {
