@@ -1,3 +1,10 @@
+# [1.71.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.70.0...v1.71.0) (2025-05-07)
+
+
+### Features
+
+* add mapToKey function ([9ea3008](https://github.com/master-software-gmbh/ts-utilities/commit/9ea3008bb8953c81389e0cfe724909a6bde18998))
+
 # [1.70.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.69.2...v1.70.0) (2025-05-07)
 
 
