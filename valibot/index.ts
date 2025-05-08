@@ -1,4 +1,4 @@
-import { array, pipe, string, transform, union, type GenericSchema } from 'valibot';
+import { array, optional, pipe, string, transform, union, type GenericSchema } from 'valibot';
 
 export function omitEmptyFile() {
   return transform<File, File | undefined>((file) => (file.size > 0 ? file : undefined));
@@ -10,7 +10,7 @@ export function omitEmptyString() {
 
 export function htmlCheckbox() {
   return pipe(
-    string(),
+    optional(string(), 'off'),
     transform<string, boolean>((value) => value === 'on'),
   );
 }
