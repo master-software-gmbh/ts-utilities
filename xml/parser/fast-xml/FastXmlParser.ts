@@ -1,5 +1,6 @@
 import { loadModule } from '../../../esm';
 import { type Result, error, success } from '../../../result';
+import { XmlNamespaces } from '../../model/namespaces';
 import { XmlAttribute } from '../../model/xml/attribute';
 import { XmlDocument } from '../../model/xml/document';
 import { XmlElement } from '../../model/xml/element';
@@ -9,7 +10,7 @@ import type { FastXmlParserObject, NamespaceMap } from './types';
 
 export class FastXmlParser implements XmlParser {
   private readonly defaultNamespaces: NamespaceMap = {
-    xml: new XmlNamespace('http://www.w3.org/XML/1998/namespace'),
+    xml: new XmlNamespace(XmlNamespaces.Xml),
   };
 
   async parse(xml: string): Promise<Result<XmlDocument, 'invalid_root_element'>> {

@@ -1,4 +1,3 @@
-import type { BaseFactory } from '../../factory/base.ts';
 import { LinkArcroleRefFactory } from '../../factory/link/arcrole-ref.ts';
 import { LinkArcroleTypeFactory } from '../../factory/link/arcrole-type.ts';
 import { LinkCalculationArcFactory } from '../../factory/link/calculation-arc.ts';
@@ -43,6 +42,7 @@ import type { LinkReference } from '../../model/link/reference.ts';
 import type { LinkRoleRef } from '../../model/link/role-ref.ts';
 import type { LinkRoleType } from '../../model/link/role-type.ts';
 import type { LinkUsedOn } from '../../model/link/used-on.ts';
+import { XmlNamespaces } from '../../model/namespaces.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import type { XmlMapperContext } from '../context.ts';
 import type { XmlMapperPlugin } from '../interface.ts';
@@ -73,57 +73,11 @@ type MapperResult =
 
 export class LinkbaseMapperPlugin implements XmlMapperPlugin<MapperResult> {
   async map(element: XmlElement, context: XmlMapperContext): Promise<MapperResult | null> {
-    if (element.namespace?.uri !== 'http://www.xbrl.org/2003/linkbase') {
+    if (element.namespace?.uri !== XmlNamespaces.XbrlLinkbase) {
       return null;
     }
 
-    let factory: BaseFactory<MapperResult, unknown, unknown> | undefined;
-
-    if (element.name === 'linkbaseRef') {
-      factory = new LinkLinkbaseRefFactory();
-    } else if (element.name === 'roleType') {
-      factory = new LinkRoleTypeFactory();
-    } else if (element.name === 'definition') {
-      factory = new LinkDefinitionFactory();
-    } else if (element.name === 'usedOn') {
-      factory = new LinkUsedOnFactory();
-    } else if (element.name === 'linkbase') {
-      factory = new LinkLinkbaseFactory();
-    } else if (element.name === 'roleRef') {
-      factory = new LinkRoleRefFactory();
-    } else if (element.name === 'presentationLink') {
-      factory = new LinkPresentationLinkFactory();
-    } else if (element.name === 'documentation') {
-      factory = new LinkDocumentationFactory();
-    } else if (element.name === 'loc') {
-      factory = new LinkLocFactory();
-    } else if (element.name === 'presentationArc') {
-      factory = new LinkPresentationArcFactory();
-    } else if (element.name === 'arcroleRef') {
-      factory = new LinkArcroleRefFactory();
-    } else if (element.name === 'definitionLink') {
-      factory = new LinkDefinitionLinkFactory();
-    } else if (element.name === 'definitionArc') {
-      factory = new LinkDefinitionArcFactory();
-    } else if (element.name === 'labelLink') {
-      factory = new LinkLabelLinkFactory();
-    } else if (element.name === 'labelArc') {
-      factory = new LinkLabelArcFactory();
-    } else if (element.name === 'label') {
-      factory = new LinkLabelFactory();
-    } else if (element.name === 'calculationLink') {
-      factory = new LinkCalculationLinkFactory();
-    } else if (element.name === 'calculationArc') {
-      factory = new LinkCalculationArcFactory();
-    } else if (element.name === 'referenceLink') {
-      factory = new LinkReferenceLinkFactory();
-    } else if (element.name === 'referenceArc') {
-      factory = new LinkReferenceArcFactory();
-    } else if (element.name === 'reference') {
-      factory = new LinkReferenceFactory();
-    } else if (element.name === 'arcroleType') {
-      factory = new LinkArcroleTypeFactory();
-    }
+    const factory = this.getFactory(element);
 
     if (!factory) {
       return null;
@@ -132,5 +86,54 @@ export class LinkbaseMapperPlugin implements XmlMapperPlugin<MapperResult> {
     const { data = null } = await factory.map(element, context);
 
     return data;
+  }
+
+  private getFactory(element: XmlElement) {
+    switch (element.name) {
+      case 'linkbaseRef':
+        return new LinkLinkbaseRefFactory();
+      case 'roleType':
+        return new LinkRoleTypeFactory();
+      case 'definition':
+        return new LinkDefinitionFactory();
+      case 'usedOn':
+        return new LinkUsedOnFactory();
+      case 'linkbase':
+        return new LinkLinkbaseFactory();
+      case 'roleRef':
+        return new LinkRoleRefFactory();
+      case 'presentationLink':
+        return new LinkPresentationLinkFactory();
+      case 'documentation':
+        return new LinkDocumentationFactory();
+      case 'loc':
+        return new LinkLocFactory();
+      case 'presentationArc':
+        return new LinkPresentationArcFactory();
+      case 'arcroleRef':
+        return new LinkArcroleRefFactory();
+      case 'definitionLink':
+        return new LinkDefinitionLinkFactory();
+      case 'definitionArc':
+        return new LinkDefinitionArcFactory();
+      case 'labelLink':
+        return new LinkLabelLinkFactory();
+      case 'labelArc':
+        return new LinkLabelArcFactory();
+      case 'label':
+        return new LinkLabelFactory();
+      case 'calculationLink':
+        return new LinkCalculationLinkFactory();
+      case 'calculationArc':
+        return new LinkCalculationArcFactory();
+      case 'referenceLink':
+        return new LinkReferenceLinkFactory();
+      case 'referenceArc':
+        return new LinkReferenceArcFactory();
+      case 'reference':
+        return new LinkReferenceFactory();
+      case 'arcroleType':
+        return new LinkArcroleTypeFactory();
+    }
   }
 }

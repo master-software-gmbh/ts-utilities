@@ -1,4 +1,3 @@
-import type { BaseFactory } from '../../factory/base.ts';
 import { XsAnnotationFactory } from '../../factory/xs/annotation.ts';
 import { XsAnyAttributeFactory } from '../../factory/xs/any-attribute.ts';
 import { XsAnyFactory } from '../../factory/xs/any.ts';
@@ -26,6 +25,7 @@ import { XsSimpleContentFactory } from '../../factory/xs/simple-content.ts';
 import { XsSimpleTypeFactory } from '../../factory/xs/simple-type.ts';
 import { XsTotalDigitsFactory } from '../../factory/xs/total-digits.ts';
 import { XsUnionFactory } from '../../factory/xs/union.ts';
+import { XmlNamespaces } from '../../model/namespaces.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import type { XsAnnotation } from '../../model/xs/annotation.ts';
 import type { XsAnyAttribute } from '../../model/xs/any-attribute.ts';
@@ -88,67 +88,11 @@ type MapperResult =
 
 export class XmlSchemaMapperPlugin implements XmlMapperPlugin<MapperResult> {
   async map(element: XmlElement, context: XmlMapperContext): Promise<MapperResult | null> {
-    if (element.namespace?.uri !== 'http://www.w3.org/2001/XMLSchema') {
+    if (element.namespace?.uri !== XmlNamespaces.XmlSchema) {
       return null;
     }
 
-    let factory: BaseFactory<MapperResult, unknown, unknown> | undefined;
-
-    if (element.name === 'schema') {
-      factory = new XsSchemaFactory();
-    } else if (element.name === 'annotation') {
-      factory = new XsAnnotationFactory();
-    } else if (element.name === 'appinfo') {
-      factory = new XsAppinfoFactory();
-    } else if (element.name === 'import') {
-      factory = new XsImportFactory();
-    } else if (element.name === 'element') {
-      factory = new XsElementFactory();
-    } else if (element.name === 'complexType') {
-      factory = new XsComplexTypeFactory();
-    } else if (element.name === 'simpleType') {
-      factory = new XsSimpleTypeFactory();
-    } else if (element.name === 'sequence') {
-      factory = new XsSequenceFactory();
-    } else if (element.name === 'attribute') {
-      factory = new XsAttributeFactory();
-    } else if (element.name === 'attributeGroup') {
-      factory = new XsAttributeGroupFactory();
-    } else if (element.name === 'choice') {
-      factory = new XsChoiceFactory();
-    } else if (element.name === 'include') {
-      factory = new XsIncludeFactory();
-    } else if (element.name === 'restriction') {
-      factory = new XsRestrictionFactory();
-    } else if (element.name === 'documentation') {
-      factory = new XsDocumentationFactory();
-    } else if (element.name === 'simpleContent') {
-      factory = new XsSimpleContentFactory();
-    } else if (element.name === 'extension') {
-      factory = new XsExtensionFactory();
-    } else if (element.name === 'enumeration') {
-      factory = new XsEnumerationFactory();
-    } else if (element.name === 'pattern') {
-      factory = new XsPatternFactory();
-    } else if (element.name === 'minLength') {
-      factory = new XsMinLengthFactory();
-    } else if (element.name === 'maxLength') {
-      factory = new XsMaxLengthFactory();
-    } else if (element.name === 'totalDigits') {
-      factory = new XsTotalDigitsFactory();
-    } else if (element.name === 'union') {
-      factory = new XsUnionFactory();
-    } else if (element.name === 'minExclusive') {
-      factory = new XsMinExclusiveFactory();
-    } else if (element.name === 'maxExclusive') {
-      factory = new XsMaxExclusiveFactory();
-    } else if (element.name === 'any') {
-      factory = new XsAnyFactory();
-    } else if (element.name === 'anyAttribute') {
-      factory = new XsAnyAttributeFactory();
-    } else if (element.name === 'complexContent') {
-      factory = new XsComplexContentFactory();
-    }
+    const factory = this.getFactory(element);
 
     if (!factory) {
       return null;
@@ -157,5 +101,64 @@ export class XmlSchemaMapperPlugin implements XmlMapperPlugin<MapperResult> {
     const { data = null } = await factory.map(element, context);
 
     return data;
+  }
+
+  private getFactory(element: XmlElement) {
+    switch (element.name) {
+      case 'schema':
+        return new XsSchemaFactory();
+      case 'annotation':
+        return new XsAnnotationFactory();
+      case 'appinfo':
+        return new XsAppinfoFactory();
+      case 'import':
+        return new XsImportFactory();
+      case 'element':
+        return new XsElementFactory();
+      case 'complexType':
+        return new XsComplexTypeFactory();
+      case 'simpleType':
+        return new XsSimpleTypeFactory();
+      case 'sequence':
+        return new XsSequenceFactory();
+      case 'attribute':
+        return new XsAttributeFactory();
+      case 'attributeGroup':
+        return new XsAttributeGroupFactory();
+      case 'choice':
+        return new XsChoiceFactory();
+      case 'include':
+        return new XsIncludeFactory();
+      case 'restriction':
+        return new XsRestrictionFactory();
+      case 'documentation':
+        return new XsDocumentationFactory();
+      case 'simpleContent':
+        return new XsSimpleContentFactory();
+      case 'extension':
+        return new XsExtensionFactory();
+      case 'enumeration':
+        return new XsEnumerationFactory();
+      case 'pattern':
+        return new XsPatternFactory();
+      case 'minLength':
+        return new XsMinLengthFactory();
+      case 'maxLength':
+        return new XsMaxLengthFactory();
+      case 'totalDigits':
+        return new XsTotalDigitsFactory();
+      case 'union':
+        return new XsUnionFactory();
+      case 'minExclusive':
+        return new XsMinExclusiveFactory();
+      case 'maxExclusive':
+        return new XsMaxExclusiveFactory();
+      case 'any':
+        return new XsAnyFactory();
+      case 'anyAttribute':
+        return new XsAnyAttributeFactory();
+      case 'complexContent':
+        return new XsComplexContentFactory();
+    }
   }
 }

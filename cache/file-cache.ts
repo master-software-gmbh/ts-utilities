@@ -1,8 +1,8 @@
-import { existsSync, mkdirSync } from 'fs';
-import type { Cache } from './interface';
-import { readdir, unlink, writeFile, readFile } from 'fs/promises';
-import { resolve } from 'path';
 import { createHash } from 'crypto';
+import { existsSync, mkdirSync } from 'fs';
+import { resolve } from 'path';
+import { readFile, readdir, unlink, writeFile } from 'fs/promises';
+import type { Cache } from './interface';
 
 export class FileCache implements Cache<string> {
   private readonly folder: string;

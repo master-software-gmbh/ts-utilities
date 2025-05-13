@@ -1,5 +1,6 @@
 import type { BaseFactory } from '../../factory/base.ts';
 import type { GenLink } from '../../model/gen/link.ts';
+import { XmlNamespaces } from '../../model/namespaces.ts';
 import { GenLinkFactory } from '../../model/ref/link.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import type { XmlMapperContext } from '../context.ts';
@@ -9,7 +10,7 @@ type MapperResult = GenLink;
 
 export class GenMapperPlugin implements XmlMapperPlugin<MapperResult> {
   async map(element: XmlElement, context: XmlMapperContext): Promise<MapperResult | null> {
-    if (element.namespace?.uri !== 'http://xbrl.org/2008/generic') {
+    if (element.namespace?.uri !== XmlNamespaces.XbrlGeneric) {
       return null;
     }
 

@@ -1,5 +1,5 @@
-import type { BaseFactory } from '../../factory/base.ts';
 import { XsStringFactory } from '../../factory/xs/string.ts';
+import { XmlNamespaces } from '../../model/namespaces.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import type { XsString } from '../../model/xs/string.ts';
 import type { XmlMapperContext } from '../context.ts';
@@ -9,33 +9,11 @@ type MapperResult = XsString;
 
 export class RefMapperPlugin implements XmlMapperPlugin<MapperResult> {
   async map(element: XmlElement, context: XmlMapperContext): Promise<MapperResult | null> {
-    if (element.namespace?.uri !== 'http://www.xbrl.org/2006/ref') {
+    if (element.namespace?.uri !== XmlNamespaces.XbrlRef) {
       return null;
     }
 
-    let factory: BaseFactory<MapperResult, unknown, unknown> | undefined;
-
-    if (element.name === 'Name') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Article') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'IssueDate') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Paragraph') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Subparagraph') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Clause') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Subclause') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Number') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Note') {
-      factory = new XsStringFactory();
-    } else if (element.name === 'Publisher') {
-      factory = new XsStringFactory();
-    }
+    const factory = this.getFactory(element);
 
     if (!factory) {
       return null;
@@ -44,5 +22,21 @@ export class RefMapperPlugin implements XmlMapperPlugin<MapperResult> {
     const { data = null } = await factory.map(element, context);
 
     return data;
+  }
+
+  private getFactory(element: XmlElement) {
+    switch (element.name) {
+      case 'Name':
+      case 'Article':
+      case 'IssueDate':
+      case 'Paragraph':
+      case 'Subparagraph':
+      case 'Clause':
+      case 'Subclause':
+      case 'Number':
+      case 'Note':
+      case 'Publisher':
+        return new XsStringFactory();
+    }
   }
 }
