@@ -1,22 +1,26 @@
 import type { XmlAttribute } from './attribute';
+import type { XmlNamespaceDeclaration } from './declaration';
 import type { XmlNamespace } from './namespace';
 
 export class XmlElement {
   name: string;
   attributes: XmlAttribute[];
-  namespace: XmlNamespace | null;
   children: (XmlElement | string)[];
+  namespace: XmlNamespace | undefined;
+  declarations: XmlNamespaceDeclaration[];
 
   constructor(
     name: string,
-    namespace: XmlNamespace | null,
+    namespace: XmlNamespace | undefined,
     attributes: XmlAttribute[],
     children: (XmlElement | string)[],
+    declarations: XmlNamespaceDeclaration[] = [],
   ) {
     this.name = name;
     this.children = children;
     this.namespace = namespace;
     this.attributes = attributes;
+    this.declarations = declarations;
   }
 
   getAttributes(): Record<string, string> {

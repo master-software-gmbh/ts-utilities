@@ -123,15 +123,15 @@ export class FastXmlParser implements XmlParser {
     source: string,
     namespaces: NamespaceMap,
     allowDefaultNamespace?: boolean,
-  ): [string, XmlNamespace | null] {
+  ): [string, XmlNamespace | undefined] {
     const [prefix, name] = source.split(':');
 
-    let namespace: XmlNamespace | null = null;
+    let namespace: XmlNamespace | undefined;
 
     if (prefix && name && prefix !== 'xmlns') {
-      namespace = namespaces[prefix] || null;
+      namespace = namespaces[prefix];
     } else if (allowDefaultNamespace) {
-      namespace = namespaces[''] || null;
+      namespace = namespaces[''];
     }
 
     return [name ?? source, namespace];

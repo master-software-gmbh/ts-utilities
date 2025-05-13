@@ -79,10 +79,7 @@ Array.prototype.isNotEmpty = function <T>(this: unknown[]): this is T & MinLengt
   return this.length > 0;
 };
 
-Array.prototype.lengthAtLeast = function <T, L extends number>(
-  this: T[],
-  length: L,
-): this is T & MinLength<T[], L> {
+Array.prototype.lengthAtLeast = function <T, L extends number>(this: T[], length: L): this is T & MinLength<T[], L> {
   return this.length >= length;
 };
 
@@ -146,5 +143,3 @@ Array.prototype.max = function () {
 
   return null;
 };
-
-export {};
