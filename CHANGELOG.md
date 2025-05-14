@@ -1,3 +1,10 @@
+# [1.73.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.72.0...v1.73.0) (2025-05-14)
+
+
+### Features
+
+* add rounding helper functions ([443f1f7](https://github.com/master-software-gmbh/ts-utilities/commit/443f1f790e81341b295676d99187f2f46c150d2e))
+
 # [1.72.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.71.0...v1.72.0) (2025-05-08)
 
 
