@@ -1,3 +1,10 @@
+# [1.74.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.73.0...v1.74.0) (2025-05-14)
+
+
+### Features
+
+* add nlp package ([14cf5a3](https://github.com/master-software-gmbh/ts-utilities/commit/14cf5a3097722e525ffa935920126413083fe6f9))
+
 # [1.73.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.72.0...v1.73.0) (2025-05-14)
 
 
