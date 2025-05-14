@@ -4,6 +4,7 @@ import type { XmlMapperContext } from '../../mapper/context.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import { type Attributes, type Children, XsElement } from '../../model/xs/element.ts';
 import { BaseFactory } from '../base.ts';
+import { booleanString } from '../../../valibot/index.ts';
 
 export class XsElementFactory extends BaseFactory<XsElement, Children, Attributes> {
   protected override readonly childSchema = array(unknown());
@@ -14,11 +15,11 @@ export class XsElementFactory extends BaseFactory<XsElement, Children, Attribute
     name: optional(string()),
     fixed: optional(string()),
     default: optional(string()),
+    abstract: booleanString(false),
+    nillable: booleanString(false),
     substitutionGroup: optional(string()),
     form: optional(picklist(['qualified', 'unqualified'])),
     minOccurs: optional(pipe(string(), transform<string, number>(Number)), '1'),
-    abstract: optional(pipe(string(), transform<string, boolean>(Boolean)), 'false'),
-    nillable: optional(pipe(string(), transform<string, boolean>(Boolean)), 'false'),
     final: fallback(union([literal('#all'), array(picklist(['extension', 'restriction']))]), []),
     maxOccurs: optional(union([literal('unbounded'), pipe(string(), transform<string, number>(Number))]), '1'),
     block: fallback(union([literal('#all'), array(picklist(['extension', 'restriction', 'substitution']))]), []),

@@ -1,19 +1,7 @@
-import type { XmlElement } from '../xml/element';
+import { XsString } from '../xs/string';
 
 export type Children = [
   'handelsrechtlich' | 'handelsrechtlicher Einzelabschluss' | 'handelsrechtlicher Konzernabschluss',
 ];
 
-export class HgbrefTradeAccountingNotPermittedFor {
-  element: XmlElement;
-  children: Children;
-
-  constructor(element: XmlElement, children: Children) {
-    this.element = element;
-    this.children = children;
-  }
-
-  get value() {
-    return this.children[0];
-  }
-}
+export class HgbrefTradeAccountingNotPermittedFor extends XsString<Children> {}

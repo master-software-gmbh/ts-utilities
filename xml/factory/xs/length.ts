@@ -4,13 +4,14 @@ import type { XmlMapperContext } from '../../mapper/context.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import { type Attributes, type Children, XsLength } from '../../model/xs/length.ts';
 import { BaseFactory } from '../base.ts';
+import { booleanString } from '../../../valibot/index.ts';
 
 export class XsLengthFactory extends BaseFactory<XsLength, Children, Attributes> {
   protected override readonly childSchema = array(unknown());
   protected override readonly attributeSchema = object({
     id: optional(string()),
+    fixed: booleanString(false),
     value: pipe(string(), transform(Number)),
-    fixed: optional(pipe(string(), transform<string, boolean>(Boolean)), 'false'),
   });
 
   override async map(element: XmlElement, context: XmlMapperContext) {

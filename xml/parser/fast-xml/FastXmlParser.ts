@@ -2,6 +2,7 @@ import { loadModule } from '../../../esm';
 import { type Result, error, success } from '../../../result';
 import { XmlNamespaces } from '../../model/namespaces';
 import { XmlAttribute } from '../../model/xml/attribute';
+import { XmlNamespaceDeclaration } from '../../model/xml/declaration';
 import { XmlDocument } from '../../model/xml/document';
 import { XmlElement } from '../../model/xml/element';
 import { XmlNamespace } from '../../model/xml/namespace';
@@ -68,6 +69,12 @@ export class FastXmlParser implements XmlParser {
 
     const newNamespaces = this.getNewNamespaces(namespaces, attributeData);
 
+    const declarations: XmlNamespaceDeclaration[] = [];
+
+    for (const [key, value] of Object.entries(newNamespaces)) {
+      declarations.push(new XmlNamespaceDeclaration(key, value));
+    }
+
     // Get the element's attributes
 
     const attributes: XmlAttribute[] = [];
@@ -91,7 +98,7 @@ export class FastXmlParser implements XmlParser {
 
     const children = tagContent.map((child) => this.parseElement(child, newNamespaces));
 
-    return new XmlElement(name, namespace, attributes, children);
+    return new XmlElement(name, namespace, attributes, children, declarations);
   }
 
   private getNewNamespaces(namespaces: NamespaceMap, attributes: Record<string, string>): NamespaceMap {

@@ -1,3 +1,4 @@
+import type { QualifiedName } from '../qualified-name';
 import type { XmlAttribute } from './attribute';
 import type { XmlNamespaceDeclaration } from './declaration';
 import type { XmlNamespace } from './namespace';
@@ -23,6 +24,14 @@ export class XmlElement {
     this.declarations = declarations;
   }
 
+  matchesName(name: QualifiedName): boolean {
+    if (this.namespace) {
+      return this.name === name.name && this.namespace.uri === name.namespace.uri;
+    }
+
+    return this.name === name.name;
+  }
+
   getAttributes(): Record<string, string> {
     return Object.fromEntries(this.attributes.map(({ name, value }) => [name, value]));
   }
@@ -35,6 +44,10 @@ export class XmlElement {
 
       return attr.name === name;
     });
+  }
+
+  getNamespace(prefix: string): XmlNamespace | undefined {
+    return this.declarations.find((decl) => decl.prefix === prefix)?.namespace;
   }
 
   toString(): string {

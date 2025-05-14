@@ -4,13 +4,14 @@ import type { XmlMapperContext } from '../../mapper/context.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import { type Attributes, type Children, XsMaxLength } from '../../model/xs/max-length.ts';
 import { BaseFactory } from '../base.ts';
+import { booleanString } from '../../../valibot/index.ts';
 
 export class XsMaxLengthFactory extends BaseFactory<XsMaxLength, Children, Attributes> {
   protected override readonly childSchema = array(unknown());
   protected override readonly attributeSchema = object({
     id: optional(string()),
+    fixed: booleanString(false),
     value: pipe(string(), transform(Number)),
-    fixed: optional(pipe(string(), transform<string, boolean>(Boolean)), 'false'),
   });
 
   override async map(element: XmlElement, context: XmlMapperContext) {

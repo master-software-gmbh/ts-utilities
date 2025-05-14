@@ -7,7 +7,7 @@ import { XmlSchemaMapperPlugin } from '../mapper/xs/plugin';
 import { XsSchema } from '../model/xs/schema';
 import { XsSchemaNormalizer } from '../normalizer';
 import type { XmlNormalizerContext } from '../normalizer/context';
-import type { NormalizedSchema } from '../normalizer/schema';
+import type { NormalizedSchemaSet } from '../normalizer/schema-set';
 import { FastXmlParser } from '../parser/fast-xml/FastXmlParser';
 import { XmlMixedResolver } from '../resolver/mixed-resolver';
 
@@ -23,7 +23,7 @@ export class XmlSchemaLoader {
     this.resolver = new XmlMixedResolver(cache);
   }
 
-  async load(): Promise<Result<NormalizedSchema, 'invalid_source'>> {
+  async load(): Promise<Result<NormalizedSchemaSet, 'invalid_source'>> {
     const result = await this.loadSchema(this.filepath);
 
     if (!result.success || !(result.data.schema instanceof XsSchema)) {

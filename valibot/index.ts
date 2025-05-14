@@ -15,6 +15,20 @@ export function htmlCheckbox() {
   );
 }
 
+export function booleanString(fallback?: boolean) {
+  if (fallback === undefined) {
+    return pipe(
+      string(),
+      transform<string, boolean>((value) => value === 'true'),
+    );
+  }
+
+  return pipe(
+    optional(string(), fallback.toString()),
+    transform<string, boolean>((value) => value === 'true'),
+  );
+}
+
 export function maybeArray<T>(schema: GenericSchema<T>) {
   return union([
     array(schema),

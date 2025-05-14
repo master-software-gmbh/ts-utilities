@@ -1,7 +1,24 @@
 import type { XmlElement } from '../xml/element';
 import type { XsAnnotation } from './annotation';
+import type { XsAnyAttribute } from './any-attribute';
+import type { XsAttribute } from './attribute';
+import type { XsAttributeGroup } from './attribute-group';
+import type { XsChoice } from './choice';
+import type { XsComplexContent } from './complex-content';
+import type { XsSequence } from './sequence';
+import type { XsSimpleContent } from './simple-content';
 
-export type Children = (XsAnnotation | unknown)[];
+export type Children = (
+  | XsAnnotation
+  | XsSimpleContent
+  | XsComplexContent
+  | XsChoice
+  | XsSequence
+  | XsAttribute
+  | XsAttributeGroup
+  | XsAnyAttribute
+  | unknown
+)[];
 
 export type Attributes = {
   id?: string;

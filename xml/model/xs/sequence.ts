@@ -1,8 +1,10 @@
 import type { XmlElement } from '../xml/element';
 import type { XsAnnotation } from './annotation';
+import type { XsAny } from './any';
+import type { XsChoice } from './choice';
 import type { XsElement } from './element';
 
-export type Children = (XsAnnotation | XsElement | XsSequence | unknown)[];
+export type Children = (XsAnnotation | XsElement | XsSequence | XsChoice | XsAny | unknown)[];
 
 export type Attributes = {
   id?: string;
