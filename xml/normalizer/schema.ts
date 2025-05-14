@@ -4,14 +4,18 @@ export class NormalizedSchema {
   private readonly schemas: {
     schema: XsSchema;
     schemaLocation: string;
-    targetNamespace: string;
+    targetNamespace?: string;
   }[];
 
   constructor() {
     this.schemas = [];
   }
 
-  addSchema(schema: XsSchema, schemaLocation: string, targetNamespace: string) {
+  hasSchema(schemaLocation: string): boolean {
+    return this.schemas.some((schema) => schema.schemaLocation === schemaLocation);
+  }
+
+  addSchema(schema: XsSchema, schemaLocation: string, targetNamespace?: string) {
     this.schemas.push({ schema, schemaLocation, targetNamespace });
   }
 
@@ -24,14 +28,14 @@ export class NormalizedSchema {
     return this.schemas.find((schema) => schema.schemaLocation === schemaLocation)?.schema;
   }
 
-  getSchemas(namespace?: string): XsSchema[] {
+  getSchemas(targetNamespace?: string): XsSchema[] {
     return this.schemas
       .filter((schema) => {
-        if (!namespace) {
+        if (!targetNamespace) {
           return true;
         }
 
-        return schema.targetNamespace === namespace;
+        return schema.targetNamespace === targetNamespace;
       })
       .map((schema) => schema.schema);
   }

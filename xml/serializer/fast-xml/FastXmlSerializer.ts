@@ -1,4 +1,5 @@
 import { loadModule } from '../../../esm';
+import { logger } from '../../../logging';
 import type { XmlAttribute } from '../../model/xml/attribute';
 import type { XmlNamespaceDeclaration } from '../../model/xml/declaration';
 import type { XmlDocument } from '../../model/xml/document';
@@ -92,6 +93,10 @@ export class FastXmlSerializer implements XmlSerializer {
       if (prefix) {
         return `${prefix}:${element.name}`;
       }
+
+      logger.warn('Missing namespace prefix', {
+        namespace: element.namespace.uri,
+      });
     }
 
     return element.name;

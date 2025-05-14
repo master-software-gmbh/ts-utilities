@@ -13,6 +13,7 @@ import { XsEnumerationFactory } from '../../factory/xs/enumeration.ts';
 import { XsExtensionFactory } from '../../factory/xs/extension.ts';
 import { XsImportFactory } from '../../factory/xs/import.ts';
 import { XsIncludeFactory } from '../../factory/xs/include.ts';
+import { XsLengthFactory } from '../../factory/xs/length.ts';
 import { XsMaxExclusiveFactory } from '../../factory/xs/max-exclusive.ts';
 import { XsMaxLengthFactory } from '../../factory/xs/max-length.ts';
 import { XsMinExclusiveFactory } from '../../factory/xs/min-exclusive.ts';
@@ -42,6 +43,7 @@ import type { XsEnumeration } from '../../model/xs/enumeration.ts';
 import type { XsExtension } from '../../model/xs/extension.ts';
 import type { XsImport } from '../../model/xs/import.ts';
 import type { XsInclude } from '../../model/xs/include.ts';
+import type { XsLength } from '../../model/xs/length.ts';
 import type { XsMaxExclusive } from '../../model/xs/max-exclusive.ts';
 import type { XsMaxLength } from '../../model/xs/max-length.ts';
 import type { XsMinExclusive } from '../../model/xs/min-exclusive.ts';
@@ -84,7 +86,8 @@ type MapperResult =
   | XsMaxExclusive
   | XsAny
   | XsAnyAttribute
-  | XsComplexContent;
+  | XsComplexContent
+  | XsLength;
 
 export class XmlSchemaMapperPlugin implements XmlMapperPlugin<MapperResult> {
   async map(element: XmlElement, context: XmlMapperContext): Promise<MapperResult | null> {
@@ -159,6 +162,8 @@ export class XmlSchemaMapperPlugin implements XmlMapperPlugin<MapperResult> {
         return new XsAnyAttributeFactory();
       case 'complexContent':
         return new XsComplexContentFactory();
+      case 'length':
+        return new XsLengthFactory();
     }
   }
 }

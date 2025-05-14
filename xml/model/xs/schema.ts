@@ -55,6 +55,10 @@ export class XsSchema {
     return this.children.filter((child): child is XsElement => child instanceof XsElement);
   }
 
+  getElements(predicate: (element: XsElement) => boolean): XsElement[] {
+    return this.elements.filter(predicate);
+  }
+
   getElementById(id: string): XsElement | undefined {
     return this.elements.find((element) => element.id === id);
   }
