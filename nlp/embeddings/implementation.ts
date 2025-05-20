@@ -3,7 +3,7 @@ import type { TextEmbeddingService } from './interface';
 import { typedFetch } from '../../http';
 import { error, type Result } from '../../result';
 
-export class TextEmbeddingServiceImpl implements TextEmbeddingService {
+export class TextEmbeddingServiceImpl implements TextEmbeddingService<TextEmbeddingServiceConfig> {
   private readonly config: TextEmbeddingServiceConfig;
 
   constructor(config: TextEmbeddingServiceConfig) {
