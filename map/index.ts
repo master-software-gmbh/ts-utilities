@@ -40,3 +40,5 @@ export function mapFields<T extends Record<string, unknown[]>>(data: T): Array<{
 
   return result;
 }
+
+export * from './mergeable';

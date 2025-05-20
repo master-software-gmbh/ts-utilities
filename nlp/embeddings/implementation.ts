@@ -10,17 +10,23 @@ export class TextEmbeddingServiceImpl implements TextEmbeddingService {
     this.config = config;
   }
 
-  async generateEmbeddings(text: string): Promise<Result<TextEmbeddingOutput, 'generation_failed'>> {
+  async generateEmbeddings(
+    text: string,
+    config?: TextEmbeddingServiceConfig,
+  ): Promise<Result<TextEmbeddingOutput, 'generation_failed'>> {
+    const mergedConfig = this.config.merge(config);
+
     const body = {
       text: text,
     };
 
     const result = await typedFetch(
-      this.config.url,
+      mergedConfig.url,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+        signal: AbortSignal.timeout(mergedConfig.timeout),
       },
       (response) => response.json(),
       TextEmbeddingOutputSchema,
