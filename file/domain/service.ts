@@ -1,3 +1,4 @@
+import { error, success, type Result } from '../../result';
 import type { Folder, StorageBackend } from '../../storage';
 import { FileEntity, type FileInput } from './file';
 import type { FileRepository } from './FileRepository';
@@ -34,5 +35,18 @@ export class FileService {
     }
 
     return file;
+  }
+
+  async deleteFile(id: string): Promise<Result<void, 'file_not_found'>> {
+    const { data: file } = await this.fileRepository.findById(id);
+
+    if (!file) {
+      return error('file_not_found');
+    }
+
+    await this.backend.deleteFile(file.key);
+    await this.fileRepository.delete(file.id);
+
+    return success();
   }
 }
