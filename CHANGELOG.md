@@ -1,3 +1,10 @@
+## [1.76.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.76.0...v1.76.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* config type ([ae0442a](https://github.com/master-software-gmbh/ts-utilities/commit/ae0442ae376f3e37b4c6eadff9a01342e59317a0))
+
 # [1.76.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.75.0...v1.76.0) (2025-05-20)
 
 
