@@ -1,3 +1,10 @@
+## [1.78.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.0...v1.78.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* resolve circular reference ([0d8bf1d](https://github.com/master-software-gmbh/ts-utilities/commit/0d8bf1dd38e39b02cbebc894fa05dabf710f696b))
+
 # [1.78.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.77.0...v1.78.0) (2025-05-20)
 
 
