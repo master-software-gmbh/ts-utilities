@@ -12,7 +12,7 @@ export class TextEmbeddingServiceImpl implements TextEmbeddingService<TextEmbedd
 
   async generateEmbeddings(
     text: string,
-    config?: TextEmbeddingServiceConfig,
+    config?: Partial<TextEmbeddingServiceConfig>,
   ): Promise<Result<TextEmbeddingOutput, 'generation_failed'>> {
     const mergedConfig = this.config.merge(config);
 
