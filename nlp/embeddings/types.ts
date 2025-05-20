@@ -1,4 +1,4 @@
-import { array, number, object, type InferOutput } from 'valibot';
+import { type InferOutput, array, number, object } from 'valibot';
 import { Mergeable } from '../../map/mergeable';
 
 export class TextEmbeddingServiceConfig extends Mergeable<TextEmbeddingServiceConfig> {

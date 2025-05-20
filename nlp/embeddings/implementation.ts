@@ -1,7 +1,7 @@
-import { TextEmbeddingOutputSchema, type TextEmbeddingOutput, type TextEmbeddingServiceConfig } from './types';
-import type { TextEmbeddingService } from './interface';
 import { typedFetch } from '../../http';
-import { error, type Result } from '../../result';
+import { type Result, error } from '../../result';
+import type { TextEmbeddingService } from './interface';
+import { type TextEmbeddingOutput, TextEmbeddingOutputSchema, type TextEmbeddingServiceConfig } from './types';
 
 export class TextEmbeddingServiceImpl implements TextEmbeddingService<TextEmbeddingServiceConfig> {
   private readonly config: TextEmbeddingServiceConfig;

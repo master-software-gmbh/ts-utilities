@@ -18,7 +18,7 @@ export async function typedFetch<T, S extends StandardSchemaV1<unknown, T>>(
   let response: Response;
 
   try {
-   response = await fetch(url, init);
+    response = await fetch(url, init);
   } catch (e) {
     return error('request_failed');
   }
