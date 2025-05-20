@@ -1,3 +1,10 @@
+# [1.76.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.75.0...v1.76.0) (2025-05-20)
+
+
+### Features
+
+* update interface ([9828241](https://github.com/master-software-gmbh/ts-utilities/commit/9828241084825c62622adb04f690eaf6a7939510))
+
 # [1.75.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.74.0...v1.75.0) (2025-05-20)
 
 
