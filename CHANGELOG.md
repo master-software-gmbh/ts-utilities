@@ -1,3 +1,10 @@
+# [1.77.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.76.1...v1.77.0) (2025-05-20)
+
+
+### Features
+
+* handle response errors in typed fetch ([2e9b1f0](https://github.com/master-software-gmbh/ts-utilities/commit/2e9b1f02afd48311cf4ec7adf45ab204d0eb605a))
+
 ## [1.76.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.76.0...v1.76.1) (2025-05-20)
 
 
