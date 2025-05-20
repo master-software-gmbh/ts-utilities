@@ -15,7 +15,13 @@ export async function typedFetch<T, S extends StandardSchemaV1<unknown, T>>(
   decode: (response: Response) => Promise<unknown>,
   schema: S,
 ): Promise<Result<StandardSchemaV1.InferOutput<S>, 'request_failed' | 'decoding_failed' | 'parsing_failed'>> {
-  const response = await fetch(url, init);
+  let response: Response;
+
+  try {
+   response = await fetch(url, init);
+  } catch (e) {
+    return error('request_failed');
+  }
 
   if (!response.ok) {
     const responseText = await response.text();
