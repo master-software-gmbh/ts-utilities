@@ -1,10 +1,10 @@
-import { array, type GenericSchema, lazy, literal, object, string } from 'valibot';
+import { array, type GenericSchema, literal, object, string } from 'valibot';
 import { StandardBlock } from './standard-block';
 
 export const PlainTextBlockSchema: GenericSchema<PlainTextBlock> = object({
   id: string(),
   type: literal('plain-text'),
-  children: lazy(() => array(StandardBlock)),
+  children: array(StandardBlock),
   content: object({
     text: string(),
   }),

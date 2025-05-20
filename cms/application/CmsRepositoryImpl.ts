@@ -1,14 +1,31 @@
-import type { Kysely, Selectable } from 'kysely';
+import type { ExpressionWrapper, Kysely, Selectable } from 'kysely';
 import { type Result, error, success } from '../../result';
 import type { DB } from '../database/types';
 import type { CmsRepository } from '../domain/CmsRepository';
 import { CmsBlock } from '../domain/model/CmsBlock';
+import type { ExpressionBuilder } from 'kysely';
+import type { SqlBool } from 'kysely';
+import '../../array';
+
+type WhereBuilder = (eb: ExpressionBuilder<DB, 'cms_block'>) => ExpressionWrapper<DB, 'cms_block', SqlBool>;
 
 export class CmsRepositoryImpl implements CmsRepository {
   private readonly database: Kysely<DB>;
+  private readonly whereBuilder: WhereBuilder;
 
-  constructor(database: Kysely<DB>) {
+  constructor(database: Kysely<DB>, whereBuilder?: WhereBuilder) {
     this.database = database;
+    this.whereBuilder = whereBuilder ?? ((eb) => eb.and([]));
+  }
+
+  byParent(parentId: string | null) {
+    return new CmsRepositoryImpl(this.database, (eb) => {
+      if (parentId === null) {
+        return eb.and([this.whereBuilder(eb), eb('cms_block.parent_id', 'is', null)]);
+      }
+
+      return eb.and([this.whereBuilder(eb), eb('cms_block.parent_id', '=', parentId)]);
+    });
   }
 
   async add(entity: CmsBlock): Promise<Result<void, 'entity_already_exists'>> {
@@ -129,7 +146,7 @@ export class CmsRepositoryImpl implements CmsRepository {
             'cms_block.parent_id',
             'cms_block.document_id',
           ])
-          .where('id', '=', id)
+          .where('cms_block.id', '=', id)
           .unionAll(
             database
               .selectFrom('cms_block')
@@ -162,6 +179,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     return this.database
       .selectFrom('cms_block')
       .selectAll()
+      .where(this.whereBuilder)
       .orderBy('cms_block.position', 'asc')
       .execute()
       .then((rows) => rows.filter((row) => row.parent_id === null).map((root) => this.mapDocument(root, rows)));

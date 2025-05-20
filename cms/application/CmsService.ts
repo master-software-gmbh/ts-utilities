@@ -43,7 +43,7 @@ export class CmsService<BlockSchema extends BaseBlock> {
   }
 
   async getRootBlocks(): Promise<BlockSchema[]> {
-    const documents = await this.repository.all();
+    const documents = await this.repository.byParent(null).all();
     const promises = documents.map((document) => this.validateDocument(document));
     const results = await Promise.all(promises);
 

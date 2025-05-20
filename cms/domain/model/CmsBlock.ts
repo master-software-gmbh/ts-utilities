@@ -1,21 +1,21 @@
 import { randomUUID } from 'crypto';
 
-export class CmsBlock<T = unknown> {
-  content: T;
+export class CmsBlock {
+  content: unknown;
   id: string;
   type: string;
   position: number;
   documentId: string;
-  children: CmsBlock<T>[];
+  children: CmsBlock[];
   parentId: string | null;
 
   constructor(data: {
-    content: T;
+    content: unknown;
     id?: string;
     type: string;
     position: number;
     documentId: string;
-    children?: CmsBlock<T>[];
+    children?: CmsBlock[];
     parentId?: string | null;
   }) {
     this.type = data.type;
