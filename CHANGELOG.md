@@ -1,3 +1,10 @@
+# [1.75.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.74.0...v1.75.0) (2025-05-20)
+
+
+### Features
+
+* add mergeable config ([632aca8](https://github.com/master-software-gmbh/ts-utilities/commit/632aca878738ca6658e89019dd50821ebe0ab54c))
+
 # [1.74.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.73.0...v1.74.0) (2025-05-14)
 
 
