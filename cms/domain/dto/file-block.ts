@@ -1,10 +1,10 @@
-import { array, type GenericSchema, literal, nonEmpty, object, pipe, string } from 'valibot';
+import { type GenericSchema, array, lazy, literal, nonEmpty, object, pipe, string } from 'valibot';
 import { StandardBlock } from './standard-block';
 
 export const FileBlockSchema: GenericSchema<FileBlock> = object({
   id: string(),
   type: literal('file-ref'),
-  children: array(StandardBlock),
+  children: lazy(() => array(StandardBlock)),
   content: object({
     id: pipe(string(), nonEmpty()),
     name: pipe(string()),

@@ -1,10 +1,10 @@
 import type { ExpressionWrapper, Kysely, Selectable } from 'kysely';
+import type { ExpressionBuilder } from 'kysely';
+import type { SqlBool } from 'kysely';
 import { type Result, error, success } from '../../result';
 import type { DB } from '../database/types';
 import type { CmsRepository } from '../domain/CmsRepository';
 import { CmsBlock } from '../domain/model/CmsBlock';
-import type { ExpressionBuilder } from 'kysely';
-import type { SqlBool } from 'kysely';
 import '../../array';
 
 type WhereBuilder = (eb: ExpressionBuilder<DB, 'cms_block'>) => ExpressionWrapper<DB, 'cms_block', SqlBool>;

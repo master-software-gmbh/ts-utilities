@@ -3,6 +3,7 @@ import {
   type InferOutput,
   array,
   boolean,
+  lazy,
   literal,
   number,
   object,
@@ -24,7 +25,7 @@ export type RichTextAttributeType = RichTextSpan['attributes'][string];
 export const RichTextBlockSchema: GenericSchema<RichTextBlock> = object({
   id: string(),
   type: literal('rich-text'),
-  children: array(StandardBlock),
+  children: lazy(() => array(StandardBlock)),
   content: object({
     text: pipe(string()),
     spans: pipe(array(SpanSchema)),
