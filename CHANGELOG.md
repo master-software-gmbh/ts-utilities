@@ -1,3 +1,11 @@
+# [1.79.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.1...v1.79.0) (2025-05-21)
+
+
+### Features
+
+* add embedding generation to cms service ([bfe867b](https://github.com/master-software-gmbh/ts-utilities/commit/bfe867babd2244073cdc22b0015d0d7da785c308))
+* improve error handling ([49b528c](https://github.com/master-software-gmbh/ts-utilities/commit/49b528c3f90f3d84f0d53020eefbc7430d164bad))
+
 ## [1.78.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.0...v1.78.1) (2025-05-20)
 
 
