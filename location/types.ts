@@ -29,25 +29,28 @@ const StructuredFormat = object({
 });
 
 export const PlacesAutocompleteResponse = object({
-  suggestions: array(
-    union([
-      object({
-        placePrediction: object({
-          place: string(),
-          placeId: string(),
-          text: FormattableText,
-          types: array(string()),
-          structuredFormat: StructuredFormat,
-          distanceMeters: optional(number()),
+  suggestions: optional(
+    array(
+      union([
+        object({
+          placePrediction: object({
+            place: string(),
+            placeId: string(),
+            text: FormattableText,
+            types: array(string()),
+            structuredFormat: StructuredFormat,
+            distanceMeters: optional(number()),
+          }),
         }),
-      }),
-      object({
-        queryPrediction: object({
-          text: FormattableText,
-          structuredFormat: StructuredFormat,
+        object({
+          queryPrediction: object({
+            text: FormattableText,
+            structuredFormat: StructuredFormat,
+          }),
         }),
-      }),
-    ]),
+      ]),
+    ),
+    [],
   ),
 });
 

@@ -20,6 +20,10 @@ export function minutesToSeconds(minutes: number) {
   return minutes * 60;
 }
 
+export function secondsToMilliseconds(seconds: number) {
+  return seconds * 1000;
+}
+
 /**
  * Ensures that the execution takes at least the specified amount of time.
  * @param operation operation to run

@@ -118,6 +118,22 @@ export class CmsMigrations implements MigrationProvider {
           });
         },
       },
+      '0006_update_cms_block_table': {
+        up(db) {
+          return db.schema.alterTable('cms_block').addColumn('text', 'text').execute();
+        },
+        down(db) {
+          return db.schema.alterTable('cms_block').dropColumn('text').execute();
+        },
+      },
+      '0007_update_cms_block_table': {
+        up(db) {
+          return db.schema.alterTable('cms_block').addColumn('embedding', 'blob').execute();
+        },
+        down(db) {
+          return db.schema.alterTable('cms_block').dropColumn('embedding').execute();
+        },
+      },
     };
   }
 }

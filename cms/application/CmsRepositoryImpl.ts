@@ -1,11 +1,13 @@
-import type { ExpressionWrapper, Kysely, Selectable } from 'kysely';
-import type { ExpressionBuilder } from 'kysely';
+import { type ExpressionWrapper, type Kysely, sql } from 'kysely';
+import type { ExpressionBuilder, RawBuilder } from 'kysely';
 import type { SqlBool } from 'kysely';
 import { type Result, error, success } from '../../result';
 import type { DB } from '../database/types';
 import type { CmsRepository } from '../domain/CmsRepository';
-import { CmsBlock } from '../domain/model/CmsBlock';
 import '../../array';
+import { logger } from '../../logging';
+import type { StandardBlock } from '../domain/model/StandardBlock';
+import { CmsRepositoryMapper } from './CmsRepositoryMapper';
 
 type WhereBuilder = (eb: ExpressionBuilder<DB, 'cms_block'>) => ExpressionWrapper<DB, 'cms_block', SqlBool>;
 
@@ -28,7 +30,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async add(entity: CmsBlock): Promise<Result<void, 'entity_already_exists'>> {
+  async add(entity: StandardBlock): Promise<Result<void, 'entity_already_exists'>> {
     return this.database.transaction().execute(async (transaction) => {
       const exists = await this.doesBlockExist(transaction, entity.id);
 
@@ -42,7 +44,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async update(entity: CmsBlock): Promise<Result<void, 'entity_doesnt_exist'>> {
+  async update(entity: StandardBlock): Promise<Result<void, 'entity_doesnt_exist'>> {
     return this.database.transaction().execute(async (transaction) => {
       const exists = await this.doesBlockExist(transaction, entity.id);
 
@@ -56,21 +58,31 @@ export class CmsRepositoryImpl implements CmsRepository {
     });
   }
 
-  async save(entity: CmsBlock): Promise<void> {
+  async save(entity: StandardBlock): Promise<void> {
     await this.database.transaction().execute(async (transaction) => {
       await this.upsert(transaction, entity);
     });
   }
 
-  private async upsert(transaction: Kysely<DB>, entity: CmsBlock): Promise<void> {
-    const handleBlock = async (block: CmsBlock) => {
+  private async upsert(transaction: Kysely<DB>, entity: StandardBlock): Promise<void> {
+    const handleBlock = async (block: StandardBlock) => {
       // Upsert block itself
+
+      let embedding: RawBuilder<Buffer> | undefined | null;
+
+      if (block.embedding) {
+        embedding = sql`vec_normalize(vec_f32(${block.embedding}))`;
+      } else if (block.embedding === null) {
+        embedding = null;
+      }
 
       await transaction
         .insertInto('cms_block')
         .values({
           id: block.id,
           type: block.type,
+          text: block.text,
+          embedding: embedding,
           position: block.position,
           parent_id: block.parentId,
           document_id: block.documentId,
@@ -79,6 +91,8 @@ export class CmsRepositoryImpl implements CmsRepository {
         .onConflict((oc) =>
           oc.doUpdateSet({
             type: block.type,
+            text: block.text,
+            embedding: embedding,
             position: block.position,
             parent_id: block.parentId,
             document_id: block.documentId,
@@ -133,7 +147,7 @@ export class CmsRepositoryImpl implements CmsRepository {
     return success();
   }
 
-  async ofId(id: string): Promise<Result<CmsBlock, 'entity_doesnt_exist'>> {
+  async ofId(id: string): Promise<Result<StandardBlock, 'entity_doesnt_exist'>> {
     const result = await this.database
       .withRecursive('blocks', (database) =>
         database
@@ -141,9 +155,11 @@ export class CmsRepositoryImpl implements CmsRepository {
           .select([
             'cms_block.id',
             'cms_block.type',
+            'cms_block.text',
             'cms_block.content',
             'cms_block.position',
             'cms_block.parent_id',
+            'cms_block.embedding',
             'cms_block.document_id',
           ])
           .where('cms_block.id', '=', id)
@@ -154,9 +170,11 @@ export class CmsRepositoryImpl implements CmsRepository {
               .select([
                 'cms_block.id',
                 'cms_block.type',
+                'cms_block.text',
                 'cms_block.content',
                 'cms_block.position',
                 'cms_block.parent_id',
+                'cms_block.embedding',
                 'cms_block.document_id',
               ]),
           ),
@@ -172,17 +190,28 @@ export class CmsRepositoryImpl implements CmsRepository {
       return error('entity_doesnt_exist');
     }
 
-    return success(this.mapDocument(root, result));
+    const entity = CmsRepositoryMapper.mapToEntity(root, result);
+
+    if (!entity) {
+      logger.warn('Entity mapping failed', {
+        id: id,
+      });
+
+      return error('entity_doesnt_exist');
+    }
+
+    return success(entity);
   }
 
-  async all(): Promise<CmsBlock[]> {
-    return this.database
+  async all(): Promise<StandardBlock[]> {
+    const rows = await this.database
       .selectFrom('cms_block')
       .selectAll()
       .where(this.whereBuilder)
       .orderBy('cms_block.position', 'asc')
-      .execute()
-      .then((rows) => rows.filter((row) => row.parent_id === null).map((root) => this.mapDocument(root, rows)));
+      .execute();
+
+    return rows.compactMap((root) => CmsRepositoryMapper.mapToEntity(root, rows));
   }
 
   private async doesBlockExist(transaction: Kysely<DB>, id: string): Promise<boolean> {
@@ -192,23 +221,5 @@ export class CmsRepositoryImpl implements CmsRepository {
       .where('cms_block.id', '=', id)
       .execute()
       .then((rows) => rows.length > 0);
-  }
-
-  private mapDocument(root: Selectable<DB['cms_block']>, rows: Selectable<DB['cms_block']>[]): CmsBlock {
-    const getChildren = (id: string) => rows.filter((block) => block.parent_id === id);
-
-    const mapBlock: (r: Selectable<DB['cms_block']>) => CmsBlock = (row: Selectable<DB['cms_block']>) => {
-      return new CmsBlock({
-        id: row.id,
-        type: row.type,
-        content: row.content,
-        position: row.position,
-        parentId: row.parent_id,
-        documentId: row.document_id,
-        children: getChildren(row.id).map(mapBlock),
-      });
-    };
-
-    return mapBlock(root);
   }
 }

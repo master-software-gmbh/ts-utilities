@@ -12,9 +12,11 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 export interface CmsBlock {
   content: string;
   document_id: string;
+  embedding: Buffer | null;
   id: string;
   parent_id: string | null;
   position: Generated<number>;
+  text: string | null;
   type: string;
 }
 
