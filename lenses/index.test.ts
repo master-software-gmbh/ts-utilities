@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'bun:test';
-import { createLens, get, set, compose, index as indexLens, byId } from './index';
+import { describe, expect, it } from 'bun:test';
+import { byId, compose, createLens, get, index as indexLens, set } from './index';
 
 describe('createLens', () => {
   it('should get and set a field on an object', () => {

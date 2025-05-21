@@ -1,11 +1,11 @@
 import { logger } from '../../logging';
-import { type Result, error, success } from '../../result';
-import type { CmsRepository } from '../domain/CmsRepository';
 import type { TextEmbeddingService } from '../../nlp';
+import { type Result, error, success } from '../../result';
 import { secondsToMilliseconds } from '../../time';
+import type { CmsRepository } from '../domain/CmsRepository';
+import { DocumentBlock, FileBlock, PlainTextBlock, RichTextBlock } from '../domain/model';
 import type { StandardBlock } from '../domain/model/StandardBlock';
 import type { StandardBlockDto } from './dto';
-import { DocumentBlock, FileBlock, PlainTextBlock, RichTextBlock } from '../domain/model';
 
 export class CmsService {
   private readonly repository: CmsRepository;

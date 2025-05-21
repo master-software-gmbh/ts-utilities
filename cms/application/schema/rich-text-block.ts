@@ -11,8 +11,8 @@ import {
   string,
   union,
 } from 'valibot';
-import { StandardBlockSchema } from './standard-block';
 import type { RichTextBlockDto } from '../dto';
+import { StandardBlockSchema } from './standard-block';
 
 export const RichTextContentSchema = object({
   spans: pipe(

@@ -1,6 +1,6 @@
 import { type GenericSchema, array, lazy, literal, nonEmpty, object, pipe, string } from 'valibot';
-import { StandardBlockSchema } from './standard-block';
 import type { FileBlockDto } from '../dto';
+import { StandardBlockSchema } from './standard-block';
 
 export const FileContentSchema = object({
   id: pipe(string(), nonEmpty()),

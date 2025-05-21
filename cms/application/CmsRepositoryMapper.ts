@@ -1,13 +1,13 @@
 import type { Selectable } from 'kysely';
-import type { DB } from '../database/types';
-import type { StandardBlock } from '../domain/model/StandardBlock';
-import { PlainTextBlock } from '../domain/model/PlainTextBlock';
 import { parse } from 'valibot';
-import { RichTextBlock } from '../domain/model/RichTextBlock';
-import { FileBlock } from '../domain/model/FileBlock';
-import { DocumentBlock } from '../domain/model/DocumentBlock';
-import { PlainTextContentSchema, RichTextContentSchema, FileContentSchema, DocumentContentSchema } from './schema';
 import { logger } from '../../logging';
+import type { DB } from '../database/types';
+import { DocumentBlock } from '../domain/model/DocumentBlock';
+import { FileBlock } from '../domain/model/FileBlock';
+import { PlainTextBlock } from '../domain/model/PlainTextBlock';
+import { RichTextBlock } from '../domain/model/RichTextBlock';
+import type { StandardBlock } from '../domain/model/StandardBlock';
+import { DocumentContentSchema, FileContentSchema, PlainTextContentSchema, RichTextContentSchema } from './schema';
 
 export class CmsRepositoryMapper {
   static mapToEntity(root: Selectable<DB['cms_block']>, rows: Selectable<DB['cms_block']>[]): StandardBlock | null {

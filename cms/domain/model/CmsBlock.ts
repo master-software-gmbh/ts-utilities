@@ -34,6 +34,6 @@ export abstract class CmsBlock {
   }
 
   isFileBlock(): this is FileBlock {
-    return this.type === 'file-ref'
+    return this.type === 'file-ref';
   }
 }
