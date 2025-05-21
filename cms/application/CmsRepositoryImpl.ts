@@ -7,6 +7,7 @@ import type { CmsRepository } from '../domain/CmsRepository';
 import '../../array';
 import type { StandardBlock } from '../domain/model/StandardBlock';
 import { CmsRepositoryMapper } from './CmsRepositoryMapper';
+import { logger } from '../../logging';
 
 type WhereBuilder = (eb: ExpressionBuilder<DB, 'cms_block'>) => ExpressionWrapper<DB, 'cms_block', SqlBool>;
 
@@ -189,19 +190,28 @@ export class CmsRepositoryImpl implements CmsRepository {
       return error('entity_doesnt_exist');
     }
 
-    return success(CmsRepositoryMapper.mapToEntity(root, result));
+    const entity = CmsRepositoryMapper.mapToEntity(root, result);
+
+    if (!entity) {
+      logger.warn('Entity mapping failed', {
+        id: id,
+      });
+
+      return error('entity_doesnt_exist');
+    }
+
+    return success(entity);
   }
 
   async all(): Promise<StandardBlock[]> {
-    return this.database
+    const rows = await this.database
       .selectFrom('cms_block')
       .selectAll()
       .where(this.whereBuilder)
       .orderBy('cms_block.position', 'asc')
-      .execute()
-      .then((rows) =>
-        rows.filter((row) => row.parent_id === null).compactMap((root) => CmsRepositoryMapper.mapToEntity(root, rows)),
-      );
+      .execute();
+
+    return rows.compactMap((root) => CmsRepositoryMapper.mapToEntity(root, rows));
   }
 
   private async doesBlockExist(transaction: Kysely<DB>, id: string): Promise<boolean> {

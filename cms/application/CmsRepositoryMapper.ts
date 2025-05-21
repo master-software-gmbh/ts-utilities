@@ -7,12 +7,14 @@ import { RichTextBlock } from '../domain/model/RichTextBlock';
 import { FileBlock } from '../domain/model/FileBlock';
 import { DocumentBlock } from '../domain/model/DocumentBlock';
 import { PlainTextContentSchema, RichTextContentSchema, FileContentSchema, DocumentContentSchema } from './schema';
+import { logger } from '../../logging';
 
 export class CmsRepositoryMapper {
   static mapToEntity(root: Selectable<DB['cms_block']>, rows: Selectable<DB['cms_block']>[]): StandardBlock | null {
     const getChildren = (id: string) => rows.filter((block) => block.parent_id === id);
 
-    const mapBlock: (r: Selectable<DB['cms_block']>) => StandardBlock | null = (row: Selectable<DB['cms_block']>) => {
+    type MapBlock = (row: Selectable<DB['cms_block']>) => StandardBlock | null;
+    const mapBlock: MapBlock = (row: Selectable<DB['cms_block']>) => {
       if (row.type === 'plain-text') {
         const data = parse(PlainTextContentSchema, row.content);
 
@@ -68,6 +70,11 @@ export class CmsRepositoryMapper {
           children: getChildren(row.id).compactMap(mapBlock),
         });
       }
+
+      logger.warn('Unknown block type', {
+        id: row.id,
+        type: row.type,
+      });
 
       return null;
     };
