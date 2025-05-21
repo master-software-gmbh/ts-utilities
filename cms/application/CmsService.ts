@@ -1,53 +1,106 @@
-import type { StandardSchemaV1 } from '@standard-schema/spec';
-import { getDotPath } from '@standard-schema/utils';
 import { logger } from '../../logging';
-import { type Result, error, success, successful } from '../../result';
+import { type Result, error, success } from '../../result';
 import type { CmsRepository } from '../domain/CmsRepository';
-import type { BaseBlock } from '../domain/dto';
-import { CmsBlock } from '../domain/model/CmsBlock';
+import type { TextEmbeddingService } from '../../nlp';
+import { secondsToMilliseconds } from '../../time';
+import type { StandardBlock } from '../domain/model/StandardBlock';
+import type { StandardBlockDto } from './dto';
+import { DocumentBlock, FileBlock, PlainTextBlock, RichTextBlock } from '../domain/model';
 
-export class CmsService<BlockSchema extends BaseBlock> {
+export class CmsService {
   private readonly repository: CmsRepository;
-  private readonly schema: StandardSchemaV1<BlockSchema>;
+  private readonly embeddingService?: TextEmbeddingService<unknown>;
+  private debouncedEmbeddingUpdates: Map<string, NodeJS.Timeout>;
+  private readonly EMBEDDING_UPDATE_TIMEOUT = secondsToMilliseconds(10);
 
-  constructor(repository: CmsRepository, schema: StandardSchemaV1<BlockSchema>) {
-    this.schema = schema;
+  constructor(repository: CmsRepository, embeddingService?: TextEmbeddingService<unknown>) {
     this.repository = repository;
+    this.embeddingService = embeddingService;
+    this.debouncedEmbeddingUpdates = new Map();
   }
 
-  async saveBlock(document: BlockSchema): Promise<Result<void, 'validation_failed'>> {
-    const result = await this.validateDocument(document);
+  async saveDto(dto: StandardBlockDto) {
+    const model = this.mapDto(dto, dto.id, null, 0);
+    return this.saveBlock(model);
+  }
 
-    if (!result.success) {
-      logger.error('Failed to validate CMS document', { id: document.id });
-      return error('validation_failed');
+  private mapDto(
+    block: StandardBlockDto,
+    documentId: string,
+    parentId: string | null,
+    position: number,
+  ): StandardBlock {
+    const children = block.children.map((child, index) => this.mapDto(child, documentId, block.id, index));
+
+    if (block.type === 'document') {
+      return new DocumentBlock({
+        type: 'document',
+        id: block.id,
+        documentId,
+        parentId,
+        position,
+        children,
+        content: block.content,
+      });
     }
 
-    const model = this.mapDto(document, document.id, null, 0);
+    if (block.type === 'plain-text') {
+      return new PlainTextBlock({
+        type: 'plain-text',
+        id: block.id,
+        documentId,
+        parentId,
+        position,
+        children,
+        content: block.content,
+      });
+    }
 
-    await this.repository.save(model);
+    if (block.type === 'rich-text') {
+      return new RichTextBlock({
+        type: 'rich-text',
+        id: block.id,
+        documentId,
+        parentId,
+        position,
+        children,
+        content: block.content,
+      });
+    }
 
-    logger.info('Saved CMS document', { id: document.id });
+    return new FileBlock({
+      type: 'file-ref',
+      id: block.id,
+      documentId,
+      parentId,
+      position,
+      children,
+      content: block.content,
+    });
+  }
+
+  async saveBlock(block: StandardBlock): Promise<Result<void, 'validation_failed'>> {
+    await this.repository.save(block);
+
+    logger.info('Saved CMS document', { id: block.id });
+
+    this.debounceUpdateBlockEmbedding(block.id);
 
     return success();
   }
 
-  async getBlockById(id: string): Promise<Result<BlockSchema, 'document_not_found' | 'validation_failed'>> {
+  async getBlockById(id: string): Promise<Result<StandardBlock, 'document_not_found' | 'validation_failed'>> {
     const result = await this.repository.ofId(id);
 
     if (!result.success) {
       return error('document_not_found');
     }
 
-    return this.validateDocument(result.data);
+    return result;
   }
 
-  async getRootBlocks(): Promise<BlockSchema[]> {
-    const documents = await this.repository.byParent(null).all();
-    const promises = documents.map((document) => this.validateDocument(document));
-    const results = await Promise.all(promises);
-
-    return successful(results);
+  async getRootBlocks(): Promise<StandardBlock[]> {
+    return this.repository.byParent(null).all();
   }
 
   async deleteBlocks(rootId: string): Promise<Result<void, 'document_not_found'>> {
@@ -62,30 +115,44 @@ export class CmsService<BlockSchema extends BaseBlock> {
     return success();
   }
 
-  private mapDto(block: BaseBlock, documentId: string, parentId: string | null, position: number): CmsBlock {
-    const children = block.children.map((child, index) => this.mapDto(child, documentId, block.id, index));
-
-    return new CmsBlock({
-      id: block.id,
-      type: block.type,
-      children: children,
-      position: position,
-      parentId: parentId,
-      documentId: documentId,
-      content: block.content,
-    });
-  }
-
-  private async validateDocument(document: BaseBlock): Promise<Result<BlockSchema, 'validation_failed'>> {
-    const result = await this.schema['~standard'].validate(document);
-
-    if (result.issues) {
-      const paths = result.issues.map((issue) => getDotPath(issue));
-      logger.error('Document validation failed', { id: document.id, paths });
-
-      return error('validation_failed');
+  private debounceUpdateBlockEmbedding(id: string) {
+    if (this.debouncedEmbeddingUpdates.has(id)) {
+      clearTimeout(this.debouncedEmbeddingUpdates.get(id));
     }
 
-    return success(result.value);
+    const timeout = setTimeout(() => {
+      this.updateBlockEmbedding(id);
+      this.debouncedEmbeddingUpdates.delete(id);
+    }, this.EMBEDDING_UPDATE_TIMEOUT);
+
+    this.debouncedEmbeddingUpdates.set(id, timeout);
+  }
+
+  async updateBlockEmbedding(
+    id: string,
+  ): Promise<Result<void, 'missing_dependency' | 'block_not_found' | 'embedding_failed'>> {
+    if (!this.embeddingService) {
+      return error('missing_dependency');
+    }
+
+    const { data: block } = await this.getBlockById(id);
+
+    if (!block) {
+      return error('block_not_found');
+    }
+
+    const { data: embedding } = await this.embeddingService.generateEmbeddings(block.text);
+
+    if (!embedding) {
+      return error('embedding_failed');
+    }
+
+    block.embedding = new Float32Array(embedding.embedding);
+
+    await this.repository.save(block);
+
+    logger.info('Updated CMS document embedding', { id: block.id });
+
+    return success();
   }
 }
