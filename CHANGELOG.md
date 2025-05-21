@@ -1,3 +1,10 @@
+# [1.80.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.79.0...v1.80.0) (2025-05-21)
+
+
+### Features
+
+* add distance helper for sqlite ([e2bca83](https://github.com/master-software-gmbh/ts-utilities/commit/e2bca83b50de802ffaed4da1ec09bee7a4189b82))
+
 # [1.79.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.1...v1.79.0) (2025-05-21)
 
 
