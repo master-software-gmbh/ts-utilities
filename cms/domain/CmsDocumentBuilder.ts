@@ -3,7 +3,7 @@ import type { DocumentBlockDto, FileBlockDto, RichTextBlockDto, StandardBlockDto
 
 export class CmsDocumentBuilder {
   private title = '';
-  private blocks: StandardBlockDto[] = [];
+  private readonly blocks: StandardBlockDto[] = [];
 
   build(): DocumentBlockDto {
     const id = randomUUID();
