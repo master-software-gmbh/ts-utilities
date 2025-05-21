@@ -36,31 +36,21 @@ export function compose<OuterWhole, OuterPartInnerWhole, InnerPart>(
   };
 }
 
-export function index<Whole extends Array<unknown>>(index: number): Lens<Whole, Whole[number]> {
+export function index<Whole extends Array<unknown>>(
+  index: number | ((array: Whole) => number),
+): Lens<Whole, Whole[number]> {
   return {
     get(array) {
-      return array[index] as Whole[number];
+      const i = typeof index === 'function' ? index(array) : index;
+      return array[i];
     },
     set(array, value) {
-      const copy = [...array];
-      copy[index] = value;
-      return copy;
+      const i = typeof index === 'function' ? index(array) : index;
+      return array.map((item, j) => (j === i ? value : item)) as Whole;
     },
   };
 }
 
 export function byId<Whole extends { id: string }[]>(id: string): Lens<Whole, Whole[number]> {
-  return {
-    get(array) {
-      return array.find((item) => item.id === id) as Whole[number];
-    },
-    set(array, value) {
-      const copy = [...array];
-      const index = copy.findIndex((item) => item.id === value.id);
-      if (index !== -1) {
-        copy[index] = value;
-      }
-      return copy;
-    },
-  };
+  return index((array) => array.findIndex((item) => item.id === id));
 }
