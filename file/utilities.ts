@@ -69,6 +69,7 @@ export const MimeTypeToFileExtension: {
 export async function createZipFile(
   sourceFiles: { filename: string; content: string }[],
 ): Promise<Result<Uint8Array, 'missing_dependency'>> {
+  // @ts-ignore optional dependency
   const { data: JSZip } = await loadModule<typeof import('jszip')>('jszip');
 
   if (!JSZip) {
@@ -94,6 +95,7 @@ export async function createZipFile(
  * @param destination path to the destination directory where the files will be extracted.
  */
 export async function extractZipFile(path: string, destination: string): Promise<Result<void, 'missing_dependency'>> {
+  // @ts-ignore optional dependency
   const { data: JSZip } = await loadModule<typeof import('jszip')>('jszip');
 
   if (!JSZip) {
