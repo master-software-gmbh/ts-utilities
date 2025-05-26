@@ -30,3 +30,5 @@ export async function getRedirectMiddleware() {
     return next();
   });
 }
+
+export * from './middleware/sValidator';
