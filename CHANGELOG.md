@@ -1,3 +1,11 @@
+# [1.81.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.80.1...v1.81.0) (2025-05-26)
+
+
+### Features
+
+* add automatic speech recognition service ([47ecf2d](https://github.com/master-software-gmbh/ts-utilities/commit/47ecf2d21c9a4549f91bb1c7b4d054aa37e19559))
+* add custom sValidator middleware ([3290c4f](https://github.com/master-software-gmbh/ts-utilities/commit/3290c4f7b57d8d09c212f0c454c0b21d5ad58a19))
+
 ## [1.80.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.80.0...v1.80.1) (2025-05-22)
 
 # [1.80.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.79.0...v1.80.0) (2025-05-21)
