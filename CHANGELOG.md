@@ -1,3 +1,10 @@
+# [1.82.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.81.0...v1.82.0) (2025-05-28)
+
+
+### Features
+
+* add image transformation service ([412f8f2](https://github.com/master-software-gmbh/ts-utilities/commit/412f8f2a370258fe50548923faa4b8279e917c22))
+
 # [1.81.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.80.1...v1.81.0) (2025-05-26)
 
 
