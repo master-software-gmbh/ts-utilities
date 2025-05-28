@@ -53,11 +53,11 @@ export async function withConstantTime<T>(operation: () => Promise<T>, minDurati
  * @param wait delay in milliseconds
  */
 export function debounce<T extends Array<unknown>, U>(callback: (...args: T) => U, wait: number) {
-  let timeoutId: number | undefined;
+  let timeoutId: Timer | undefined;
 
   return (...args: T) => {
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       callback(...args);
     }, wait);
   };

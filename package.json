@@ -8,13 +8,14 @@
     "valibot": "^1.1.0"
   },
   "devDependencies": {
-    "@types/bun": "1.2.10",
+    "@types/bun": "1.2.2",
     "@types/mjml": "^4.7.4",
     "hono": "^4.7.10",
     "jszip": "^3.10.1",
     "kysely": "^0.28.2",
     "kysely-codegen": "^0.18.5",
     "mjml": "^4.15.3",
+    "sharp": "^0.34.2",
     "stripe": "^18.1.1",
     "typescript": "^5.8.3"
   },
@@ -23,7 +24,8 @@
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
     "kysely-codegen": "^0.18.0",
-    "mjml": "^4.15.3"
+    "mjml": "^4.15.3",
+    "sharp": "^0.34.2"
   },
   "exports": {
     "./array": "./array/index.ts",
@@ -42,6 +44,7 @@
     "./hono": "./hono/index.ts",
     "./http": "./http/index.ts",
     "./hubspot": "./hubspot/index.ts",
+    "./image": "./image/index.ts",
     "./interface": "./interface/index.ts",
     "./json": "./json/index.ts",
     "./kysely": "./kysely/index.ts",
@@ -79,6 +82,9 @@
       "optional": true
     },
     "mjml": {
+      "optional": true
+    },
+    "sharp": {
       "optional": true
     },
     "stripe": {

@@ -9,8 +9,8 @@ import type { StandardBlockDto } from './dto';
 
 export class CmsService {
   private readonly repository: CmsRepository;
+  private readonly debouncedEmbeddingUpdates: Map<string, Timer>;
   private readonly embeddingService?: TextEmbeddingService<unknown>;
-  private readonly debouncedEmbeddingUpdates: Map<string, NodeJS.Timeout>;
   private readonly EMBEDDING_UPDATE_TIMEOUT = secondsToMilliseconds(10);
 
   constructor(repository: CmsRepository, embeddingService?: TextEmbeddingService<unknown>) {

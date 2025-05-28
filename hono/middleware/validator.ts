@@ -1,4 +1,4 @@
-import type { Env } from 'bun';
+import type { Env } from 'hono';
 import type { ValidationTargets, Context, TypedResponse, MiddlewareHandler } from 'hono';
 import { getCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
@@ -8,12 +8,14 @@ type ValidationTargetByMethod<M> = M extends 'get' | 'head' // GET and HEAD requ
   ? Exclude<keyof ValidationTargets, ValidationTargetKeysWithBody>
   : keyof ValidationTargets;
 
-export type ValidationFunction<InputType, OutputType, E extends Env = {}, P extends string = string> = (
-  value: InputType,
-  c: Context<E, P>,
-) => OutputType | Response | Promise<OutputType> | Promise<Response>;
+export type ValidationFunction<
+  InputType,
+  OutputType,
+  E extends Env = Record<string, never>,
+  P extends string = string,
+> = (value: InputType, c: Context<E, P>) => OutputType | Response | Promise<OutputType> | Promise<Response>;
 
-type ExcludeResponseType<T> = T extends Response & TypedResponse<any> ? never : T;
+type ExcludeResponseType<T> = T extends Response & TypedResponse<unknown> ? never : T;
 
 const jsonRegex = /^application\/([a-z-\.]+\+)?json(;\s*[a-zA-Z0-9\-]+\=([^;]+))*$/;
 const multipartRegex = /^multipart\/form-data(;\s?boundary=[a-zA-Z0-9'"()+_,\-./:=?]+)?$/;
@@ -47,7 +49,7 @@ export const validator = <
     };
     out: { [K in U]: OutputTypeExcludeResponseType };
   },
-  E extends Env = any,
+  E extends Env = Record<string, never>,
 >(
   target: U,
   validationFunc: ValidationFunction<unknown extends InputType ? ValidationTargets[U] : InputType, OutputType, E, P2>,

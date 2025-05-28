@@ -1,13 +1,11 @@
 import { typedFetch } from '../../http';
 import { type Result, error } from '../../result';
-import { secondsToMilliseconds } from '../../time';
 import type { AutomaticSpeechRecognitionService } from './interface';
 import {
   type AutomaticSpeechRecognitionOutput,
   AutomaticSpeechRecognitionOutputSchema,
-  AutomaticSpeechRecognitionServiceConfig,
+  type AutomaticSpeechRecognitionServiceConfig,
 } from './types';
-import { readFileSync } from 'fs';
 
 export class AutomaticSpeechRecognitionServiceImpl implements AutomaticSpeechRecognitionService {
   private readonly config: AutomaticSpeechRecognitionServiceConfig;
@@ -16,7 +14,9 @@ export class AutomaticSpeechRecognitionServiceImpl implements AutomaticSpeechRec
     this.config = config;
   }
 
-  async transcribeAudio(data: Buffer<ArrayBufferLike>): Promise<Result<AutomaticSpeechRecognitionOutput, 'transcription_failed'>> {
+  async transcribeAudio(
+    data: Buffer<ArrayBufferLike>,
+  ): Promise<Result<AutomaticSpeechRecognitionOutput, 'transcription_failed'>> {
     const formData = new FormData();
     formData.append('audio', new Blob([data]));
 
