@@ -6,4 +6,6 @@ export interface ImageTransformationService {
     source: ReadableStream,
     options: ImageTransformationOptions,
   ): Promise<Result<ReadableStream, 'missing_dependencies'>>;
+
+  overlay(source: ReadableStream, overlay: string): Promise<Result<ReadableStream, 'missing_dependencies'>>;
 }
