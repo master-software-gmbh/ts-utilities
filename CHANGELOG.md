@@ -1,3 +1,15 @@
+# [1.83.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.82.0...v1.83.0) (2025-05-31)
+
+
+### Features
+
+* add async and cache modules ([3203e0d](https://github.com/master-software-gmbh/ts-utilities/commit/3203e0d187f2719ecdfca053cd5e917840e36485))
+* add xbrl module ([6ffb2a4](https://github.com/master-software-gmbh/ts-utilities/commit/6ffb2a441b6509f8810d2a3426a0f89c692b4484))
+* add xml module ([9927a7f](https://github.com/master-software-gmbh/ts-utilities/commit/9927a7f93b209a2f109d8e7a0723af21491e0064))
+* add xml serializer ([bb5bb45](https://github.com/master-software-gmbh/ts-utilities/commit/bb5bb45e3581d323fd377aedf4ceeb71edd078fc))
+* add xs:length element, fix schema normalization ([65184cc](https://github.com/master-software-gmbh/ts-utilities/commit/65184cc615d76b1a8f60e56b8dc6a79663e167b7))
+* wip ([47d3fcd](https://github.com/master-software-gmbh/ts-utilities/commit/47d3fcd7cdb7f432f055227cea775e349e2d5a7f))
+
 # [1.82.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.81.0...v1.82.0) (2025-05-28)
 
 
