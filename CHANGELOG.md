@@ -1,3 +1,10 @@
+# [1.84.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.83.1...v1.84.0) (2025-05-31)
+
+
+### Features
+
+* generalize omitEmptyString helper for arrays ([2133c78](https://github.com/master-software-gmbh/ts-utilities/commit/2133c78ee426e2514fd522fccf7f0ea2da7c01e1))
+
 ## [1.83.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.83.0...v1.83.1) (2025-05-31)
 
 # [1.83.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.82.0...v1.83.0) (2025-05-31)
