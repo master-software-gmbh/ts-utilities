@@ -4,8 +4,17 @@ export function omitEmptyFile() {
   return transform<File, File | undefined>((file) => (file.size > 0 ? file : undefined));
 }
 
-export function omitEmptyString() {
-  return transform<string, string | undefined>((value) => (value.length === 0 ? undefined : value));
+type Input = string | string[];
+type Output<I> = I extends string ? string | undefined : I extends string[] ? string[] : never;
+
+export function omitEmptyString<T extends Input>() {
+  return transform<T, Output<T>>((value) => {
+    if (Array.isArray(value)) {
+      return value.filter((item) => item.length > 0) as Output<T>;
+    }
+
+    return (value.length === 0 ? undefined : (value as string | undefined)) as Output<T>;
+  });
 }
 
 export function htmlCheckbox() {
