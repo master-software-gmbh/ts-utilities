@@ -2,6 +2,7 @@ export * from './loader/dtd';
 export * from './factory/xbrl/taxonomy';
 export * from './model/xbrl/taxonomy';
 export * from './model/xbrl/item';
+export * from './model/xbrl/tuple';
 export * from './model/xbrli/fact';
 export * from './model/xbrli/unit';
 export * from './model/xbrli/measure';

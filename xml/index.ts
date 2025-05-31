@@ -7,3 +7,4 @@ export * from './visitor/schema/xs-to-xml';
 export * from './model/xml/document';
 export * from './model/xml/namespace';
 export * from './model/xml/element';
+export * from './model/xs/element';
