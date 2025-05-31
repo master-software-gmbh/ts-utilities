@@ -1,3 +1,100 @@
+# [1.82.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.81.0...v1.82.0) (2025-05-28)
+
+
+### Features
+
+* add image transformation service ([412f8f2](https://github.com/master-software-gmbh/ts-utilities/commit/412f8f2a370258fe50548923faa4b8279e917c22))
+
+# [1.81.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.80.1...v1.81.0) (2025-05-26)
+
+
+### Features
+
+* add automatic speech recognition service ([47ecf2d](https://github.com/master-software-gmbh/ts-utilities/commit/47ecf2d21c9a4549f91bb1c7b4d054aa37e19559))
+* add custom sValidator middleware ([3290c4f](https://github.com/master-software-gmbh/ts-utilities/commit/3290c4f7b57d8d09c212f0c454c0b21d5ad58a19))
+
+## [1.80.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.80.0...v1.80.1) (2025-05-22)
+
+# [1.80.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.79.0...v1.80.0) (2025-05-21)
+
+
+### Features
+
+* add distance helper for sqlite ([e2bca83](https://github.com/master-software-gmbh/ts-utilities/commit/e2bca83b50de802ffaed4da1ec09bee7a4189b82))
+
+# [1.79.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.1...v1.79.0) (2025-05-21)
+
+
+### Features
+
+* add embedding generation to cms service ([bfe867b](https://github.com/master-software-gmbh/ts-utilities/commit/bfe867babd2244073cdc22b0015d0d7da785c308))
+* improve error handling ([49b528c](https://github.com/master-software-gmbh/ts-utilities/commit/49b528c3f90f3d84f0d53020eefbc7430d164bad))
+
+## [1.78.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.78.0...v1.78.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* resolve circular reference ([0d8bf1d](https://github.com/master-software-gmbh/ts-utilities/commit/0d8bf1dd38e39b02cbebc894fa05dabf710f696b))
+
+# [1.78.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.77.0...v1.78.0) (2025-05-20)
+
+
+### Features
+
+* add parent filter to cms repository ([6baa187](https://github.com/master-software-gmbh/ts-utilities/commit/6baa1878801b7a8249a30ac9b05b5977888aa1cf))
+* add valibot helper ([52a502a](https://github.com/master-software-gmbh/ts-utilities/commit/52a502ab46c8fb4c41bdc1e6ed08e879582be443))
+* update file module ([d9e1c29](https://github.com/master-software-gmbh/ts-utilities/commit/d9e1c2978265260eb970dfc5062e2c1b0f464eba))
+
+# [1.77.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.76.1...v1.77.0) (2025-05-20)
+
+
+### Features
+
+* handle response errors in typed fetch ([2e9b1f0](https://github.com/master-software-gmbh/ts-utilities/commit/2e9b1f02afd48311cf4ec7adf45ab204d0eb605a))
+
+## [1.76.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.76.0...v1.76.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* config type ([ae0442a](https://github.com/master-software-gmbh/ts-utilities/commit/ae0442ae376f3e37b4c6eadff9a01342e59317a0))
+
+# [1.76.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.75.0...v1.76.0) (2025-05-20)
+
+
+### Features
+
+* update interface ([9828241](https://github.com/master-software-gmbh/ts-utilities/commit/9828241084825c62622adb04f690eaf6a7939510))
+
+# [1.75.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.74.0...v1.75.0) (2025-05-20)
+
+
+### Features
+
+* add mergeable config ([632aca8](https://github.com/master-software-gmbh/ts-utilities/commit/632aca878738ca6658e89019dd50821ebe0ab54c))
+
+# [1.74.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.73.0...v1.74.0) (2025-05-14)
+
+
+### Features
+
+* add nlp package ([14cf5a3](https://github.com/master-software-gmbh/ts-utilities/commit/14cf5a3097722e525ffa935920126413083fe6f9))
+
+# [1.73.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.72.0...v1.73.0) (2025-05-14)
+
+
+### Features
+
+* add rounding helper functions ([443f1f7](https://github.com/master-software-gmbh/ts-utilities/commit/443f1f790e81341b295676d99187f2f46c150d2e))
+
+# [1.72.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.71.0...v1.72.0) (2025-05-08)
+
+
+### Features
+
+* update valibot helper ([2b80506](https://github.com/master-software-gmbh/ts-utilities/commit/2b80506bec35ad32a6ee811abfedfd170436ffe3))
+
 # [1.71.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.70.0...v1.71.0) (2025-05-07)
 
 

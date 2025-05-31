@@ -1,5 +1,8 @@
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { readFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import { loadModule } from '../esm';
 import { logger } from '../logging';
 import { type Result, error, success } from '../result';
@@ -66,13 +69,13 @@ export const MimeTypeToFileExtension: {
 export async function createZipFile(
   sourceFiles: { filename: string; content: string }[],
 ): Promise<Result<Uint8Array, 'missing_dependency'>> {
-  const result = await loadModule<typeof import('jszip')>('jszip');
+  // @ts-ignore optional dependency
+  const { data: JSZip } = await loadModule<typeof import('jszip')>('jszip');
 
-  if (!result.success) {
+  if (!JSZip) {
     return error('missing_dependency');
   }
 
-  const JSZip = result.data;
   const zipFileHandle = new JSZip();
 
   for (const file of sourceFiles) {
@@ -84,6 +87,42 @@ export async function createZipFile(
   });
 
   return success(zipFile);
+}
+
+/**
+ * Extracts the contents of a zip file to the destination path.
+ * @param path path to the zip file to be extracted.
+ * @param destination path to the destination directory where the files will be extracted.
+ */
+export async function extractZipFile(path: string, destination: string): Promise<Result<void, 'missing_dependency'>> {
+  // @ts-ignore optional dependency
+  const { data: JSZip } = await loadModule<typeof import('jszip')>('jszip');
+
+  if (!JSZip) {
+    return error('missing_dependency');
+  }
+
+  const content = await readFile(path);
+  const zip = await JSZip.loadAsync(content);
+
+  if (!existsSync(destination)) {
+    mkdirSync(destination, { recursive: true });
+  }
+
+  for (const [relativePath, file] of Object.entries(zip.files)) {
+    const fullPath = join(destination, relativePath);
+
+    if (file.dir) {
+      if (!existsSync(fullPath)) {
+        mkdirSync(fullPath, { recursive: true });
+      }
+    } else {
+      const fileContent = await file.async('nodebuffer');
+      await writeFile(fullPath, fileContent);
+    }
+  }
+
+  return success();
 }
 
 export async function typedJsonFile<T, S extends StandardSchemaV1<unknown, T>>(

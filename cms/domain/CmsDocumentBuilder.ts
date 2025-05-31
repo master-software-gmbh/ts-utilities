@@ -1,21 +1,20 @@
 import { randomUUID } from 'crypto';
-import type { FileRefBlock, RichTextBlock } from './blocks';
-import type { StandardDocument } from './document';
+import type { DocumentBlockDto, FileBlockDto, RichTextBlockDto, StandardBlockDto } from '../application/dto';
 
 export class CmsDocumentBuilder {
   private title = '';
-  private blocks: StandardDocument['blocks'] = [];
+  private readonly blocks: StandardBlockDto[] = [];
 
-  build(): StandardDocument {
+  build(): DocumentBlockDto {
     const id = randomUUID();
-    const date = new Date();
 
     return {
       id: id,
-      createdAt: date,
-      updatedAt: date,
-      title: this.title,
-      blocks: this.blocks,
+      type: 'document',
+      children: this.blocks,
+      content: {
+        title: this.title,
+      },
     };
   }
 
@@ -24,12 +23,12 @@ export class CmsDocumentBuilder {
     return this;
   }
 
-  addRichTextBlock(content?: RichTextBlock['content']): this {
+  addRichTextBlock(content?: RichTextBlockDto['content']): this {
     this.blocks.push({
+      children: [],
       id: randomUUID(),
       type: 'rich-text',
       content: content ?? {
-        text: '',
         spans: [
           {
             text: '',
@@ -37,17 +36,18 @@ export class CmsDocumentBuilder {
           },
         ],
       },
-    } satisfies RichTextBlock);
+    });
 
     return this;
   }
 
-  addFileRefBlock(content: FileRefBlock['content']): this {
+  addFileRefBlock(content: FileBlockDto['content']): this {
     this.blocks.push({
+      children: [],
       id: randomUUID(),
       type: 'file-ref',
       content: content,
-    } satisfies FileRefBlock);
+    });
 
     return this;
   }
