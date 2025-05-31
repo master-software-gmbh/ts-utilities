@@ -28,6 +28,18 @@ export class SharpImageTransformationService implements ImageTransformationServi
     return success(Readable.toWeb(Readable.fromWeb(source).pipe(pipeline)));
   }
 
+  async overlay(source: ReadableStream, overlay: string): Promise<Result<ReadableStream, 'missing_dependencies'>> {
+    const { data: sharp } = await this.getSharp();
+
+    if (!sharp) {
+      return error('missing_dependencies');
+    }
+
+    const pipeline = sharp().composite([{ input: overlay, blend: 'over' }]);
+
+    return success(Readable.toWeb(Readable.fromWeb(source).pipe(pipeline)));
+  }
+
   private async getSharp(): Promise<Result<typeof import('sharp'), 'sharp_not_found'>> {
     if (!this.sharp) {
       const { data: module } = await loadModule<typeof import('sharp')>('sharp');

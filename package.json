@@ -10,6 +10,7 @@
   "devDependencies": {
     "@types/bun": "1.2.2",
     "@types/mjml": "^4.7.4",
+    "fast-xml-parser": "^5.2.3",
     "hono": "^4.7.10",
     "jszip": "^3.10.1",
     "kysely": "^0.28.2",
@@ -20,6 +21,7 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
+    "fast-xml-parser": "^5.2.2",
     "hono": "^4.7.8",
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
@@ -29,6 +31,8 @@
   },
   "exports": {
     "./array": "./array/index.ts",
+    "./async": "./async/index.ts",
+    "./cache": "./cache/index.ts",
     "./cms": "./cms/index.ts",
     "./config": "./config/index.ts",
     "./consent": "./consent/index.ts",
@@ -66,9 +70,14 @@
     "./tsconfig/app": "./tsconfig/app.json",
     "./types": "./types/index.ts",
     "./valibot": "./valibot/index.ts",
+    "./xbrl": "./xbrl/index.ts",
+    "./xml": "./xml/index.ts",
     "./zoom": "./zoom/index.ts"
   },
   "peerDependenciesMeta": {
+    "fast-xml-parser": {
+      "optional": true
+    },
     "hono": {
       "optional": true
     },
