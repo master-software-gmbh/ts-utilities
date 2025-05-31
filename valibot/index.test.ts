@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'bun:test';
-import { booleanString } from '.';
+import { describe, expect, it } from 'bun:test';
 import { parse } from 'valibot';
+import { booleanString } from '.';
 
 describe('booleanString', () => {
   it('should transform "true" to true', () => {

@@ -1,10 +1,10 @@
 import { array, object, optional, pipe, string, transform, unknown } from 'valibot';
 import { success } from '../../../result/index.ts';
+import { booleanString } from '../../../valibot/index.ts';
 import type { XmlMapperContext } from '../../mapper/context.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import { type Attributes, type Children, XsMinLength } from '../../model/xs/min-length.ts';
 import { BaseFactory } from '../base.ts';
-import { booleanString } from '../../../valibot/index.ts';
 
 export class XsMinLengthFactory extends BaseFactory<XsMinLength, Children, Attributes> {
   protected override readonly childSchema = array(unknown());

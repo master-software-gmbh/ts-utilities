@@ -1,10 +1,10 @@
 import { array, fallback, literal, object, optional, picklist, pipe, string, transform, union, unknown } from 'valibot';
 import { success } from '../../../result/index.ts';
+import { booleanString } from '../../../valibot/index.ts';
 import type { XmlMapperContext } from '../../mapper/context.ts';
 import type { XmlElement } from '../../model/xml/element.ts';
 import { type Attributes, type Children, XsElement } from '../../model/xs/element.ts';
 import { BaseFactory } from '../base.ts';
-import { booleanString } from '../../../valibot/index.ts';
 
 export class XsElementFactory extends BaseFactory<XsElement, Children, Attributes> {
   protected override readonly childSchema = array(unknown());
