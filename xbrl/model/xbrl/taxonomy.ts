@@ -1,46 +1,64 @@
-import { HgbrefFiscalRequirement } from '../../../xml/model/hgbref/fiscal-requirement';
-import { ReferenceName } from '../../../xml/model/hgbref/reference-name';
-import { XmlNamespaces } from '../../../xml/model/namespaces';
-import { XmlNamespace } from '../../../xml/model/xml/namespace';
+import type { XbrlCalculationLink } from './calculation-link';
 import type { XbrlConcept } from './concept';
-import { XbrlItem } from './item';
+import type { XbrlPresentationLink } from './presentation-link';
 import type { XbrlRole } from './role';
-import { XbrlTuple } from './tuple';
 
 export class XbrlTaxonomy {
-  roles: XbrlRole[] = [];
-  concepts: XbrlConcept[] = [];
+  roles: XbrlRole[];
+  concepts: XbrlConcept[];
+  calculationLinks: XbrlCalculationLink[];
+  presentationLinks: XbrlPresentationLink[];
 
-  get items(): XbrlItem[] {
-    return this.concepts.filter((concept) => concept instanceof XbrlItem);
+  constructor() {
+    this.roles = [];
+    this.concepts = [];
+    this.calculationLinks = [];
+    this.presentationLinks = [];
   }
 
-  get tuples(): XbrlTuple[] {
-    return this.concepts.filter((concept) => concept instanceof XbrlTuple);
+  getConceptById(id: string): XbrlConcept | undefined {
+    return this.concepts.find((concept) => concept.id === id);
   }
 
-  get requiredConcepts(): XbrlConcept[] {
+  getCalculationRelations(...roles: string[]): XbrlCalculationLink[] {
+    return this.calculationLinks.filter((relation) => roles.includes(relation.role));
+  }
+
+  private get presentationNetwork(): Map<string, string[]> {
+    const network = new Map<string, string[]>();
+
+    for (const link of this.presentationLinks) {
+      if (!link.from.id || !link.to.id) {
+        continue;
+      }
+
+      const list = network.get(link.role) ?? [];
+
+      list.push(link.from.id, link.to.id);
+
+      network.set(link.role, list);
+    }
+
+    return network;
+  }
+
+  getMandatoryConceptsInPresentationNetwork(...roles: string[]): XbrlConcept[] {
+    const network = this.presentationNetwork;
+
     return this.concepts.filter((concept) => {
-      const mandatoryDisclosureReferences = concept.getReferencesByRole(
-        'http://www.xbrl.org/2003/role/mandatoryDisclosureRef',
-      );
+      if (!concept.id) {
+        return false;
+      }
 
-      for (const reference of mandatoryDisclosureReferences) {
-        const value = reference.getValue({
-          name: ReferenceName.fiscalRequirement,
-          namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
-        });
+      for (const role of roles) {
+        const conceptsInNetwork = network.get(role);
 
-        if (value instanceof HgbrefFiscalRequirement) {
-          return value.isRequired;
+        if (conceptsInNetwork?.includes(concept.id)) {
+          return concept.isMandatoryDisclosure;
         }
       }
 
       return false;
     });
-  }
-
-  getConceptById(id: string): XbrlConcept | undefined {
-    return this.concepts.find((concept) => concept.id === id);
   }
 }

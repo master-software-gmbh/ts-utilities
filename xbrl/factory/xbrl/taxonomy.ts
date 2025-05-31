@@ -1,7 +1,9 @@
 import { type Result, error, success, successful } from '../../../result';
 import type { LinkLoc } from '../../../xml/model/link/loc';
 import type { Dtd } from '../../model/dtd';
-import type { XbrlConcept } from '../../model/xbrl/concept';
+import { XbrlCalculationLink } from '../../model/xbrl/calculation-link';
+import { XbrlConcept } from '../../model/xbrl/concept';
+import { XbrlPresentationLink } from '../../model/xbrl/presentation-link';
 import { XbrlTaxonomy } from '../../model/xbrl/taxonomy';
 import { XbrlTuple } from '../../model/xbrl/tuple';
 import { BaseFactory } from './base';
@@ -23,6 +25,7 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
     this.mapLabels(source);
     this.mapReferences(source);
     this.mapCalculationLinks(source);
+    this.mapPresentationLinks(source);
 
     return success(this.taxonomy);
   }
@@ -94,7 +97,33 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
           const toConcept = this.getConceptFromLoc(toLoc);
 
           if (fromConcept && toConcept) {
-            // TODO: map calculation logic
+            const relation = new XbrlCalculationLink(fromConcept, toConcept, arc.weight, link.role);
+            this.taxonomy.calculationLinks.push(relation);
+          }
+        }
+      }
+    }
+  }
+
+  private mapPresentationLinks(source: Dtd) {
+    for (const link of source.presentationLinks) {
+      const locs = link.locs;
+      const arcs = link.presentationArcs;
+
+      for (const arc of arcs) {
+        // arc from --> loc label
+        const fromLoc = locs.find((loc) => arc.from === loc.label);
+
+        // arc to --> loc label
+        const toLoc = locs.find((loc) => arc.to === loc.label);
+
+        if (fromLoc && toLoc) {
+          const fromConcept = this.getConceptFromLoc(fromLoc);
+          const toConcept = this.getConceptFromLoc(toLoc);
+
+          if (fromConcept && toConcept) {
+            const relation = new XbrlPresentationLink(fromConcept, toConcept, link.role);
+            this.taxonomy.presentationLinks.push(relation);
           }
         }
       }
@@ -115,28 +144,23 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
   }
 
   private mapElements(source: Dtd) {
-    const schemas = source.schema.getSchemas();
-
     const concepts: XbrlConcept[] = [];
 
-    for (const schema of schemas) {
-      const elements = schema.elements;
+    const elements = source.schema.getElements();
 
-      for (const element of elements) {
-        let result: Result<XbrlConcept, 'validation_failed'>;
+    for (const element of elements) {
+      let result: Result<XbrlConcept, 'validation_failed'> = error('validation_failed');
 
-        if (element.substitutionGroup === 'xbrli:item') {
-          result = this.itemFactory.map(element);
-        } else if (element.substitutionGroup === 'xbrli:tuple') {
-          result = success(new XbrlTuple(element));
-        } else {
-          result = error('validation_failed');
-        }
+      if (element.substitutionGroup === 'xbrli:item') {
+        result = this.itemFactory.map(element);
+      } else if (element.substitutionGroup === 'xbrli:tuple') {
+        result = success(new XbrlTuple(element));
+      } else if (element.substitutionGroup) {
+        result = success(new XbrlConcept(element));
+      }
 
-        if (result.success) {
-          result.data.schema = schema;
-          concepts.push(result.data);
-        }
+      if (result.success) {
+        concepts.push(result.data);
       }
     }
 

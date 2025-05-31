@@ -1,10 +1,12 @@
+import { XmlNamespace } from '../../../xml';
+import { HgbrefFiscalRequirement } from '../../../xml/model/hgbref/fiscal-requirement';
+import { ReferenceName } from '../../../xml/model/hgbref/reference-name';
+import { XmlNamespaces } from '../../../xml/model/namespaces';
 import type { XsElement } from '../../../xml/model/xs/element';
-import type { XsSchema } from '../../../xml/model/xs/schema';
 import type { XbrlLabel } from './label';
 import type { XbrlReference } from './reference';
 
 export class XbrlConcept {
-  schema?: XsSchema;
   element: XsElement;
   labels: XbrlLabel[];
   references: XbrlReference[];
@@ -33,5 +35,24 @@ export class XbrlConcept {
 
   getReferencesByRole(role: string): XbrlReference[] {
     return this.references.filter((reference) => reference.role === role);
+  }
+
+  get isMandatoryDisclosure(): boolean {
+    const mandatoryDisclosureReferences = this.getReferencesByRole(
+      'http://www.xbrl.org/2003/role/mandatoryDisclosureRef',
+    );
+
+    for (const reference of mandatoryDisclosureReferences) {
+      const value = reference.getValue({
+        name: ReferenceName.fiscalRequirement,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof HgbrefFiscalRequirement) {
+        return value.isRequired;
+      }
+    }
+
+    return false;
   }
 }

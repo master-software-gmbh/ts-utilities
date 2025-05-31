@@ -11,9 +11,12 @@ import type { XbrlIdentifier } from '../model/xbrli/identifier';
 import type { XbrlInstance } from '../model/xbrli/instance';
 import type { XbrlMeasure } from '../model/xbrli/measure';
 import type { XbrlPeriod } from '../model/xbrli/period';
+import type { LinkSchemaRef } from '../model/xbrli/schema-ref';
 import type { XbrlUnit } from '../model/xbrli/unit';
 
 export class XbrlInstanceSerializer {
+  private readonly linkNamespace = new XmlNamespace(XmlNamespaces.XbrlLinkbase);
+  private readonly xlinkNamespace = new XmlNamespace(XmlNamespaces.XmlLinking);
   private readonly xbrliNamespace = new XmlNamespace(XmlNamespaces.XbrlInstance);
   private readonly xsiNamespace = new XmlNamespace(XmlNamespaces.XmlSchemaInstance);
 
@@ -54,27 +57,38 @@ export class XbrlInstanceSerializer {
     return element;
   }
 
-  private serializeUnit(unit: XbrlUnit): XmlElement {
+  serializeUnit(unit: XbrlUnit): XmlElement {
     const attributes: XmlAttribute[] = [new XmlAttribute('id', unit.id)];
     const children: (string | XmlElement)[] = unit.measures.map((measure) => this.serializeMeasure(measure));
 
     return new XmlElement('unit', this.xbrliNamespace, attributes, children);
   }
 
-  private serializeMeasure(measure: XbrlMeasure): XmlElement {
+  serializeMeasure(measure: XbrlMeasure): XmlElement {
     const attributes: XmlAttribute[] = [];
     const children: (string | XmlElement)[] = [measure.value];
 
     return new XmlElement('measure', this.xbrliNamespace, attributes, children);
   }
 
-  private serializeContext(context: XbrlContext): XmlElement {
+  serializeContext(context: XbrlContext): XmlElement {
     const attributes: XmlAttribute[] = [new XmlAttribute('id', context.id)];
+
     const children: (string | XmlElement)[] = [
       this.serializeEntity(context.entity),
       this.serializePeriod(context.period),
     ];
+
     return new XmlElement('context', this.xbrliNamespace, attributes, children);
+  }
+
+  serializeSchemaRef(schemaRef: LinkSchemaRef): XmlElement {
+    const attributes: XmlAttribute[] = [
+      new XmlAttribute('type', 'simple', this.xlinkNamespace),
+      new XmlAttribute('href', schemaRef.href, this.xlinkNamespace),
+    ];
+
+    return new XmlElement('schemaRef', this.linkNamespace, attributes, []);
   }
 
   private serializeEntity(entity: XbrlEntity): XmlElement {
@@ -104,9 +118,15 @@ export class XbrlInstanceSerializer {
     return new XmlElement('period', this.xbrliNamespace, [], children);
   }
 
-  private serializeFact(fact: XbrlFact): XmlElement | undefined {
+  serializeFact(fact: XbrlFact): XmlElement {
     const attributes: XmlAttribute[] = [];
-    const children: (string | XmlElement)[] = [fact.value];
+    const children: (string | XmlElement)[] = fact.value.map((value) => {
+      if (typeof value === 'string') {
+        return value;
+      }
+
+      return this.serializeFact(value);
+    });
 
     if (fact.nil) {
       attributes.push(new XmlAttribute('nil', 'true', this.xsiNamespace));
@@ -125,11 +145,15 @@ export class XbrlInstanceSerializer {
     }
 
     if (fact.concept.name) {
-      const targetNamespace = fact.concept.schema?.targetNamespace;
+      const targetNamespace = fact.concept.element.targetNamespace;
 
       if (targetNamespace) {
         return new XmlElement(fact.concept.name, new XmlNamespace(targetNamespace), attributes, children);
       }
+
+      throw new Error(`Concept ${fact.concept.name} has no target namespace`);
     }
+
+    throw new Error(`Concept ${fact.concept.name} has no name`);
   }
 }

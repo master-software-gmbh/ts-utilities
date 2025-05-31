@@ -4,7 +4,7 @@ import type { XbrlUnit } from './unit';
 
 export class XbrlFact {
   nil: boolean;
-  value: string;
+  value: (string | XbrlFact)[];
   unit?: XbrlUnit;
   decimals?: number;
   concept: XbrlConcept;
@@ -12,11 +12,11 @@ export class XbrlFact {
 
   constructor(
     nil: boolean,
-    value: string,
+    value: (string | XbrlFact)[],
     concept: XbrlConcept,
+    context?: XbrlContext,
     unit?: XbrlUnit,
     decimals?: number,
-    context?: XbrlContext,
   ) {
     this.nil = nil;
     this.unit = unit;

@@ -1,4 +1,4 @@
-import type { QualifiedName } from '../../../xml/model/qualified-name';
+import type { QName } from '../../../xml/model/qualified-name';
 import { XsBoolean } from '../../../xml/model/xs/boolean';
 import { XsDate } from '../../../xml/model/xs/date';
 import { XsString } from '../../../xml/model/xs/string';
@@ -16,7 +16,7 @@ export class XbrlReference {
     this.values = values;
   }
 
-  getValue(name: QualifiedName) {
+  getValue(name: QName) {
     for (const value of this.values) {
       if (value instanceof XsString || value instanceof XsBoolean || value instanceof XsDate) {
         if (value.element.matchesName(name)) {
