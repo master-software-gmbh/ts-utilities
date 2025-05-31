@@ -1,4 +1,4 @@
-import { type GenericSchema, array, optional, pipe, string, transform, union } from 'valibot';
+import { type GenericSchema, array, optional, picklist, pipe, string, transform, union } from 'valibot';
 
 export function omitEmptyFile() {
   return transform<File, File | undefined>((file) => (file.size > 0 ? file : undefined));
@@ -24,8 +24,8 @@ export function booleanString(fallback?: boolean) {
   }
 
   return pipe(
-    optional(string(), fallback.toString()),
-    transform<string, boolean>((value) => value === 'true'),
+    optional(picklist(['true', 'false']), fallback.toString() as 'true' | 'false'),
+    transform((value) => value === 'true'),
   );
 }
 
