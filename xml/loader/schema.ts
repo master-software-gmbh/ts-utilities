@@ -7,47 +7,41 @@ import { XmlSchemaMapperPlugin } from '../mapper/xs/plugin';
 import { XsSchema } from '../model/xs/schema';
 import { XsSchemaNormalizer } from '../normalizer';
 import type { XmlNormalizerContext } from '../normalizer/context';
-import type { NormalizedSchemaSet } from '../normalizer/schema-set';
+import type { NormalizedSchema } from '../normalizer/normalized-schema';
 import { FastXmlParser } from '../parser/fast-xml/FastXmlParser';
 import { XmlMixedResolver } from '../resolver/mixed-resolver';
 
 export class XmlSchemaLoader {
-  private readonly filepath: string;
   private readonly resolver: XmlMixedResolver;
   private readonly parser = new FastXmlParser();
   private readonly normalizer = new XsSchemaNormalizer();
   private readonly mapper = new XmlMapper<unknown>([new XmlSchemaMapperPlugin(), new LinkbaseMapperPlugin()]);
 
-  constructor(filepath: string, cache?: Cache<string>) {
-    this.filepath = filepath;
+  constructor(cache?: Cache<string>) {
     this.resolver = new XmlMixedResolver(cache);
   }
 
-  async load(): Promise<Result<NormalizedSchemaSet, 'invalid_source'>> {
-    const result = await this.loadSchema(this.filepath);
+  async load(...filepaths: string[]): Promise<Result<NormalizedSchema, 'invalid_source'>> {
+    for (const filepath of filepaths) {
+      const result = await this.loadSchema(filepath);
 
-    if (!result.success || !(result.data.schema instanceof XsSchema)) {
-      return error('invalid_source');
+      if (!result.success || !(result.data.schema instanceof XsSchema)) {
+        return error('invalid_source');
+      }
+
+      await this.normalizer.normalize(result.data.schema, {
+        base: filepath,
+        load: this.loadSchema.bind(this),
+      });
     }
 
-    const schema = await this.normalizer.normalize(result.data.schema, this.context);
-
-    return success(schema);
-  }
-
-  get context(): XmlNormalizerContext {
-    return {
-      base: this.filepath,
-      load: this.loadSchema.bind(this),
-    };
+    return success(this.normalizer.schema);
   }
 
   private async loadSchema(
     source: string,
     base?: string,
   ): Promise<Result<{ schema: XsSchema; context: XmlNormalizerContext }, 'invalid_source' | 'invalid_data'>> {
-    logger.debug('Resolving schema', { source });
-
     const { data } = await this.resolver.resolve(source, base);
 
     if (!data) {
@@ -56,8 +50,6 @@ export class XmlSchemaLoader {
     }
 
     const { data: schema } = await this.parseSchema(data.content);
-
-    logger.debug('Parsing schema', { source });
 
     if (!schema) {
       logger.warn('Failed to parse schema', { source });

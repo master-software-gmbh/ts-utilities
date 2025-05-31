@@ -1,17 +1,17 @@
 import { logger } from '../../logging';
 import type { XsSchema } from '../model/xs/schema';
 import type { XmlNormalizerContext } from './context';
-import { NormalizedSchemaSet } from './schema-set';
+import { NormalizedSchema } from './normalized-schema';
 
 export class XsSchemaNormalizer {
-  private readonly set: NormalizedSchemaSet;
+  readonly schema: NormalizedSchema;
 
   constructor() {
-    this.set = new NormalizedSchemaSet();
+    this.schema = new NormalizedSchema();
   }
 
-  async normalize(schema: XsSchema, context: XmlNormalizerContext): Promise<NormalizedSchemaSet> {
-    this.set.add(schema, context.base, schema.targetNamespace);
+  async normalize(schema: XsSchema, context: XmlNormalizerContext): Promise<void> {
+    this.schema.addSchema(schema);
 
     // Load referenced schemas
 
@@ -26,8 +26,6 @@ export class XsSchemaNormalizer {
     for (const { schemaLocation } of schema.includes) {
       await this.handleReference(schemaLocation, context, schema.targetNamespace);
     }
-
-    return this.set;
   }
 
   private async handleReference(reference: string, context: XmlNormalizerContext, fallbackNamespace?: string) {

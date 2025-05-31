@@ -1,6 +1,6 @@
 import type { XmlNamespace } from './xml/namespace';
 
-export type QualifiedName = {
+export type QName = {
   name: string;
   namespace: XmlNamespace;
 };

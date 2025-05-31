@@ -1,4 +1,4 @@
-import type { QualifiedName } from '../qualified-name';
+import type { QName } from '../qualified-name';
 import type { XmlAttribute } from './attribute';
 import type { XmlNamespaceDeclaration } from './declaration';
 import type { XmlNamespace } from './namespace';
@@ -24,7 +24,7 @@ export class XmlElement {
     this.declarations = declarations;
   }
 
-  matchesName(name: QualifiedName): boolean {
+  matchesName(name: QName): boolean {
     if (this.namespace) {
       return this.name === name.name && this.namespace.uri === name.namespace.uri;
     }
@@ -46,18 +46,17 @@ export class XmlElement {
     });
   }
 
-  getNamespace(prefix: string): XmlNamespace | undefined {
+  getNamespaceByPrefix(prefix: string): XmlNamespace | undefined {
     return this.declarations.find((decl) => decl.prefix === prefix)?.namespace;
   }
 
-  toString(): string {
-    const namespaceString = this.namespace ? ` xmlns="${this.namespace.uri}"` : '';
-    const attributesString = this.attributes.map((attr) => `${attr.name}="${attr.value}"`).join(' ');
+  resolveQName(name: string): QName | undefined {
+    const [prefix, localName] = name.includes(':') ? (name.split(':') as [string, string]) : ['', name];
 
-    const childrenString = this.children
-      .map((child) => (typeof child === 'string' ? child : child.toString()))
-      .join('\n');
+    const namespace = this.getNamespaceByPrefix(prefix);
 
-    return `<${this.name}${namespaceString} ${attributesString}>${childrenString}</${this.name}>`;
+    if (namespace) {
+      return { name: localName, namespace };
+    }
   }
 }

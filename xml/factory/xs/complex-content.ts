@@ -10,7 +10,7 @@ export class XsComplexContentFactory extends BaseFactory<XsComplexContent, Child
   protected override readonly childSchema = array(unknown());
   protected override readonly attributeSchema = object({
     id: optional(string()),
-    mixed: booleanString(),
+    mixed: optional(booleanString()),
   });
 
   override async map(element: XmlElement, context: XmlMapperContext) {

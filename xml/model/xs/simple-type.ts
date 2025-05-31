@@ -1,7 +1,9 @@
 import type { XmlElement } from '../xml/element';
 import type { XsAnnotation } from './annotation';
+import type { XsRestriction } from './restriction';
+import type { XsUnion } from './union';
 
-export type Children = (XsAnnotation | unknown)[];
+export type Children = (XsAnnotation | XsRestriction | XsUnion | unknown)[];
 
 export type Attributes = {
   id?: string;
