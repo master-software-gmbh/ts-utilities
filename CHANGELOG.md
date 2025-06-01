@@ -1,3 +1,10 @@
+# [1.85.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.84.0...v1.85.0) (2025-06-01)
+
+
+### Features
+
+* add file validation action ([4200eb9](https://github.com/master-software-gmbh/ts-utilities/commit/4200eb958cdae34dd5bdbf13e527b5615e4f1871))
+
 # [1.84.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.83.1...v1.84.0) (2025-05-31)
 
 
