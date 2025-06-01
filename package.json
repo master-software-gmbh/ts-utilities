@@ -8,21 +8,23 @@
     "valibot": "^1.1.0"
   },
   "devDependencies": {
-    "@types/bun": "1.2.2",
+    "@types/bun": "1.2.9",
     "@types/mjml": "^4.7.4",
     "fast-xml-parser": "^5.2.3",
-    "hono": "^4.7.10",
+    "file-type": "^21.0.0",
+    "hono": "^4.7.11",
     "jszip": "^3.10.1",
     "kysely": "^0.28.2",
     "kysely-codegen": "^0.18.5",
     "mjml": "^4.15.3",
     "sharp": "^0.34.2",
-    "stripe": "^18.1.1",
+    "stripe": "^18.2.0",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
     "fast-xml-parser": "^5.2.2",
-    "hono": "^4.7.8",
+    "file-type": "^21.0.0",
+    "hono": "^4.7.11",
     "jszip": "^3.10.1",
     "kysely": "^0.27.5",
     "kysely-codegen": "^0.18.0",
@@ -76,6 +78,9 @@
   },
   "peerDependenciesMeta": {
     "fast-xml-parser": {
+      "optional": true
+    },
+    "file-type": {
       "optional": true
     },
     "hono": {
