@@ -1,3 +1,10 @@
+# [1.86.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.85.0...v1.86.0) (2025-06-02)
+
+
+### Features
+
+* implement safe block serialization ([ff9f9bd](https://github.com/master-software-gmbh/ts-utilities/commit/ff9f9bd45576fcf2c325eb91dcd5576f9f600966))
+
 # [1.85.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.84.0...v1.85.0) (2025-06-01)
 
 
