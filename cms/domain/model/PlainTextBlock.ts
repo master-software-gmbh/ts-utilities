@@ -1,8 +1,8 @@
 import { CmsBlock } from './CmsBlock';
 import type { StandardBlock } from './StandardBlock';
 
-export class PlainTextBlock extends CmsBlock {
-  override type: 'plain-text';
+export class PlainTextBlock extends CmsBlock<'plain-text'> {
+  override type = 'plain-text' as const;
   override content: {
     text: string;
   };
@@ -19,7 +19,6 @@ export class PlainTextBlock extends CmsBlock {
 
   constructor(data: {
     id?: string;
-    type: 'plain-text';
     position: number;
     documentId: string;
     children?: StandardBlock[];
@@ -30,7 +29,6 @@ export class PlainTextBlock extends CmsBlock {
     };
   }) {
     super(data);
-    this.type = data.type;
     this.content = data.content;
   }
 }

@@ -34,7 +34,6 @@ export class CmsService {
 
     if (block.type === 'document') {
       return new DocumentBlock({
-        type: 'document',
         id: block.id,
         documentId,
         parentId,
@@ -46,7 +45,6 @@ export class CmsService {
 
     if (block.type === 'plain-text') {
       return new PlainTextBlock({
-        type: 'plain-text',
         id: block.id,
         documentId,
         parentId,
@@ -58,7 +56,6 @@ export class CmsService {
 
     if (block.type === 'rich-text') {
       return new RichTextBlock({
-        type: 'rich-text',
         id: block.id,
         documentId,
         parentId,
@@ -69,7 +66,6 @@ export class CmsService {
     }
 
     return new FileBlock({
-      type: 'file-ref',
       id: block.id,
       documentId,
       parentId,

@@ -2,10 +2,10 @@ import { randomUUID } from 'crypto';
 import type { FileBlock } from './FileBlock';
 import type { StandardBlock } from './StandardBlock';
 
-export abstract class CmsBlock {
-  content: unknown;
+export abstract class CmsBlock<T extends string> {
   id: string;
-  type: string;
+  abstract type: T;
+  content: unknown;
   position: number;
   documentId: string;
   abstract text: string;
@@ -14,16 +14,14 @@ export abstract class CmsBlock {
   embedding?: Float32Array | null;
 
   constructor(data: {
-    content: unknown;
     id?: string;
-    type: string;
+    content: unknown;
     position?: number;
     documentId: string;
     children?: StandardBlock[];
     parentId?: string | null;
     embedding?: Float32Array | null;
   }) {
-    this.type = data.type;
     this.content = data.content;
     this.embedding = data.embedding;
     this.id = data.id ?? randomUUID();
@@ -35,5 +33,13 @@ export abstract class CmsBlock {
 
   isFileBlock(): this is FileBlock {
     return this.type === 'file-ref';
+  }
+
+  /**
+   * Serialize the block to a JSON string, escaping HTML characters.
+   * Safe for injection into script tags of type application/json.
+   */
+  get serialize(): string {
+    return JSON.stringify(this).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
   }
 }

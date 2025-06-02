@@ -2,8 +2,8 @@ import { CmsBlock } from './CmsBlock';
 import type { RichTextSpan } from './RichTextSpan';
 import type { StandardBlock } from './StandardBlock';
 
-export class RichTextBlock extends CmsBlock {
-  override type: 'rich-text';
+export class RichTextBlock extends CmsBlock<'rich-text'> {
+  override type = 'rich-text' as const;
   override content: {
     spans: RichTextSpan[];
   };
@@ -20,7 +20,6 @@ export class RichTextBlock extends CmsBlock {
 
   constructor(data: {
     id?: string;
-    type: 'rich-text';
     position: number;
     documentId: string;
     children?: StandardBlock[];
@@ -31,7 +30,6 @@ export class RichTextBlock extends CmsBlock {
     };
   }) {
     super(data);
-    this.type = data.type;
     this.content = data.content;
   }
 }

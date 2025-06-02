@@ -21,7 +21,6 @@ export class CmsRepositoryMapper {
         return new PlainTextBlock({
           id: row.id,
           content: data,
-          type: row.type,
           position: row.position,
           parentId: row.parent_id,
           documentId: row.document_id,
@@ -35,7 +34,6 @@ export class CmsRepositoryMapper {
         return new RichTextBlock({
           id: row.id,
           content: data,
-          type: row.type,
           position: row.position,
           parentId: row.parent_id,
           documentId: row.document_id,
@@ -49,7 +47,6 @@ export class CmsRepositoryMapper {
         return new FileBlock({
           id: row.id,
           content: data,
-          type: row.type,
           position: row.position,
           parentId: row.parent_id,
           documentId: row.document_id,
@@ -63,7 +60,6 @@ export class CmsRepositoryMapper {
         return new DocumentBlock({
           id: row.id,
           content: data,
-          type: row.type,
           position: row.position,
           parentId: row.parent_id,
           documentId: row.document_id,

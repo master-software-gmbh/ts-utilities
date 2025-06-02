@@ -1,8 +1,8 @@
 import { CmsBlock } from './CmsBlock';
 import type { StandardBlock } from './StandardBlock';
 
-export class DocumentBlock extends CmsBlock {
-  override type: 'document';
+export class DocumentBlock extends CmsBlock<'document'> {
+  override type = 'document' as const;
   override content: {
     title: string;
   };
@@ -19,7 +19,6 @@ export class DocumentBlock extends CmsBlock {
 
   constructor(data: {
     id?: string;
-    type: 'document';
     position?: number;
     documentId: string;
     children?: StandardBlock[];
@@ -30,7 +29,6 @@ export class DocumentBlock extends CmsBlock {
     };
   }) {
     super(data);
-    this.type = data.type;
     this.content = data.content;
   }
 

@@ -1,21 +1,21 @@
 import { randomUUID } from 'crypto';
-import type { DocumentBlockDto, FileBlockDto, RichTextBlockDto, StandardBlockDto } from '../application/dto';
+import type { FileBlockDto, RichTextBlockDto } from '../application/dto';
+import { DocumentBlock, FileBlock, RichTextBlock, type StandardBlock } from './model';
 
 export class CmsDocumentBuilder {
   private title = '';
-  private readonly blocks: StandardBlockDto[] = [];
+  private readonly id = randomUUID();
+  private readonly blocks: StandardBlock[] = [];
 
-  build(): DocumentBlockDto {
-    const id = randomUUID();
-
-    return {
-      id: id,
-      type: 'document',
+  build(): DocumentBlock {
+    return new DocumentBlock({
+      id: this.id,
+      documentId: this.id,
       children: this.blocks,
       content: {
         title: this.title,
       },
-    };
+    });
   }
 
   setTitle(title: string): this {
@@ -24,30 +24,34 @@ export class CmsDocumentBuilder {
   }
 
   addRichTextBlock(content?: RichTextBlockDto['content']): this {
-    this.blocks.push({
-      children: [],
-      id: randomUUID(),
-      type: 'rich-text',
-      content: content ?? {
-        spans: [
-          {
-            text: '',
-            attributes: {},
-          },
-        ],
-      },
-    });
+    this.blocks.push(
+      new RichTextBlock({
+        parentId: this.id,
+        documentId: this.id,
+        position: this.blocks.length,
+        content: content ?? {
+          spans: [
+            {
+              text: '',
+              attributes: {},
+            },
+          ],
+        },
+      }),
+    );
 
     return this;
   }
 
   addFileRefBlock(content: FileBlockDto['content']): this {
-    this.blocks.push({
-      children: [],
-      id: randomUUID(),
-      type: 'file-ref',
-      content: content,
-    });
+    this.blocks.push(
+      new FileBlock({
+        content: content,
+        parentId: this.id,
+        documentId: this.id,
+        position: this.blocks.length,
+      }),
+    );
 
     return this;
   }
