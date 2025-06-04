@@ -10,9 +10,7 @@ export abstract class BaseStorageBackend {
   }
 
   protected getId(key?: string): { key: string; path: string } {
-    if (!key) {
-      key = randomUUID();
-    }
+    key ??= randomUUID();
 
     const path = resolve(this.root.path, key);
 
