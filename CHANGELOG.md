@@ -1,3 +1,10 @@
+# [1.88.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.87.0...v1.88.0) (2025-06-04)
+
+
+### Features
+
+* add font path option ([e4e26c1](https://github.com/master-software-gmbh/ts-utilities/commit/e4e26c14c2ed6c44987b25bd6d3445111100aa70))
+
 # [1.87.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.86.0...v1.87.0) (2025-06-04)
 
 
