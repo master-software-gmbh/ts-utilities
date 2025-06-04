@@ -1,5 +1,5 @@
 import type { Env } from 'hono';
-import type { ValidationTargets, Context, TypedResponse, MiddlewareHandler } from 'hono';
+import type { Context, MiddlewareHandler, TypedResponse, ValidationTargets } from 'hono';
 import { getCookie } from 'hono/cookie';
 import { HTTPException } from 'hono/http-exception';
 

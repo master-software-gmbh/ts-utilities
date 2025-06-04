@@ -1,36 +1,47 @@
-import { randomUUID } from 'crypto';
 import { S3Client } from 'bun';
-import { MimeTypeToFileExtension } from '../../file/utilities';
 import { type Result, error, success } from '../../result';
-import { type Folder, ROOT_FOLDER, type StorageBackend } from '../types';
+import { BaseStorageBackend } from '../base';
+import type { StorageBackend } from '../interface';
+import { FileContent, type Folder } from '../types';
 
-export class S3Storage implements StorageBackend {
+export class S3Storage extends BaseStorageBackend implements StorageBackend {
   private readonly client: S3Client;
 
-  constructor(options: {
-    bucket: string;
-    endpoint: string;
-    accessKeyId: string;
-    secretAccessKey: string;
-  }) {
+  constructor(
+    root: Folder,
+    options: {
+      bucket: string;
+      endpoint: string;
+      accessKeyId: string;
+      secretAccessKey: string;
+    },
+  ) {
+    super(root);
     this.client = new S3Client(options);
   }
 
-  async getFile(key: string): Promise<Result<ReadableStream, 'file_not_found'>> {
-    const exists = await this.client.exists(key);
+  fileExists(key: string): Promise<boolean> {
+    return this.client.exists(key);
+  }
+
+  async getFile(key: string): Promise<Result<FileContent, 'file_not_found'>> {
+    const { path } = this.getId(key);
+
+    const exists = await this.client.exists(path);
 
     if (!exists) {
       return error('file_not_found');
     }
 
-    return success(this.client.file(key).stream());
+    return success(new FileContent(this.client.file(path).stream(), undefined, this.client.file(path).presign()));
   }
 
-  async createFile(source: ReadableStream, folder: Folder = ROOT_FOLDER, type?: string): Promise<string> {
-    const key = this.getUniqueFileKey(folder, type);
+  async createFile(source: ReadableStream, data?: { type?: string; key?: string }): Promise<string> {
+    const { key, path } = this.getId(data?.key);
+
     const writer = this.client
-      .file(key, {
-        type,
+      .file(path, {
+        type: data?.type,
       })
       .writer();
 
@@ -44,18 +55,7 @@ export class S3Storage implements StorageBackend {
   }
 
   async deleteFile(key: string): Promise<void> {
-    await this.client.delete(key);
-  }
-
-  private getUniqueFileKey(folder: Folder, type?: string): string {
-    const extension = type ? MimeTypeToFileExtension[type]?.at(0) : undefined;
-
-    let filename = randomUUID();
-
-    if (extension) {
-      filename += `.${extension}`;
-    }
-
-    return [...folder.path, filename].join('/');
+    const { path } = this.getId(key);
+    await this.client.delete(path);
   }
 }

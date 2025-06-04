@@ -1,5 +1,6 @@
 import type { Cache } from '../../cache';
 import { type Result, error, success } from '../../result';
+import type { FileContent } from '../../storage';
 import { GenMapperPlugin } from '../mapper/gen/plugin';
 import { HgbrefMapperPlugin } from '../mapper/hgbref/plugin';
 import { LinkbaseMapperPlugin } from '../mapper/link/plugin';
@@ -21,7 +22,7 @@ export class LinkbaseLoader {
     new GenMapperPlugin(),
   ]);
 
-  constructor(cache?: Cache<string>) {
+  constructor(cache?: Cache<string, FileContent>) {
     this.resolver = new XmlMixedResolver(cache);
   }
 

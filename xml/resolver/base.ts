@@ -1,10 +1,12 @@
+import { Readable } from 'node:stream';
 import type { Cache } from '../../cache';
 import { type Result, success } from '../../result';
+import { FileContent } from '../../storage';
 
 export abstract class XmlBaseResolver {
-  protected readonly cache: Cache<string> | undefined;
+  protected readonly cache?: Cache<string, FileContent>;
 
-  constructor(cache?: Cache<string>) {
+  constructor(cache?: Cache<string, FileContent>) {
     this.cache = cache;
   }
 
@@ -13,9 +15,11 @@ export abstract class XmlBaseResolver {
 
     let content: string | undefined;
 
-    content = await this.cache?.get(source);
+    const cached = await this.cache?.get(source);
 
-    if (!content) {
+    if (cached) {
+      content = await Bun.readableStreamToText(cached.stream);
+    } else {
       const result = await this.resolveUri(uri);
 
       if (!result.success) {
@@ -23,7 +27,7 @@ export abstract class XmlBaseResolver {
       }
 
       content = result.data;
-      await this.cache?.set(source, content);
+      await this.cache?.set(source, new FileContent(Readable.toWeb(Readable.from(result.data))));
     }
 
     return success({

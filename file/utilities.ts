@@ -1,8 +1,8 @@
-import { existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
-import { readFile } from 'fs/promises';
-import { writeFile } from 'fs/promises';
 import { loadModule } from '../esm';
 import { logger } from '../logging';
 import { type Result, error, success } from '../result';

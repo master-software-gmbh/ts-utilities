@@ -1,4 +1,5 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
+import type { FileContent } from '../../storage';
 
 export interface FileInput {
   name: string;
@@ -12,7 +13,7 @@ export class FileEntity {
   name: string;
   type: string;
   createdAt: Date;
-  data: ReadableStream | null;
+  data: FileContent | null;
 
   constructor(data: {
     id?: string;
@@ -20,7 +21,7 @@ export class FileEntity {
     name: string;
     type: string;
     createdAt?: Date;
-    data?: ReadableStream | null;
+    data?: FileContent | null;
   }) {
     this.id = data.id ?? randomUUID();
     this.key = data.key;

@@ -1,11 +1,4 @@
-import type { Result } from '../../result';
+import type { MediaTransformationService } from '../../media/transformation/interface';
 import type { ImageTransformationOptions } from './dto/options';
 
-export interface ImageTransformationService {
-  transform(
-    source: ReadableStream,
-    options: ImageTransformationOptions,
-  ): Promise<Result<ReadableStream, 'missing_dependencies'>>;
-
-  overlay(source: ReadableStream, overlay: string): Promise<Result<ReadableStream, 'missing_dependencies'>>;
-}
+export type ImageTransformationService = MediaTransformationService<ImageTransformationOptions>;

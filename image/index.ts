@@ -1,3 +1,3 @@
-export * from './transformation/router';
 export * from './transformation/interface';
-export * from './transformation/sharp-implementation';
+export * from './transformation/impl/SharpImageTransformationService';
+export * from './transformation/dto/options';

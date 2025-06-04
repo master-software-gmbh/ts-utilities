@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import { Consent } from '../domain/model/Consent';
 import { ConsentStatus } from '../domain/model/ConsentStatus';
 

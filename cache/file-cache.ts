@@ -1,57 +1,39 @@
-import { createHash } from 'crypto';
-import { existsSync, mkdirSync } from 'fs';
-import { resolve } from 'path';
-import { readFile, readdir, unlink, writeFile } from 'fs/promises';
+import { hash } from '../crypto';
+import type { FileContent, StorageBackend } from '../storage';
+import type { NestedRecord, Primitive } from '../types';
 import type { Cache } from './interface';
 
-export class FileCache implements Cache<string> {
-  private readonly folder: string;
+type CacheKey = Primitive | NestedRecord;
 
-  constructor(folder: string) {
-    this.folder = folder;
-    mkdirSync(folder, { recursive: true });
+export class FileStorageCache implements Cache<CacheKey, FileContent> {
+  private readonly backend: StorageBackend;
+
+  constructor(backend: StorageBackend) {
+    this.backend = backend;
   }
 
-  async clear(): Promise<void> {
-    const keys = await this.keys();
+  has(key: CacheKey): Promise<boolean> {
+    return this.backend.fileExists(this.hashKey(key));
+  }
 
-    for (const key of keys) {
-      await this.delete(key);
+  async set(key: CacheKey, value: FileContent): Promise<void> {
+    await this.backend.createFile(value.stream, {
+      type: value.type,
+      key: this.hashKey(key),
+    });
+  }
+
+  async get(key: CacheKey): Promise<FileContent | undefined> {
+    const result = await this.backend.getFile(this.hashKey(key));
+
+    if (!result.success) {
+      return;
     }
+
+    return result.data;
   }
 
-  async keys(): Promise<string[]> {
-    return readdir(this.folder);
-  }
-
-  async has(key: string): Promise<boolean> {
-    const path = this.getPath(key);
-    return existsSync(path);
-  }
-
-  async delete(key: string): Promise<void> {
-    const path = this.getPath(key);
-
-    if (existsSync(path)) {
-      await unlink(path);
-    }
-  }
-
-  async set(key: string, value: string): Promise<void> {
-    const path = this.getPath(key);
-    await writeFile(path, value);
-  }
-
-  async get(key: string): Promise<string | undefined> {
-    const path = this.getPath(key);
-
-    if (existsSync(path)) {
-      return readFile(path, 'utf-8');
-    }
-  }
-
-  private getPath(key: string): string {
-    const hash = createHash('sha256').update(key).digest('hex');
-    return resolve(this.folder, hash);
+  private hashKey(key: CacheKey): string {
+    return hash(key);
   }
 }

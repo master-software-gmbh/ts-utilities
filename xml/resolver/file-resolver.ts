@@ -1,5 +1,5 @@
-import { dirname, resolve } from 'path';
-import { readFile } from 'fs/promises';
+import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import { type Result, error, success } from '../../result';
 import { XmlBaseResolver } from './base';
 import type { XmlSourceResolver } from './interface';

@@ -1,5 +1,6 @@
 import type { Cache } from '../../cache';
 import { type Result, error } from '../../result';
+import type { FileContent } from '../../storage';
 import { XmlFileResolver } from './file-resolver';
 import type { XmlSourceResolver } from './interface';
 import { XmlUrlResolver } from './url-resolver';
@@ -7,7 +8,7 @@ import { XmlUrlResolver } from './url-resolver';
 export class XmlMixedResolver implements XmlSourceResolver {
   private readonly resolvers: XmlSourceResolver[];
 
-  constructor(cache?: Cache<string>) {
+  constructor(cache?: Cache<string, FileContent>) {
     this.resolvers = [new XmlUrlResolver(cache), new XmlFileResolver()];
   }
 
