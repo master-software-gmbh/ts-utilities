@@ -1,3 +1,10 @@
+# [1.87.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.86.0...v1.87.0) (2025-06-04)
+
+
+### Features
+
+* implement audio and image transformation ([f45f590](https://github.com/master-software-gmbh/ts-utilities/commit/f45f5909456e1d7040aac3532cdad0eeef11666b))
+
 # [1.86.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.85.0...v1.86.0) (2025-06-02)
 
 
