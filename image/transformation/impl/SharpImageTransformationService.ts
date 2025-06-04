@@ -82,9 +82,11 @@ export class SharpImageTransformationService implements ImageTransformationServi
     const overlay = await sharp({
       text: {
         rgba: true,
+        font: fontFamily,
         width: overlayWidth,
         height: overlayHeight,
-        text: `<span color="#FFFFFFB3" background="#FFFFFF01" weight="600" font_family="${fontFamily}">${options.overlay_text}</span>`,
+        fontfile: options.overlay_font_path,
+        text: `<span color="#FFFFFFB3" background="#FFFFFF01">${options.overlay_text}</span>`,
       },
     })
       .rotate(-45, {

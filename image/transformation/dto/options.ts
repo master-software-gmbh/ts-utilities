@@ -7,6 +7,7 @@ export const ImageTransformationOptions = partial(
     format: format,
     overlay_text: string(),
     overlay_font: string(),
+    overlay_font_path: string(),
     max_width: pipe(string(), transform(Number), maxValue(2000)),
     max_height: pipe(string(), transform(Number), maxValue(2000)),
   }),
