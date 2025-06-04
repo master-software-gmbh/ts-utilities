@@ -1,8 +1,5 @@
-export interface Cache<T> {
-  clear(): Promise<void>;
-  keys(): Promise<string[]>;
-  has(key: string): Promise<boolean>;
-  delete(key: string): Promise<void>;
-  set(key: string, value: T): Promise<void>;
-  get(key: string): Promise<T | undefined>;
+export interface Cache<Key = string, Value = string> {
+  has(key: Key): Promise<boolean>;
+  set(key: Key, value: Value): Promise<void>;
+  get(key: Key): Promise<Value | undefined>;
 }

@@ -1,11 +1,10 @@
 import type { Result } from '../../result';
+import type { FileContent } from '../../storage';
 import type { ImageTransformationOptions } from './dto/options';
 
 export interface ImageTransformationService {
   transform(
-    source: ReadableStream,
-    options: ImageTransformationOptions,
-  ): Promise<Result<ReadableStream, 'missing_dependencies'>>;
-
-  overlay(source: ReadableStream, overlay: string): Promise<Result<ReadableStream, 'missing_dependencies'>>;
+    getSource: () => ReadableStream,
+    options: ImageTransformationOptions & { key: string },
+  ): Promise<Result<FileContent, 'missing_dependencies'>>;
 }

@@ -1,21 +1,36 @@
-import { randomUUID } from 'crypto';
 import type { Kysely } from 'kysely';
 import { type Result, error, success } from '../../result';
-import type { Folder, StorageBackend } from '../types';
+import { FileContent, Folder } from '../types';
 import type { DB } from './types';
+import type { StorageBackend } from '../interface';
+import { BaseStorageBackend } from '../base';
 
-export class SqliteStorage implements StorageBackend {
+export class SqliteStorage extends BaseStorageBackend implements StorageBackend {
   private readonly database: Kysely<DB>;
 
   constructor(database: Kysely<DB>) {
+    super(new Folder());
     this.database = database;
   }
 
-  async getFile(key: string): Promise<Result<ReadableStream, 'file_not_found'>> {
+  fileExists(key: string): Promise<boolean> {
+    const { path } = this.getId(key);
+
+    return this.database
+      .selectFrom('storage_blob')
+      .select('id')
+      .where('storage_blob.id', '=', path)
+      .execute()
+      .then((rows) => rows.length > 0);
+  }
+
+  async getFile(key: string): Promise<Result<FileContent, 'file_not_found'>> {
+    const { path } = this.getId(key);
+
     const row = await this.database
       .selectFrom('storage_blob')
       .selectAll()
-      .where('storage_blob.id', '=', key)
+      .where('storage_blob.id', '=', path)
       .executeTakeFirst();
 
     if (!row) {
@@ -24,18 +39,18 @@ export class SqliteStorage implements StorageBackend {
 
     const blob = new Blob([row.data]);
 
-    return success(blob.stream());
+    return success(new FileContent(blob.stream()));
   }
 
-  async createFile(source: ReadableStream, _folder?: Folder, _type?: string): Promise<string> {
-    const key = randomUUID();
+  async createFile(source: ReadableStream): Promise<string> {
+    const { key, path } = this.getId();
 
     const data = Buffer.from(await Bun.readableStreamToArrayBuffer(source));
 
     await this.database
       .insertInto('storage_blob')
       .values({
-        id: key,
+        id: path,
         created_at: Date.now(),
         data: data,
       })
@@ -45,6 +60,7 @@ export class SqliteStorage implements StorageBackend {
   }
 
   async deleteFile(key: string): Promise<void> {
-    await this.database.deleteFrom('storage_blob').where('storage_blob.id', '=', key).execute();
+    const { path } = this.getId(key);
+    await this.database.deleteFrom('storage_blob').where('storage_blob.id', '=', path).execute();
   }
 }

@@ -1,18 +1,15 @@
-import { maxValue, object, picklist, pipe, string, transform, undefined_, union, type InferOutput } from 'valibot';
+import { maxValue, object, partial, picklist, pipe, string, transform, type InferOutput } from 'valibot';
 
 const format = picklist(['jpeg', 'png', 'webp', 'avif']);
 
-export const ImageTransformationOptions = union([
+export const ImageTransformationOptions = partial(
   object({
     format: format,
-    maxHeight: undefined_(),
-    maxWidth: pipe(string(), transform(Number), maxValue(2000)),
+    overlay_text: string(),
+    overlay_font: string(),
+    max_width: pipe(string(), transform(Number), maxValue(2000)),
+    max_height: pipe(string(), transform(Number), maxValue(2000)),
   }),
-  object({
-    format: format,
-    maxWidth: undefined_(),
-    maxHeight: pipe(string(), transform(Number), maxValue(2000)),
-  }),
-]);
+);
 
 export type ImageTransformationOptions = InferOutput<typeof ImageTransformationOptions>;

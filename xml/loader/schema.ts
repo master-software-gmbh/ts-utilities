@@ -1,6 +1,7 @@
 import type { Cache } from '../../cache';
 import { logger } from '../../logging';
 import { type Result, error, success } from '../../result';
+import type { FileContent } from '../../storage';
 import { LinkbaseMapperPlugin } from '../mapper/link/plugin';
 import { XmlMapper } from '../mapper/mapper';
 import { XmlSchemaMapperPlugin } from '../mapper/xs/plugin';
@@ -17,7 +18,7 @@ export class XmlSchemaLoader {
   private readonly normalizer = new XsSchemaNormalizer();
   private readonly mapper = new XmlMapper<unknown>([new XmlSchemaMapperPlugin(), new LinkbaseMapperPlugin()]);
 
-  constructor(cache?: Cache<string>) {
+  constructor(cache?: Cache<string, FileContent>) {
     this.resolver = new XmlMixedResolver(cache);
   }
 

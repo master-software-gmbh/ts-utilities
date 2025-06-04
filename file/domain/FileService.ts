@@ -4,31 +4,48 @@ import type { FileRepository } from './FileRepository';
 import { FileEntity, type FileInput } from './file';
 
 export class FileService {
-  private readonly backend: StorageBackend;
-  private readonly fileRepository: FileRepository;
+  private readonly repository: FileRepository;
+  private readonly backends: Map<string, StorageBackend>;
 
-  constructor(backend: StorageBackend, fileRepository: FileRepository) {
-    this.backend = backend;
-    this.fileRepository = fileRepository;
+  constructor(repository: FileRepository) {
+    this.backends = new Map();
+    this.repository = repository;
   }
 
-  async createFile(source: FileInput, folder?: Folder): Promise<FileEntity> {
-    const key = await this.backend.createFile(source.stream(), folder, source.type);
-    const file = new FileEntity({ key: key, name: source.name, type: source.type });
+  addBackend(backend: StorageBackend): Result<void, 'backend_already_exists'> {
+    const path = backend.root.path;
 
-    await this.fileRepository.insert(file);
+    if (this.backends.has(path)) {
+      return error('backend_already_exists');
+    }
+
+    this.backends.set(path, backend);
+
+    return success();
+  }
+
+  async createFile(source: FileInput, folder: Folder, id?: string): Promise<FileEntity> {
+    const backend = this.getBackendOrThrow(folder);
+    const key = await backend.createFile(source.stream(), {
+      type: source.type,
+    });
+
+    const file = new FileEntity({ id: id, key: key, name: source.name, type: source.type });
+
+    await this.repository.insert(file);
 
     return file;
   }
 
-  async getFile(id: string): Promise<FileEntity | null> {
-    const { data: file } = await this.fileRepository.findById(id);
+  async getFileById(id: string, folder: Folder): Promise<FileEntity | null> {
+    const backend = this.getBackendOrThrow(folder);
+    const { data: file } = await this.repository.findById(id);
 
     if (!file) {
       return null;
     }
 
-    const { data } = await this.backend.getFile(file.key);
+    const { data } = await backend.getFile(file.key);
 
     if (data) {
       file.data = data;
@@ -37,16 +54,27 @@ export class FileService {
     return file;
   }
 
-  async deleteFile(id: string): Promise<Result<void, 'file_not_found'>> {
-    const { data: file } = await this.fileRepository.findById(id);
+  async deleteFile(id: string, folder: Folder): Promise<Result<void, 'file_not_found'>> {
+    const backend = this.getBackendOrThrow(folder);
+    const { data: file } = await this.repository.findById(id);
 
     if (!file) {
       return error('file_not_found');
     }
 
-    await this.backend.deleteFile(file.key);
-    await this.fileRepository.delete(file.id);
+    await backend.deleteFile(file.key);
+    await this.repository.delete(file.id);
 
     return success();
+  }
+
+  private getBackendOrThrow(folder: Folder): StorageBackend {
+    const backend = this.backends.get(folder.path);
+
+    if (!backend) {
+      throw new Error(`No storage backend found for folder: ${folder.path}`);
+    }
+
+    return backend;
   }
 }

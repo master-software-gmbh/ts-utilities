@@ -1,6 +1,6 @@
 import { tmpdir } from 'os';
 import { dirname, resolve } from 'path';
-import { FileCache } from '../../cache';
+import { FileStorageCache, type Cache } from '../../cache';
 import { type Result, success } from '../../result';
 import type { NormalizedSchema } from '../../xml';
 import { LinkbaseLoader } from '../../xml/loader/linkbase';
@@ -8,13 +8,15 @@ import { XmlSchemaLoader } from '../../xml/loader/schema';
 import type { LinkLinkbase } from '../../xml/model/link/linkbase';
 import { Dtd } from '../model/dtd';
 import { logger } from '../../logging';
+import { FilesystemStorageBackend, Folder, type FileContent } from '../../storage';
 
 export class DtdLoader {
-  private readonly cache: FileCache;
+  private readonly cache: Cache<string, FileContent>;
   private readonly schemaLoader: XmlSchemaLoader;
 
   constructor() {
-    this.cache = new FileCache(resolve(tmpdir(), 'xbrl-cache'));
+    const backend = new FilesystemStorageBackend(new Folder(tmpdir(), 'xbrl-cache'));
+    this.cache = new FileStorageCache(backend);
     this.schemaLoader = new XmlSchemaLoader(this.cache);
   }
   /**
@@ -36,7 +38,7 @@ export class DtdLoader {
 
   private async loadSchema(
     filepaths: string[],
-    cache: FileCache,
+    cache: Cache<string, FileContent>,
   ): Promise<
     Result<
       {
