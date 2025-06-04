@@ -1,14 +1,14 @@
-import { tmpdir } from 'os';
-import { dirname, resolve } from 'path';
-import { FileStorageCache, type Cache } from '../../cache';
+import { tmpdir } from 'node:os';
+import { dirname, resolve } from 'node:path';
+import { type Cache, FileStorageCache } from '../../cache';
+import { logger } from '../../logging';
 import { type Result, success } from '../../result';
+import { type FileContent, FilesystemStorageBackend, Folder } from '../../storage';
 import type { NormalizedSchema } from '../../xml';
 import { LinkbaseLoader } from '../../xml/loader/linkbase';
 import { XmlSchemaLoader } from '../../xml/loader/schema';
 import type { LinkLinkbase } from '../../xml/model/link/linkbase';
 import { Dtd } from '../model/dtd';
-import { logger } from '../../logging';
-import { FilesystemStorageBackend, Folder, type FileContent } from '../../storage';
 
 export class DtdLoader {
   private readonly cache: Cache<string, FileContent>;

@@ -1,6 +1,6 @@
+import { randomUUID } from 'node:crypto';
 import { resolve } from 'node:path';
 import type { Folder } from './types';
-import { randomUUID } from 'node:crypto';
 
 export abstract class BaseStorageBackend {
   readonly root: Folder;

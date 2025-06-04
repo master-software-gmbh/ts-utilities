@@ -1,4 +1,4 @@
-import { CompiledQuery, sql, type Expression } from 'kysely';
+import { CompiledQuery, type Expression, sql } from 'kysely';
 
 /**
  * Returns a query that enables foreign key constraints.

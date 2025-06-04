@@ -1,12 +1,12 @@
-import { mkdirSync, createReadStream, createWriteStream } from 'node:fs';
-import { error, success, type Result } from '../../result';
-import { FileContent, type Folder } from '../types';
-import { existsSync } from 'fs';
-import { Readable } from 'stream';
-import { unlink } from 'fs/promises';
+import { existsSync } from 'node:fs';
+import { createReadStream, createWriteStream, mkdirSync } from 'node:fs';
+import { unlink } from 'node:fs/promises';
+import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import type { StorageBackend } from '../interface';
+import { type Result, error, success } from '../../result';
 import { BaseStorageBackend } from '../base';
+import type { StorageBackend } from '../interface';
+import { FileContent, type Folder } from '../types';
 
 export class FilesystemStorageBackend extends BaseStorageBackend implements StorageBackend {
   constructor(root: Folder) {
@@ -27,9 +27,8 @@ export class FilesystemStorageBackend extends BaseStorageBackend implements Stor
     }
 
     const stream = createReadStream(path);
-    const readable = Readable.from(stream);
 
-    return success(new FileContent(Readable.toWeb(readable)));
+    return success(new FileContent(Readable.toWeb(stream)));
   }
 
   async createFile(source: ReadableStream, data?: { key?: string }): Promise<string> {

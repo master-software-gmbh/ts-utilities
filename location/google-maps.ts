@@ -1,4 +1,4 @@
-import { URLSearchParams } from 'url';
+import { URLSearchParams } from 'node:url';
 import { typedFetch } from '../http';
 import { logger } from '../logging';
 import { type Result, error, success } from '../result';

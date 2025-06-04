@@ -1,34 +1,35 @@
 import type { Cache } from '../../../cache';
-import { success, type Result } from '../../../result';
+import { type Result, success } from '../../../result';
 import { FileContent } from '../../../storage';
 import type { NestedRecord, Primitive } from '../../../types';
-import type { ImageTransformationOptions } from './../dto/options';
-import type { ImageTransformationService } from './../interface';
+import type { MediaTransformationService } from '../interface';
 
 type CacheKey = Primitive | NestedRecord;
 
-export class CachedImageTransformationService implements ImageTransformationService {
+export class CachedMediaTransformationService<T, S extends MediaTransformationService<T>>
+  implements MediaTransformationService<T>
+{
   private readonly cache: Cache<CacheKey, FileContent>;
-  private readonly service: ImageTransformationService;
+  private readonly service: S;
 
-  constructor(cache: Cache<CacheKey, FileContent>, service: ImageTransformationService) {
+  constructor(cache: Cache<CacheKey, FileContent>, service: S) {
     this.cache = cache;
     this.service = service;
   }
 
   async transform(
     getSource: () => ReadableStream,
-    options: ImageTransformationOptions & { key: string },
+    options: T & { key: string },
   ): Promise<Result<FileContent, 'missing_dependencies'>> {
     const key = {
       id: options.key,
       options: options,
     };
 
-    const exists = await this.cache.get(key);
+    const cachedContent = await this.cache.get(key);
 
-    if (exists) {
-      return success(exists);
+    if (cachedContent) {
+      return success(cachedContent);
     }
 
     const result = await this.service.transform(getSource, options);

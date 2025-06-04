@@ -1,10 +1,4 @@
-import type { Result } from '../../result';
-import type { FileContent } from '../../storage';
+import type { MediaTransformationService } from '../../media/transformation/interface';
 import type { ImageTransformationOptions } from './dto/options';
 
-export interface ImageTransformationService {
-  transform(
-    getSource: () => ReadableStream,
-    options: ImageTransformationOptions & { key: string },
-  ): Promise<Result<FileContent, 'missing_dependencies'>>;
-}
+export type ImageTransformationService = MediaTransformationService<ImageTransformationOptions>;

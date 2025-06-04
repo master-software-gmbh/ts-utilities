@@ -1,10 +1,10 @@
-import { loadModule } from '../../../esm';
-import { error, success, type Result } from '../../../result';
-import type { ImageTransformationService } from '../interface';
-import type { ImageTransformationOptions } from '../dto/options';
 import { Readable } from 'node:stream';
-import { FileContent } from '../../../storage';
+import { loadModule } from '../../../esm';
 import { MimeType } from '../../../file';
+import { type Result, error, success } from '../../../result';
+import { FileContent } from '../../../storage';
+import type { ImageTransformationOptions } from '../dto/options';
+import type { ImageTransformationService } from '../interface';
 
 type SharpFunction = typeof import('sharp');
 

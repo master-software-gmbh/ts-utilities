@@ -1,11 +1,11 @@
-import { loadModule } from '../../../esm';
 import { PassThrough, Readable } from 'node:stream';
-import { error, success, type Result } from '../../../result';
-import type { AudioTransformationService } from '../interface';
-import { FileContent } from '../../../storage';
-import { MimeType } from '../../../file';
-import type { AudioTransformationOptions } from '../dto/options';
 import type { FfmpegCommand } from 'fluent-ffmpeg';
+import { loadModule } from '../../../esm';
+import { MimeType } from '../../../file';
+import { type Result, error, success } from '../../../result';
+import { FileContent } from '../../../storage';
+import type { AudioTransformationOptions } from '../dto/options';
+import type { AudioTransformationService } from '../interface';
 
 type Ffmpeg = typeof import('fluent-ffmpeg');
 
@@ -13,7 +13,7 @@ export class FfmpegAudioTransformationService implements AudioTransformationServ
   private ffmpeg?: Ffmpeg;
 
   async transform(
-    source: ReadableStream,
+    getSource: () => ReadableStream,
     options: AudioTransformationOptions,
   ): Promise<Result<FileContent, 'missing_dependencies'>> {
     const { data: ffmpeg } = await this.getFfmpeg();
@@ -22,21 +22,21 @@ export class FfmpegAudioTransformationService implements AudioTransformationServ
       return error('missing_dependencies');
     }
 
-    const output = new PassThrough();
-
     let command: FfmpegCommand;
     let outputType: string | undefined;
 
     if (options.overlay_path) {
-      command = this.getOverlayCommand(ffmpeg, Readable.fromWeb(source), options.overlay_path);
+      command = this.getOverlayCommand(ffmpeg, Readable.fromWeb(getSource()), options.overlay_path);
     } else {
-      command = ffmpeg(Readable.fromWeb(source));
+      command = ffmpeg(Readable.fromWeb(getSource()));
     }
 
     if (options.format === 'mp3') {
       command = command.audioCodec('libmp3lame').format('mp3');
       outputType = MimeType.audioMpeg;
     }
+
+    const output = new PassThrough();
 
     command.stream(output);
 

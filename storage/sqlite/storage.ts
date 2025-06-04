@@ -1,9 +1,9 @@
 import type { Kysely } from 'kysely';
 import { type Result, error, success } from '../../result';
+import { BaseStorageBackend } from '../base';
+import type { StorageBackend } from '../interface';
 import { FileContent, Folder } from '../types';
 import type { DB } from './types';
-import type { StorageBackend } from '../interface';
-import { BaseStorageBackend } from '../base';
 
 export class SqliteStorage extends BaseStorageBackend implements StorageBackend {
   private readonly database: Kysely<DB>;

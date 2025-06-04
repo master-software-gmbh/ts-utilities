@@ -64,6 +64,7 @@
     "./logging": "./logging/index.ts",
     "./math": "./math/index.ts",
     "./map": "./map/index.ts",
+    "./media": "./media/index.ts",
     "./nlp": "./nlp/index.ts",
     "./oauth": "./oauth/index.ts",
     "./pdf": "./pdf/index.ts",

@@ -1,6 +1,6 @@
+import { Readable } from 'node:stream';
 import type { Cache } from '../../cache';
 import { type Result, success } from '../../result';
-import { Readable } from 'node:stream';
 import { FileContent } from '../../storage';
 
 export abstract class XmlBaseResolver {

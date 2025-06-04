@@ -1,8 +1,8 @@
 import { S3Client } from 'bun';
 import { type Result, error, success } from '../../result';
-import { FileContent, type Folder } from '../types';
-import type { StorageBackend } from '../interface';
 import { BaseStorageBackend } from '../base';
+import type { StorageBackend } from '../interface';
+import { FileContent, type Folder } from '../types';
 
 export class S3Storage extends BaseStorageBackend implements StorageBackend {
   private readonly client: S3Client;

@@ -1,4 +1,4 @@
-import { maxValue, object, partial, picklist, pipe, string, transform, type InferOutput } from 'valibot';
+import { type InferOutput, maxValue, object, partial, picklist, pipe, string, transform } from 'valibot';
 
 const format = picklist(['jpeg', 'png', 'webp', 'avif']);
 

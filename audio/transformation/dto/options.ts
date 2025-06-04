@@ -1,4 +1,4 @@
-import { object, optional, partial, picklist, string, type InferOutput } from 'valibot';
+import { type InferOutput, object, optional, partial, picklist, string } from 'valibot';
 
 const format = picklist(['mp3']);
 

@@ -1,6 +1,6 @@
 import { hash } from '../crypto';
 import type { FileContent, StorageBackend } from '../storage';
-import type { Primitive, NestedRecord } from '../types';
+import type { NestedRecord, Primitive } from '../types';
 import type { Cache } from './interface';
 
 type CacheKey = Primitive | NestedRecord;

@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import type { FileBlockDto, RichTextBlockDto } from '../application/dto';
 import { DocumentBlock, FileBlock, RichTextBlock, type StandardBlock } from './model';
 
