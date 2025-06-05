@@ -5,7 +5,7 @@ export class Folder {
     this.segments = segments;
   }
 
-  static ROOT = new Folder('');
+  static ROOT = new Folder();
 
   resolve(key: string): string {
     return [...this.segments, key].join('/');
