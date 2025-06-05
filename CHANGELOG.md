@@ -1,3 +1,10 @@
+# [1.91.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.90.0...v1.91.0) (2025-06-05)
+
+
+### Features
+
+* simplify folder handling ([a9d927d](https://github.com/master-software-gmbh/ts-utilities/commit/a9d927d53b4bff51f6eb7b78824be62e3cb607ae))
+
 # [1.90.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.89.0...v1.90.0) (2025-06-05)
 
 
