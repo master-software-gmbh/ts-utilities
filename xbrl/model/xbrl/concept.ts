@@ -130,18 +130,91 @@ export class XbrlConcept {
     );
 
     let isRequired = false;
+    let isValid = true;
 
     for (const reference of mandatoryDisclosureReferences) {
-      const value = reference.getValue({
+      let value = reference.getValue({
         name: ReferenceName.fiscalRequirement,
         namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
       });
 
       if (value instanceof HgbrefFiscalRequirement) {
         isRequired = value.isRequired;
+        continue;
+      }
+
+      value = reference.getValue({
+        name: ReferenceName.notPermittedFor,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof HgbrefNotPermittedFor) {
+        if (value.value === 'Einreichung an Finanzverwaltung') {
+          isRequired = false;
+        }
+
+        continue;
+      }
+
+      value = reference.getValue({
+        name: ReferenceName.fiscalValidSince,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof XsDate) {
+        const validSince = value.value;
+
+        if (validSince > periodTo) {
+          isValid = false;
+        }
+
+        continue;
+      }
+
+      value = reference.getValue({
+        name: ReferenceName.fiscalValidThrough,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof XsDate) {
+        const validThrough = value.value;
+
+        if (validThrough < periodFrom) {
+          isValid = false;
+        }
+
+        continue;
+      }
+
+      value = reference.getValue({
+        name: ReferenceName.ValidSince,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof XsDate) {
+        const validSince = value.value;
+
+        if (validSince > periodTo) {
+          isValid = false;
+        }
+
+        continue;
+      }
+
+      value = reference.getValue({
+        name: ReferenceName.ValidThrough,
+        namespace: new XmlNamespace(XmlNamespaces.XbrlHgbref),
+      });
+
+      if (value instanceof XsDate) {
+        const validThrough = value.value;
+
+        if (validThrough < periodFrom) {
+          isValid = false;
+        }
       }
     }
 
-    return isRequired && this.isValid(periodFrom, periodTo);
+    return isRequired && isValid;
   }
 }
