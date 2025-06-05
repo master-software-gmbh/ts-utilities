@@ -1,3 +1,10 @@
+# [1.89.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.88.0...v1.89.0) (2025-06-05)
+
+
+### Features
+
+* improve child lookup ([c072d31](https://github.com/master-software-gmbh/ts-utilities/commit/c072d31944f18c3a406b5eaac2cbf5bc29adcc95))
+
 # [1.88.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.87.0...v1.88.0) (2025-06-04)
 
 
