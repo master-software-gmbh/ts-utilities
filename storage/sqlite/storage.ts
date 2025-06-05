@@ -9,7 +9,7 @@ export class SqliteStorage extends BaseStorageBackend implements StorageBackend 
   private readonly database: Kysely<DB>;
 
   constructor(database: Kysely<DB>) {
-    super(new Folder());
+    super(Folder.ROOT);
     this.database = database;
   }
 

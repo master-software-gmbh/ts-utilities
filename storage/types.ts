@@ -1,5 +1,3 @@
-import { resolve } from 'node:path';
-
 export class Folder {
   segments: string[];
 
@@ -7,8 +5,14 @@ export class Folder {
     this.segments = segments;
   }
 
+  static ROOT = new Folder('');
+
+  resolve(key: string): string {
+    return [...this.segments, key].join('/');
+  }
+
   get path(): string {
-    return resolve(...this.segments);
+    return this.segments.join('/');
   }
 }
 

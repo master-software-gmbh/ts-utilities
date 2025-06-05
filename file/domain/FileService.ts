@@ -1,5 +1,5 @@
 import { type Result, error, success } from '../../result';
-import type { Folder, StorageBackend } from '../../storage';
+import { Folder, type StorageBackend } from '../../storage';
 import type { FileRepository } from './FileRepository';
 import { FileEntity, type FileInput } from './file';
 
@@ -24,7 +24,7 @@ export class FileService {
     return success();
   }
 
-  async createFile(source: FileInput, folder: Folder, id?: string): Promise<FileEntity> {
+  async createFile(source: FileInput, folder = Folder.ROOT, id?: string): Promise<FileEntity> {
     const backend = this.getBackendOrThrow(folder);
     const key = await backend.createFile(source.stream(), {
       type: source.type,
@@ -37,7 +37,7 @@ export class FileService {
     return file;
   }
 
-  async getFileById(id: string, folder: Folder): Promise<FileEntity | null> {
+  async getFileById(id: string, folder = Folder.ROOT): Promise<FileEntity | null> {
     const backend = this.getBackendOrThrow(folder);
     const { data: file } = await this.repository.findById(id);
 
@@ -54,7 +54,7 @@ export class FileService {
     return file;
   }
 
-  async deleteFile(id: string, folder: Folder): Promise<Result<void, 'file_not_found'>> {
+  async deleteFile(id: string, folder = Folder.ROOT): Promise<Result<void, 'file_not_found'>> {
     const backend = this.getBackendOrThrow(folder);
     const { data: file } = await this.repository.findById(id);
 

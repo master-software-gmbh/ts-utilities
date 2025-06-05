@@ -1,5 +1,4 @@
 import { randomUUID } from 'node:crypto';
-import { resolve } from 'node:path';
 import type { Folder } from './types';
 
 export abstract class BaseStorageBackend {
@@ -12,7 +11,7 @@ export abstract class BaseStorageBackend {
   protected getId(key?: string): { key: string; path: string } {
     key ??= randomUUID();
 
-    const path = resolve(this.root.path, key);
+    const path = this.root.resolve(key);
 
     return {
       key: key,
