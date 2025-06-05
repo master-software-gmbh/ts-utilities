@@ -32,7 +32,11 @@ export class DocumentBlock extends CmsBlock<'document'> {
     this.content = data.content;
   }
 
-  getBlockById(id: string): StandardBlock | null {
-    return this.children.find((block) => block.id === id) || null;
+  getBlockById(id: string): StandardBlock | undefined {
+    if (this.id === id) {
+      return this;
+    }
+
+    return this.children.find((block) => block.id === id);
   }
 }
