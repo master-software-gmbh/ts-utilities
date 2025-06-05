@@ -12,4 +12,5 @@ export const XmlNamespaces = {
   XbrlIso4217: 'http://www.xbrl.org/2003/iso4217',
   XbrlDeGaapCi: 'http://www.xbrl.de/taxonomies/de-gaap-ci-2024-04-01',
   XbrlDeGcd: 'http://www.xbrl.de/taxonomies/de-gcd-2024-04-01',
+  XbrlDimensions: 'http://xbrl.org/2006/xbrldi',
 } as const;

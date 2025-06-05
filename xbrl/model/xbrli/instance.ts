@@ -32,7 +32,7 @@ export class XbrlInstance {
     return Array.from(this.contextsMap.values());
   }
 
-  private hasFact(id: string): boolean {
+  hasFact(id: string): boolean {
     return this.factsMap.has(id);
   }
 
@@ -54,6 +54,14 @@ export class XbrlInstance {
     }
 
     this.factsMap.set(fact.concept.id, fact);
+  }
+
+  removeFact(fact: XbrlFact): void {
+    if (!fact.concept.id) {
+      throw new Error('Fact must have a concept with an ID.');
+    }
+
+    this.factsMap.delete(fact.concept.id);
   }
 
   addUnit(unit: XbrlUnit): void {
@@ -111,6 +119,10 @@ export class XbrlInstance {
                   {
                     namespace: new XmlNamespace(XmlNamespaces.XmlSchemaInstance),
                     prefix: 'xsi',
+                  },
+                  {
+                    namespace: new XmlNamespace(XmlNamespaces.XbrlDimensions),
+                    prefix: 'xbrldi',
                   },
                 ];
               },

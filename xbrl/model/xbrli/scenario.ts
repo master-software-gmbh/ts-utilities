@@ -1,7 +1,7 @@
 export class XbrlScenario {
-  value: string;
+  value: unknown[];
 
-  constructor(value: string) {
+  constructor(value: unknown[]) {
     this.value = value;
   }
 }

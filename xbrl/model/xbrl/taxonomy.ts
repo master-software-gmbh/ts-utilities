@@ -1,19 +1,51 @@
+import { XmlNamespace, XsElement } from '../../../xml';
+import type { QName } from '../../../xml/model/qualified-name';
+import type { XsChoice } from '../../../xml/model/xs/choice';
+import type { Dtd } from '../dtd';
 import type { XbrlCalculationLink } from './calculation-link';
 import type { XbrlConcept } from './concept';
 import type { XbrlPresentationLink } from './presentation-link';
 import type { XbrlRole } from './role';
 
 export class XbrlTaxonomy {
+  dtd: Dtd;
   roles: XbrlRole[];
   concepts: XbrlConcept[];
   calculationLinks: XbrlCalculationLink[];
   presentationLinks: XbrlPresentationLink[];
 
-  constructor() {
+  constructor(dtd: Dtd) {
+    this.dtd = dtd;
     this.roles = [];
     this.concepts = [];
     this.calculationLinks = [];
     this.presentationLinks = [];
+  }
+
+  getChoiceOptions(element: XsChoice): XsElement[] {
+    const options: XsElement[] = [];
+
+    for (const child of element.children) {
+      if (child instanceof XsElement) {
+        const resolvedElement = child.resolveElement((name) => this.dtd.schema.getElement(name));
+
+        if (!resolvedElement.name || !resolvedElement.targetNamespace) {
+          continue;
+        }
+
+        const targetNamespace = new XmlNamespace(resolvedElement.targetNamespace);
+
+        const qname: QName = {
+          name: resolvedElement.name,
+          namespace: targetNamespace,
+        };
+
+        const substitutions = this.dtd.schema.getSubstitutionGroup(qname);
+        options.push(...substitutions);
+      }
+    }
+
+    return options;
   }
 
   getConceptById(id: string): XbrlConcept | undefined {
@@ -42,7 +74,7 @@ export class XbrlTaxonomy {
     return network;
   }
 
-  getMandatoryConceptsInPresentationNetwork(...roles: string[]): XbrlConcept[] {
+  getMandatoryConceptsInPresentationNetwork(periodFrom: Date, periodTo: Date, ...roles: string[]): XbrlConcept[] {
     const network = this.presentationNetwork;
 
     return this.concepts.filter((concept) => {
@@ -54,7 +86,7 @@ export class XbrlTaxonomy {
         const conceptsInNetwork = network.get(role);
 
         if (conceptsInNetwork?.includes(concept.id)) {
-          return concept.isMandatoryDisclosure;
+          return concept.isMandatoryDisclosure(periodFrom, periodTo);
         }
       }
 

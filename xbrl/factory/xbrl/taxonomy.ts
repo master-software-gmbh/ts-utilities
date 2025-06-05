@@ -2,7 +2,7 @@ import { type Result, error, success, successful } from '../../../result';
 import type { LinkLoc } from '../../../xml/model/link/loc';
 import type { Dtd } from '../../model/dtd';
 import { XbrlCalculationLink } from '../../model/xbrl/calculation-link';
-import { XbrlConcept } from '../../model/xbrl/concept';
+import type { XbrlConcept } from '../../model/xbrl/concept';
 import { XbrlPresentationLink } from '../../model/xbrl/presentation-link';
 import { XbrlTaxonomy } from '../../model/xbrl/taxonomy';
 import { XbrlTuple } from '../../model/xbrl/tuple';
@@ -13,19 +13,24 @@ import { XbrlReferenceFactory } from './reference';
 import { XbrlRoleFactory } from './role';
 
 export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
-  private readonly taxonomy = new XbrlTaxonomy();
+  private readonly taxonomy: XbrlTaxonomy;
   private readonly itemFactory = new XbrlItemFactory();
   private readonly roleFactory = new XbrlRoleFactory();
   private readonly labelFactory = new XbrlLabelFactory();
   private readonly referenceFactory = new XbrlReferenceFactory();
 
-  override map(source: Dtd) {
-    this.mapElements(source);
-    this.mapRoles(source);
-    this.mapLabels(source);
-    this.mapReferences(source);
-    this.mapCalculationLinks(source);
-    this.mapPresentationLinks(source);
+  constructor(source: Dtd) {
+    super();
+    this.taxonomy = new XbrlTaxonomy(source);
+  }
+
+  override map() {
+    this.mapElements(this.taxonomy.dtd);
+    this.mapRoles(this.taxonomy.dtd);
+    this.mapLabels(this.taxonomy.dtd);
+    this.mapReferences(this.taxonomy.dtd);
+    this.mapCalculationLinks(this.taxonomy.dtd);
+    this.mapPresentationLinks(this.taxonomy.dtd);
 
     return success(this.taxonomy);
   }
@@ -156,7 +161,8 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
       } else if (element.substitutionGroup === 'xbrli:tuple') {
         result = success(new XbrlTuple(element));
       } else if (element.substitutionGroup) {
-        result = success(new XbrlConcept(element));
+        // Assume it's a substitution group for items
+        result = this.itemFactory.map(element);
       }
 
       if (result.success) {

@@ -4,6 +4,7 @@ import { XmlNamespaceDeclaration } from '../../xml/model/xml/declaration';
 import { XmlDocument } from '../../xml/model/xml/document';
 import { XmlElement } from '../../xml/model/xml/element';
 import { XmlNamespace } from '../../xml/model/xml/namespace';
+import { XbrldiExplicitMember } from '../model/xbrldi/explicit-member';
 import type { XbrlContext } from '../model/xbrli/context';
 import type { XbrlEntity } from '../model/xbrli/entity';
 import type { XbrlFact } from '../model/xbrli/fact';
@@ -11,6 +12,7 @@ import type { XbrlIdentifier } from '../model/xbrli/identifier';
 import type { XbrlInstance } from '../model/xbrli/instance';
 import type { XbrlMeasure } from '../model/xbrli/measure';
 import type { XbrlPeriod } from '../model/xbrli/period';
+import type { XbrlScenario } from '../model/xbrli/scenario';
 import type { LinkSchemaRef } from '../model/xbrli/schema-ref';
 import type { XbrlUnit } from '../model/xbrli/unit';
 
@@ -18,6 +20,7 @@ export class XbrlInstanceSerializer {
   private readonly linkNamespace = new XmlNamespace(XmlNamespaces.XbrlLinkbase);
   private readonly xlinkNamespace = new XmlNamespace(XmlNamespaces.XmlLinking);
   private readonly xbrliNamespace = new XmlNamespace(XmlNamespaces.XbrlInstance);
+  private readonly xbrldiNamespace = new XmlNamespace(XmlNamespaces.XbrlDimensions);
   private readonly xsiNamespace = new XmlNamespace(XmlNamespaces.XmlSchemaInstance);
 
   serialize(instance: XbrlInstance): XmlDocument {
@@ -79,6 +82,10 @@ export class XbrlInstanceSerializer {
       this.serializePeriod(context.period),
     ];
 
+    if (context.scenario) {
+      children.push(this.serializeScenario(context.scenario));
+    }
+
     return new XmlElement('context', this.xbrliNamespace, attributes, children);
   }
 
@@ -116,6 +123,28 @@ export class XbrlInstanceSerializer {
     }
 
     return new XmlElement('period', this.xbrliNamespace, [], children);
+  }
+
+  private serializeScenario(scenario: XbrlScenario): XmlElement {
+    const attributes: XmlAttribute[] = [];
+    const children: (string | XmlElement)[] = scenario.value.compactMap((child) => {
+      if (child instanceof XbrldiExplicitMember) {
+        return this.serializeExplicitMember(child);
+      }
+
+      return null;
+    });
+
+    return new XmlElement('scenario', this.xbrliNamespace, attributes, children);
+  }
+
+  private serializeExplicitMember(member: XbrldiExplicitMember): XmlElement {
+    return new XmlElement(
+      'explicitMember',
+      this.xbrldiNamespace,
+      [new XmlAttribute('dimension', member.dimension)],
+      [member.member],
+    );
   }
 
   serializeFact(fact: XbrlFact): XmlElement {
