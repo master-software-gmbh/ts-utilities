@@ -1,3 +1,10 @@
+# [1.90.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.89.0...v1.90.0) (2025-06-05)
+
+
+### Features
+
+* generalize empty file filter ([2122e48](https://github.com/master-software-gmbh/ts-utilities/commit/2122e481369b816da1d373326277b56bb87b7fdc))
+
 # [1.89.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.88.0...v1.89.0) (2025-06-05)
 
 
