@@ -1,3 +1,15 @@
+# [1.92.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.91.1...v1.92.0) (2025-06-05)
+
+
+### Bug Fixes
+
+* hashing of primitives ([6bc345c](https://github.com/master-software-gmbh/ts-utilities/commit/6bc345cd30d95178c4d90fd4dd9dad53d74ec112))
+
+
+### Features
+
+* extend xbrl processing ([dbf42e1](https://github.com/master-software-gmbh/ts-utilities/commit/dbf42e14a4ac5f1080ef4cc007fa37dba5e19eea))
+
 ## [1.91.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.91.0...v1.91.1) (2025-06-05)
 
 
