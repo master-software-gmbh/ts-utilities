@@ -1,3 +1,10 @@
+## [1.91.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.91.0...v1.91.1) (2025-06-05)
+
+
+### Bug Fixes
+
+* root folder ([445ad7e](https://github.com/master-software-gmbh/ts-utilities/commit/445ad7e740f45e8dd80023e83cf7a01b2fd895fa))
+
 # [1.91.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.90.0...v1.91.0) (2025-06-05)
 
 
