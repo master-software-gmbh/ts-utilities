@@ -1,3 +1,10 @@
+## [1.92.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.92.0...v1.92.1) (2025-06-05)
+
+
+### Bug Fixes
+
+* mandatory disclosure calculation ([21d39de](https://github.com/master-software-gmbh/ts-utilities/commit/21d39de715df6791712469ba55e64bdfafdd2620))
+
 # [1.92.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.91.1...v1.92.0) (2025-06-05)
 
 
