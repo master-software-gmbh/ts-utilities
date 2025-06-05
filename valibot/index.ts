@@ -18,21 +18,31 @@ import {
 } from 'valibot';
 import { loadModule } from '../esm';
 import { logger } from '../logging';
+import type { File } from 'node:buffer';
 
-export function omitEmptyFile() {
-  return transform<File, File | undefined>((file) => (file.size > 0 ? file : undefined));
-}
+type FInput = File | File[];
+type FOutput<I> = I extends File ? File | undefined : I extends File[] ? File[] : never;
 
-type Input = string | string[];
-type Output<I> = I extends string ? string | undefined : I extends string[] ? string[] : never;
-
-export function omitEmptyString<T extends Input>() {
-  return transform<T, Output<T>>((value) => {
+export function omitEmptyFile<T extends FInput>() {
+  return transform<T, FOutput<T>>((value) => {
     if (Array.isArray(value)) {
-      return value.filter((item) => item.length > 0) as Output<T>;
+      return value.filter((item) => item.size > 0) as FOutput<T>;
     }
 
-    return (value.length === 0 ? undefined : (value as string | undefined)) as Output<T>;
+    return (value.size === 0 ? undefined : value) as FOutput<T>;
+  });
+}
+
+type SInput = string | string[];
+type SOutput<I> = I extends string ? string | undefined : I extends string[] ? string[] : never;
+
+export function omitEmptyString<T extends SInput>() {
+  return transform<T, SOutput<T>>((value) => {
+    if (Array.isArray(value)) {
+      return value.filter((item) => item.length > 0) as SOutput<T>;
+    }
+
+    return (value.length === 0 ? undefined : value) as SOutput<T>;
   });
 }
 

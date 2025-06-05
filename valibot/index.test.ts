@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { parse } from 'valibot';
 import { booleanString, htmlCheckbox, omitEmptyFile, omitEmptyString } from '.';
+import type { File } from 'node:buffer';
 
 describe('booleanString', () => {
   it('should transform "true" to true', () => {
