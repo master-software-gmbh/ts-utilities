@@ -13,6 +13,7 @@ export * from './model/xbrli/instance';
 export * from './model/xbrli/period';
 export * from './model/xbrli/identifier';
 export * from './model/xbrli/entity';
+export * from './model/xbrli/scenario';
 export * from './model/xbrldi/explicit-member';
 export * from './serializer/instance';
 export * from './model/xbrli/instance';
