@@ -56,7 +56,11 @@ export class XbrlTaxonomy {
     return this.calculationLinks.filter((relation) => roles.includes(relation.role));
   }
 
-  private get presentationNetwork(): Map<string, string[]> {
+  getPresentationRelations(...roles: string[]): XbrlPresentationLink[] {
+    return this.presentationLinks.filter((relation) => roles.includes(relation.role));
+  }
+
+  get presentationNetwork(): Map<string, string[]> {
     const network = new Map<string, string[]>();
 
     for (const link of this.presentationLinks) {

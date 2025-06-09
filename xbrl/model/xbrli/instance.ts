@@ -1,23 +1,56 @@
-import { XmlNamespace } from '../../../xml';
+import { type Result, error, success } from '../../../result';
+import { XmlDocument, type XmlElement, XmlNamespace, XmlSchemaToXmlVisitor, type XmlSerializable } from '../../../xml';
 import { XmlNamespaces } from '../../../xml/model/namespaces';
 import type { Context } from '../../../xml/visitor/schema/xs-to-xml';
 import { XbrlInstanceSerializer } from '../../serializer/instance';
+import type { Dtd } from '../dtd';
 import type { XbrlContext } from './context';
 import type { XbrlFact } from './fact';
 import type { LinkSchemaRef } from './schema-ref';
 import type { XbrlUnit } from './unit';
 
-export class XbrlInstance {
+export type DataMap = { [key: string]: string | DataMap | undefined };
+
+export class XbrlInstance implements XmlSerializable {
+  private readonly dtd: Dtd;
   readonly schemaRefs: LinkSchemaRef[];
   private readonly factsMap: Map<string, XbrlFact>;
   private readonly unitsMap: Map<string, XbrlUnit>;
   private readonly contextsMap: Map<string, XbrlContext>;
 
-  constructor() {
+  constructor(dtd: Dtd) {
+    this.dtd = dtd;
     this.schemaRefs = [];
     this.factsMap = new Map();
     this.unitsMap = new Map();
     this.contextsMap = new Map();
+  }
+
+  async toXML(): Promise<Result<XmlElement | XmlDocument, 'xml_conversion_failed'>> {
+    const instanceContext = this.getContext();
+
+    const root = this.dtd.schema.getElement({
+      name: 'xbrl',
+      namespace: new XmlNamespace(XmlNamespaces.XbrlInstance),
+    });
+
+    if (!root) {
+      return error('xml_conversion_failed', 'Failed to get root element from schema.');
+    }
+
+    const visitor = new XmlSchemaToXmlVisitor(this.dtd.schema, (path) => {
+      return instanceContext(path);
+    });
+
+    const [element] = visitor.processElement(root);
+
+    if (!element) {
+      return error('xml_conversion_failed', 'Failed to generate XML element.');
+    }
+
+    const document = new XmlDocument(element);
+
+    return success(document);
   }
 
   get facts(): XbrlFact[] {

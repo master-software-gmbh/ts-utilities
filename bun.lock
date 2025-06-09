@@ -9,7 +9,7 @@
         "valibot": "^1.1.0",
       },
       "devDependencies": {
-        "@types/bun": "^1.2.9",
+        "@types/bun": "^1.2.15",
         "@types/fluent-ffmpeg": "^2.1.27",
         "@types/mjml": "^4.7.4",
         "fast-xml-parser": "^5.2.3",
@@ -21,7 +21,7 @@
         "kysely-codegen": "^0.18.5",
         "mjml": "^4.15.3",
         "sharp": "^0.34.2",
-        "stripe": "^18.2.0",
+        "stripe": "^18.2.1",
         "typescript": "^5.8.3",
       },
       "peerDependencies": {
@@ -239,7 +239,7 @@
 
     "escape-string-regexp": ["escape-string-regexp@1.0.5", "", {}, "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="],
 
-    "fast-xml-parser": ["fast-xml-parser@5.2.3", "", { "dependencies": { "strnum": "^2.1.0" }, "bin": { "fxparser": "src/cli/cli.js" } }, "sha512-OdCYfRqfpuLUFonTNjvd30rCBZUneHpSQkCqfaeWQ9qrKcl6XlWeDBNVwGb+INAIxRshuN2jF+BE0L6gbBO2mw=="],
+    "fast-xml-parser": ["fast-xml-parser@5.2.5", "", { "dependencies": { "strnum": "^2.1.0" }, "bin": { "fxparser": "src/cli/cli.js" } }, "sha512-pfX9uG9Ki0yekDHx2SiuRIyFdyAr1kMIMitPvb0YBo8SUfKvia7w7FIyd/l6av85pFYRhZscS75MwMnbvY+hcQ=="],
 
     "fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
 

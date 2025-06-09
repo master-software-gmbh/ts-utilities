@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { FileContent } from '../../storage';
 import type { ReadableStream } from 'node:stream/web';
+import type { FileContent } from '../../storage';
 
 export interface FileInput {
   name: string;

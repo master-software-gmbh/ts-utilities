@@ -1,3 +1,4 @@
+import type { File } from 'node:buffer';
 import {
   type GenericPipeItem,
   type GenericPipeItemAsync,
@@ -18,7 +19,6 @@ import {
 } from 'valibot';
 import { loadModule } from '../esm';
 import { logger } from '../logging';
-import type { File } from 'node:buffer';
 
 type FInput = File | File[];
 type FOutput<I> = I extends File ? File | undefined : I extends File[] ? File[] : never;
