@@ -1,3 +1,10 @@
+# [1.93.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.92.2...v1.93.0) (2025-06-09)
+
+
+### Features
+
+* add gcd enums, make xbrl instance serializable ([d6c8ad0](https://github.com/master-software-gmbh/ts-utilities/commit/d6c8ad0b1feb01a4f55d194dcfc8f53e2e15fafa))
+
 ## [1.92.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.92.1...v1.92.2) (2025-06-05)
 
 ## [1.92.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.92.0...v1.92.1) (2025-06-05)
