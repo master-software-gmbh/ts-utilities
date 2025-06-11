@@ -1,7 +1,7 @@
 import readline from 'node:readline';
 import { CompiledQuery, type Kysely } from 'kysely';
 
-async function executeQuery(db: Kysely<any>, query: string): Promise<string> {
+async function executeQuery(db: Kysely<unknown>, query: string): Promise<string> {
   try {
     const result = await db.executeQuery(CompiledQuery.raw(query));
 
