@@ -1,3 +1,10 @@
+# [1.94.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.93.0...v1.94.0) (2025-06-11)
+
+
+### Features
+
+* add kysely where builder type ([6681843](https://github.com/master-software-gmbh/ts-utilities/commit/6681843573e3ba6519852263e300116ab58aff12))
+
 # [1.93.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.92.2...v1.93.0) (2025-06-09)
 
 
