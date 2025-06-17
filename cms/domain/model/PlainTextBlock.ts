@@ -20,7 +20,6 @@ export class PlainTextBlock extends CmsBlock<'plain-text'> {
   constructor(data: {
     id?: string;
     position: number;
-    documentId: string;
     children?: StandardBlock[];
     parentId?: string | null;
     embedding?: Float32Array | null;

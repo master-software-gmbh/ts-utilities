@@ -23,7 +23,6 @@ export class CmsRepositoryMapper {
           content: data,
           position: row.position,
           parentId: row.parent_id,
-          documentId: row.document_id,
           children: getChildren(row.id).compactMap(mapBlock),
         });
       }
@@ -36,7 +35,6 @@ export class CmsRepositoryMapper {
           content: data,
           position: row.position,
           parentId: row.parent_id,
-          documentId: row.document_id,
           children: getChildren(row.id).compactMap(mapBlock),
         });
       }
@@ -49,7 +47,6 @@ export class CmsRepositoryMapper {
           content: data,
           position: row.position,
           parentId: row.parent_id,
-          documentId: row.document_id,
           children: getChildren(row.id).compactMap(mapBlock),
         });
       }
@@ -62,7 +59,6 @@ export class CmsRepositoryMapper {
           content: data,
           position: row.position,
           parentId: row.parent_id,
-          documentId: row.document_id,
           children: getChildren(row.id).compactMap(mapBlock),
         });
       }

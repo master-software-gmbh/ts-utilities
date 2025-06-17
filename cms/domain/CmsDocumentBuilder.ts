@@ -10,7 +10,6 @@ export class CmsDocumentBuilder {
   build(): DocumentBlock {
     return new DocumentBlock({
       id: this.id,
-      documentId: this.id,
       children: this.blocks,
       content: {
         title: this.title,
@@ -27,7 +26,6 @@ export class CmsDocumentBuilder {
     this.blocks.push(
       new RichTextBlock({
         parentId: this.id,
-        documentId: this.id,
         position: this.blocks.length,
         content: content ?? {
           spans: [
@@ -48,7 +46,6 @@ export class CmsDocumentBuilder {
       new FileBlock({
         content: content,
         parentId: this.id,
-        documentId: this.id,
         position: this.blocks.length,
       }),
     );

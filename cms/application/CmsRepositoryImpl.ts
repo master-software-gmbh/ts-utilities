@@ -85,7 +85,6 @@ export class CmsRepositoryImpl implements CmsRepository {
           embedding: embedding,
           position: block.position,
           parent_id: block.parentId,
-          document_id: block.documentId,
           content: JSON.stringify(block.content),
         })
         .onConflict((oc) =>
@@ -95,7 +94,6 @@ export class CmsRepositoryImpl implements CmsRepository {
             embedding: embedding,
             position: block.position,
             parent_id: block.parentId,
-            document_id: block.documentId,
             content: JSON.stringify(block.content),
           }),
         )
@@ -120,30 +118,11 @@ export class CmsRepositoryImpl implements CmsRepository {
       await Promise.all(block.children.map((child) => handleBlock(child)));
     };
 
-    // Upsert document as a placeholder until constraint is removed
-
-    await transaction
-      .insertInto('cms_document')
-      .values({
-        id: entity.documentId,
-        title: 'Placeholder Document',
-        created_at: new Date().getTime(),
-        updated_at: new Date().getTime(),
-      })
-      .onConflict((oc) => oc.doNothing())
-      .execute();
-
     await handleBlock(entity);
   }
 
   async remove(id: string): Promise<Result<void, 'entity_doesnt_exist'>> {
-    await this.database.transaction().execute(async (transaction) => {
-      await transaction.deleteFrom('cms_block').where('cms_block.id', '=', id).execute();
-
-      // Handle legacy documents
-      await transaction.deleteFrom('cms_document').where('cms_document.id', '=', id).execute();
-    });
-
+    await this.database.deleteFrom('cms_block').where('cms_block.id', '=', id).execute();
     return success();
   }
 
@@ -160,7 +139,6 @@ export class CmsRepositoryImpl implements CmsRepository {
             'cms_block.position',
             'cms_block.parent_id',
             'cms_block.embedding',
-            'cms_block.document_id',
           ])
           .where('cms_block.id', '=', id)
           .unionAll(
@@ -175,7 +153,6 @@ export class CmsRepositoryImpl implements CmsRepository {
                 'cms_block.position',
                 'cms_block.parent_id',
                 'cms_block.embedding',
-                'cms_block.document_id',
               ]),
           ),
       )

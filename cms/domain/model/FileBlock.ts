@@ -22,7 +22,6 @@ export class FileBlock extends CmsBlock<'file-ref'> {
   constructor(data: {
     id?: string;
     position: number;
-    documentId: string;
     children?: StandardBlock[];
     parentId?: string | null;
     embedding?: Float32Array | null;

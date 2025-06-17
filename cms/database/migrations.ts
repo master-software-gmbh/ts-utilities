@@ -134,6 +134,16 @@ export class CmsMigrations implements MigrationProvider {
           return db.schema.alterTable('cms_block').dropColumn('embedding').execute();
         },
       },
+      '0008_update_cms_block_table': {
+        up(db) {
+          return db.schema.alterTable('cms_block').dropColumn('document_id').execute();
+        },
+      },
+      '0009_remove_cms_document_table': {
+        up(db) {
+          return db.schema.dropTable('cms_document').execute();
+        },
+      },
     };
   }
 }

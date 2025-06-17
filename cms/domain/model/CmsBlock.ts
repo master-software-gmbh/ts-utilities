@@ -7,7 +7,6 @@ export abstract class CmsBlock<T extends string> {
   abstract type: T;
   content: unknown;
   position: number;
-  documentId: string;
   abstract text: string;
   children: StandardBlock[];
   parentId: string | null;
@@ -17,7 +16,6 @@ export abstract class CmsBlock<T extends string> {
     id?: string;
     content: unknown;
     position?: number;
-    documentId: string;
     children?: StandardBlock[];
     parentId?: string | null;
     embedding?: Float32Array | null;
@@ -25,7 +23,6 @@ export abstract class CmsBlock<T extends string> {
     this.content = data.content;
     this.embedding = data.embedding;
     this.id = data.id ?? randomUUID();
-    this.documentId = data.documentId;
     this.position = data.position ?? 0;
     this.children = data.children ?? [];
     this.parentId = data.parentId ?? null;

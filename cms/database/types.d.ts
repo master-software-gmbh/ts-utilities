@@ -11,7 +11,6 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export interface CmsBlock {
   content: string;
-  document_id: string;
   embedding: Buffer | null;
   id: string;
   parent_id: string | null;
@@ -20,14 +19,6 @@ export interface CmsBlock {
   type: string;
 }
 
-export interface CmsDocument {
-  created_at: number;
-  id: string;
-  title: string;
-  updated_at: number;
-}
-
 export interface DB {
   cms_block: CmsBlock;
-  cms_document: CmsDocument;
 }

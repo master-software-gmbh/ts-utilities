@@ -20,22 +20,16 @@ export class CmsService {
   }
 
   async saveDto(dto: StandardBlockDto) {
-    const model = this.mapDto(dto, dto.id, null, 0);
+    const model = this.mapDto(dto, null, 0);
     return this.saveBlock(model);
   }
 
-  private mapDto(
-    block: StandardBlockDto,
-    documentId: string,
-    parentId: string | null,
-    position: number,
-  ): StandardBlock {
-    const children = block.children.map((child, index) => this.mapDto(child, documentId, block.id, index));
+  private mapDto(block: StandardBlockDto, parentId: string | null, position: number): StandardBlock {
+    const children = block.children.map((child, index) => this.mapDto(child, block.id, index));
 
     if (block.type === 'document') {
       return new DocumentBlock({
         id: block.id,
-        documentId,
         parentId,
         position,
         children,
@@ -46,7 +40,6 @@ export class CmsService {
     if (block.type === 'plain-text') {
       return new PlainTextBlock({
         id: block.id,
-        documentId,
         parentId,
         position,
         children,
@@ -57,7 +50,6 @@ export class CmsService {
     if (block.type === 'rich-text') {
       return new RichTextBlock({
         id: block.id,
-        documentId,
         parentId,
         position,
         children,
@@ -67,7 +59,6 @@ export class CmsService {
 
     return new FileBlock({
       id: block.id,
-      documentId,
       parentId,
       position,
       children,
