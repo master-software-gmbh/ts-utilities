@@ -1,10 +1,11 @@
 import { CompiledQuery, type Expression, sql } from 'kysely';
 
 /**
- * Returns a query that enables foreign key constraints.
+ * Returns a query that configures foreign key constraints.
  */
-export function enableForeignKeys(): CompiledQuery {
-  return CompiledQuery.raw('PRAGMA foreign_keys = ON;');
+export function configureForeignKeys(on = true): CompiledQuery {
+  const value = on ? 'ON' : 'OFF';
+  return CompiledQuery.raw(`PRAGMA foreign_keys = ${value};`);
 }
 
 /**
