@@ -1,3 +1,10 @@
+# [1.96.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.95.2...v1.96.0) (2025-06-17)
+
+
+### Features
+
+* add dynamic context to consent entity ([47007cb](https://github.com/master-software-gmbh/ts-utilities/commit/47007cb51760627d43efb0e09750339b66ad1dc5))
+
 ## [1.95.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.95.1...v1.95.2) (2025-06-17)
 
 ## [1.95.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.95.0...v1.95.1) (2025-06-17)
