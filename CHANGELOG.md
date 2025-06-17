@@ -1,3 +1,10 @@
+# [1.95.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.94.0...v1.95.0) (2025-06-17)
+
+
+### Features
+
+* generalize foreign keys pragma query ([8a89339](https://github.com/master-software-gmbh/ts-utilities/commit/8a89339080c628b2a671910ca1208db025409a5f))
+
 # [1.94.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.93.0...v1.94.0) (2025-06-11)
 
 
