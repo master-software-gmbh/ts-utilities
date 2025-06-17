@@ -1,3 +1,10 @@
+## [1.95.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.95.0...v1.95.1) (2025-06-17)
+
+
+### Bug Fixes
+
+* disable foreign key constraints during table migration ([25258e9](https://github.com/master-software-gmbh/ts-utilities/commit/25258e98039e46404176d09cdeafce51cab8e8e7))
+
 # [1.95.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.94.0...v1.95.0) (2025-06-17)
 
 
