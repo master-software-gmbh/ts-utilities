@@ -1,5 +1,6 @@
 import { CreateTableBuilder, type Kysely, type Migration, type MigrationProvider, type Migrator, sql } from 'kysely';
 import { logger } from '../logging';
+import { configureForeignKeys } from './sqlite';
 
 export function inlineMigrations(migrations: Record<string, Migration>): MigrationProvider {
   return {
@@ -69,6 +70,8 @@ export async function updateTable(
   newTable: (db: CreateTableBuilder<string, never>) => CreateTableBuilder<string, never>,
   convertRow?: (row: Record<string, unknown>) => Record<string, unknown>,
 ) {
+  await db.executeQuery(configureForeignKeys(false));
+
   await db.transaction().execute(async (transaction) => {
     await newTable(transaction.schema.createTable(`${tableName}_tmp`)).execute();
 
@@ -82,6 +85,8 @@ export async function updateTable(
     await transaction.schema.dropTable(tableName).execute();
     await transaction.schema.alterTable(`${tableName}_tmp`).renameTo(tableName).execute();
   });
+
+  await db.executeQuery(configureForeignKeys(true));
 }
 
 declare module 'kysely' {
