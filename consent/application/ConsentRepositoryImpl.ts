@@ -86,6 +86,7 @@ export class ConsentRepositoryImpl implements ConsentRepository {
         subject: entity.subject,
         purpose: entity.purpose,
         created_at: entity.createdAt.getTime(),
+        context: JSON.stringify(entity.context),
       })
       .onConflict((oc) =>
         oc.doUpdateSet({
@@ -93,6 +94,7 @@ export class ConsentRepositoryImpl implements ConsentRepository {
           subject: entity.subject,
           purpose: entity.purpose,
           created_at: entity.createdAt.getTime(),
+          context: JSON.stringify(entity.context),
         }),
       )
       .execute();
@@ -113,6 +115,7 @@ export class ConsentRepositoryImpl implements ConsentRepository {
       status: row.status,
       subject: row.subject,
       purpose: row.purpose,
+      context: JSON.parse(row.context),
       createdAt: new Date(row.created_at),
     });
   }

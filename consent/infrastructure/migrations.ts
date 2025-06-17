@@ -19,6 +19,17 @@ export class ConsentMigrationProvider implements MigrationProvider {
           return db.schema.dropTable('consent').execute();
         },
       },
+      '0002_update_consent_table': {
+        up(db) {
+          return db.schema
+            .alterTable('consent')
+            .addColumn('context', 'jsonb', (col) => col.notNull().defaultTo('{}'))
+            .execute();
+        },
+        down(db) {
+          return db.schema.alterTable('consent').dropColumn('context').execute();
+        },
+      },
     };
   }
 }

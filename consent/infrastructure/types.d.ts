@@ -10,6 +10,7 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 
 export interface Consent {
+  context: Generated<string>;
   created_at: Generated<number>;
   id: Generated<string>;
   purpose: string;

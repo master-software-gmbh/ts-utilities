@@ -1,6 +1,7 @@
 import type { ConsentRepository } from './ConsentRepository';
 import { Consent } from './model/Consent';
 import type { ConsentStatus } from './model/ConsentStatus';
+import type { Context } from './model/Context';
 
 export class ConsentService {
   private readonly repository: ConsentRepository;
@@ -9,11 +10,12 @@ export class ConsentService {
     this.repository = repository;
   }
 
-  async storeConsent(subject: string, status: ConsentStatus, purpose: string): Promise<Consent> {
+  async storeConsent(subject: string, status: ConsentStatus, purpose: string, context?: Context): Promise<Consent> {
     const consent = new Consent({
       status,
       subject,
       purpose,
+      context,
     });
 
     await this.repository.add(consent);
