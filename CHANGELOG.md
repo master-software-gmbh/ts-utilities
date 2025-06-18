@@ -1,3 +1,10 @@
+# [1.97.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.96.0...v1.97.0) (2025-06-18)
+
+
+### Features
+
+* minor improvements ([c7de116](https://github.com/master-software-gmbh/ts-utilities/commit/c7de116bad180b27ece42e1ed0d08a673d67cca6))
+
 # [1.96.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.95.2...v1.96.0) (2025-06-17)
 
 
