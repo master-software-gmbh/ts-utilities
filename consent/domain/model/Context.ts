@@ -1,1 +1,1 @@
-export type Context = Record<string, string>;
+export type Context = Partial<Record<string, string>>;

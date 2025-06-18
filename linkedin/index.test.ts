@@ -16,5 +16,20 @@ describe('parseUsername', () => {
     expect(parseUsername('https://www.linkedin.com/in/marian-eickmeyer-bb0543174/')).toBe('marian-eickmeyer-bb0543174');
     expect(parseUsername('linkedin.com/in/marian-eickmeyer-bb0543174/')).toBe('marian-eickmeyer-bb0543174');
     expect(parseUsername('linkedin.com/in/marian-eickmeyer-bb0543174')).toBe('marian-eickmeyer-bb0543174');
+    expect(
+      parseUsername(
+        'https://www.linkedin.com/in/marianeickmeyer?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      ),
+    ).toBe('marianeickmeyer');
+    expect(
+      parseUsername(
+        'linkedin.com/in/marianeickmeyer/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      ),
+    ).toBe('marianeickmeyer');
+    expect(
+      parseUsername(
+        'linkedin.com/in/marianeickmeyer?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      ),
+    ).toBe('marianeickmeyer');
   });
 });

@@ -10,5 +10,5 @@ export function parseUsername(input: string): string | null {
     return null;
   }
 
-  return /([^\/]+)[\/]?$/.exec(input)?.at(1) ?? null;
+  return /([^\/\?]+)[\/]?([\?][^\/]+)?$/.exec(input)?.at(1) ?? null;
 }
