@@ -1,3 +1,10 @@
+# [1.99.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.98.0...v1.99.0) (2025-06-21)
+
+
+### Features
+
+* extend alter table builder ([3d14fa1](https://github.com/master-software-gmbh/ts-utilities/commit/3d14fa11ba0d052dd73d477854819fc5ed61558e))
+
 # [1.98.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.97.0...v1.98.0) (2025-06-21)
 
 
