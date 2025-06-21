@@ -1,4 +1,13 @@
-import { CreateTableBuilder, type Kysely, type Migration, type MigrationProvider, type Migrator, sql } from 'kysely';
+import {
+  AlterTableBuilder,
+  type AlterTableColumnAlteringBuilder,
+  CreateTableBuilder,
+  type Kysely,
+  type Migration,
+  type MigrationProvider,
+  type Migrator,
+  sql,
+} from 'kysely';
 import { logger } from '../logging';
 import { configureForeignKeys } from './sqlite';
 
@@ -105,10 +114,26 @@ declare module 'kysely' {
      */
     addTimestampColumn(name: string): CreateTableBuilder<TB, C>;
   }
+
+  interface AlterTableBuilder {
+    /**
+     * Adds a non-nullable UUID column to the table with a default value.
+     * @param name The name of the column.
+     * @param primaryKey Whether the column should be a primary key. Defaults to true.
+     */
+    addUUIDColumn(name: string, primaryKey?: boolean): AlterTableColumnAlteringBuilder;
+
+    /**
+     * Adds a non-nullable timestamp column to the table with a default value of `now`.
+     * The timestamp stores the number of *milliseconds* since the Unix epoch.
+     * @param name Name of the column.
+     */
+    addTimestampColumn(name: string): AlterTableColumnAlteringBuilder;
+  }
 }
 
-CreateTableBuilder.prototype.addUUIDColumn = function (
-  this: CreateTableBuilder<string, string>,
+const addUUIDColumn = function (
+  this: CreateTableBuilder<string, string> | AlterTableColumnAlteringBuilder,
   name: string,
   primaryKey = true,
 ) {
@@ -123,8 +148,29 @@ CreateTableBuilder.prototype.addUUIDColumn = function (
   });
 };
 
-CreateTableBuilder.prototype.addTimestampColumn = function (this: CreateTableBuilder<string, string>, name: string) {
+const addTimestampColumn = function (
+  this: CreateTableBuilder<string, string> | AlterTableColumnAlteringBuilder,
+  name: string,
+) {
   return this.addColumn(name, 'integer', (col) => {
     return col.defaultTo(sql`(CAST(unixepoch('subsec') * 1000 AS INTEGER))`).notNull();
   });
 };
+
+CreateTableBuilder.prototype.addUUIDColumn = addUUIDColumn as (
+  name: string,
+  primaryKey?: boolean,
+) => CreateTableBuilder<string, string>;
+
+CreateTableBuilder.prototype.addTimestampColumn = addTimestampColumn as (
+  name: string,
+) => CreateTableBuilder<string, string>;
+
+AlterTableBuilder.prototype.addUUIDColumn = addUUIDColumn as (
+  name: string,
+  primaryKey?: boolean,
+) => AlterTableColumnAlteringBuilder;
+
+AlterTableBuilder.prototype.addTimestampColumn = addTimestampColumn as (
+  name: string,
+) => AlterTableColumnAlteringBuilder;
