@@ -7,3 +7,5 @@ export * from './application/schema';
 export * from './domain/CmsDocumentBuilder';
 export * from './domain/CmsRepository';
 export * from './domain/model';
+export * from './domain/serializer/interface';
+export * from './domain/serializer/RtfSerializer';

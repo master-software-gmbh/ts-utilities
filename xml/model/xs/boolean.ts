@@ -1,6 +1,6 @@
 import type { XmlElement } from '../xml/element';
 
-export type Children = ['true' | 'false'];
+export type Children = ['true' | 'false' | '1' | '0'];
 
 export class XsBoolean {
   element: XmlElement;
@@ -12,6 +12,6 @@ export class XsBoolean {
   }
 
   get value(): boolean {
-    return Boolean(this.children[0]);
+    return this.children[0] === 'true' || this.children[0] === '1';
   }
 }
