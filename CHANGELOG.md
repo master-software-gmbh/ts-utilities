@@ -1,3 +1,10 @@
+# [1.98.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.97.0...v1.98.0) (2025-06-21)
+
+
+### Features
+
+* add rtf serializer for cms blocks ([3cb45d4](https://github.com/master-software-gmbh/ts-utilities/commit/3cb45d4435316fc34a4e4a6427e7fb76fddf08a8))
+
 # [1.97.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.96.0...v1.97.0) (2025-06-18)
 
 
