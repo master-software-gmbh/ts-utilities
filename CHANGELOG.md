@@ -1,3 +1,10 @@
+# [1.100.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.99.0...v1.100.0) (2025-06-29)
+
+
+### Features
+
+* topologically sort migrations with dependencies ([3f7ec1c](https://github.com/master-software-gmbh/ts-utilities/commit/3f7ec1c73f97d4d39e183233b4ab2aac00e29e55))
+
 # [1.99.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.98.0...v1.99.0) (2025-06-21)
 
 
