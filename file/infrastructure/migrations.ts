@@ -1,6 +1,6 @@
 import type { Migration, MigrationProvider } from 'kysely';
 import { adHocGeneration } from '../../kysely';
-import '../../kysely/migration';
+import '../../kysely/migrations/utils';
 
 export class FileMigrationProvider implements MigrationProvider {
   async getMigrations(): Promise<Record<string, Migration>> {

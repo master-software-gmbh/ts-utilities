@@ -2,7 +2,7 @@ import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { Kysely, type MigrationProvider, Migrator } from 'kysely';
 import * as codegen from 'kysely-codegen';
-import { runMigrations } from '../migration';
+import { runMigrations } from '../migrations/utils';
 import { BunSqliteDialect } from './dialect';
 import { BunSqliteGeneratorDialect } from './generator';
 

@@ -1,5 +1,5 @@
 import type { Migration, MigrationProvider } from 'kysely';
-import '../kysely/migration';
+import '../kysely/migrations/utils';
 import { adHocGeneration } from '../kysely';
 
 export class DmsMigrationProvider implements MigrationProvider {

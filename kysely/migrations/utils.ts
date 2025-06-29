@@ -3,13 +3,12 @@ import {
   type AlterTableColumnAlteringBuilder,
   CreateTableBuilder,
   type Kysely,
-  type Migration,
-  type MigrationProvider,
   type Migrator,
   sql,
 } from 'kysely';
-import { logger } from '../logging';
-import { configureForeignKeys } from './sqlite';
+import { logger } from '../../logging';
+import { configureForeignKeys } from '../sqlite';
+import type { Migration, MigrationProvider } from './types';
 
 export function inlineMigrations(migrations: Record<string, Migration>): MigrationProvider {
   return {
@@ -17,35 +16,6 @@ export function inlineMigrations(migrations: Record<string, Migration>): Migrati
       return migrations;
     },
   };
-}
-
-/**
- * A migration provider that combines multiple migration providers into a single provider.
- * Migrations are ordered by the order in which the providers are passed to the constructor.
- * If multiple providers contain migrations with the same name, an error is thrown.
- */
-export class CompositeMigrationProvider implements MigrationProvider {
-  private readonly providers: MigrationProvider[];
-
-  constructor(providers: MigrationProvider[]) {
-    this.providers = providers;
-  }
-
-  async getMigrations(): Promise<Record<string, Migration>> {
-    const migrations: Record<string, Migration> = {};
-
-    for (const provider of this.providers) {
-      for (const [name, migration] of Object.entries(await provider.getMigrations())) {
-        if (migrations[name]) {
-          throw new Error(`Duplicate migration name: ${name}`);
-        }
-
-        migrations[name] = migration;
-      }
-    }
-
-    return migrations;
-  }
 }
 
 export async function runMigrations(migrator: Migrator) {
