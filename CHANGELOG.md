@@ -1,3 +1,10 @@
+# [1.101.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.100.0...v1.101.0) (2025-06-29)
+
+
+### Features
+
+* add slices function to array prototype ([ef0298b](https://github.com/master-software-gmbh/ts-utilities/commit/ef0298b65325c43e0fb1c0677702507056cb76f4))
+
 # [1.100.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.99.0...v1.100.0) (2025-06-29)
 
 
