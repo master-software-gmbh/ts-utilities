@@ -62,6 +62,11 @@ declare global {
      * Returns null if the array is empty
      */
     max(this: number[]): number | null;
+
+    /**
+     * Splits the array into slices of the specified size.
+     */
+    slices(size: number): IterableIterator<T[]>;
   }
 }
 
@@ -142,4 +147,10 @@ Array.prototype.max = function () {
   }
 
   return null;
+};
+
+Array.prototype.slices = function* (size) {
+  for (let i = 0; i < this.length; i += size) {
+    yield this.slice(i, i + size);
+  }
 };
