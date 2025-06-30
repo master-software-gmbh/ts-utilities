@@ -34,6 +34,12 @@ export class FileService {
 
     await this.repository.insert(file);
 
+    const { data } = await backend.getFile(file.key);
+
+    if (data) {
+      file.data = data;
+    }
+
     return file;
   }
 
