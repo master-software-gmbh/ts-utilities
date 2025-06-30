@@ -8,24 +8,24 @@ export interface EmailServerConfig {
 
 export interface Attachment {
   name: string;
-  content_type: string;
   data: string;
+  content_type: string;
 }
 
 export interface Message {
   to: string[];
   from: string;
-  subject: string;
-  plain_body: string;
+  tag?: string;
   cc?: string[];
   bcc?: string[];
+  subject: string;
   sender?: string;
-  tag?: string;
+  bounce?: boolean;
   reply_to?: string;
+  plain_body: string;
   html_body?: string;
   attachments?: Attachment[];
   headers?: Record<string, string>;
-  bounce?: boolean;
 }
 
 export const MessageResponseSchema = object({

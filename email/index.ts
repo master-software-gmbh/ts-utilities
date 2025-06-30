@@ -1,4 +1,5 @@
 import { loadModule } from '../esm';
+import type { FileEntity } from '../file';
 import { typedFetch } from '../http';
 import { logger } from '../logging';
 import { type Result, error, success } from '../result';
@@ -19,6 +20,7 @@ export class TransactionalEmailService {
       renderText: (data: T) => string;
       renderHtml?: (data: T) => string;
     },
+    attachments: FileEntity[] = [],
   ) {
     let htmlBody: string | undefined;
 
@@ -35,11 +37,14 @@ export class TransactionalEmailService {
       }
     }
 
+    const convertedAttachments = await this.encodeAttachments(attachments);
+
     return this.sendEmail({
       to: [to],
       subject: subject,
       html_body: htmlBody,
       from: this.config.fromAddress,
+      attachments: convertedAttachments,
       plain_body: content.renderText(content.payload),
     });
   }
@@ -68,5 +73,33 @@ export class TransactionalEmailService {
     }
 
     return success(result.data);
+  }
+
+  private async encodeAttachments(files: FileEntity[]) {
+    return Promise.all(
+      await files.compactMapAsync(async (file) => {
+        if (!file.data?.stream) {
+          logger.warn('File data is missing', {
+            fileId: file.id,
+            fileName: file.name,
+          });
+
+          return null;
+        }
+
+        const data = await this.encodeFileStream(file.data.stream);
+
+        return {
+          data: data,
+          name: file.name,
+          content_type: file.type,
+        };
+      }),
+    );
+  }
+
+  private async encodeFileStream(data: ReadableStream): Promise<string> {
+    const text = await Bun.readableStreamToArrayBuffer(data);
+    return Buffer.from(text).toString('base64');
   }
 }
