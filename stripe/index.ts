@@ -1,5 +1,13 @@
 import type Stripe from 'stripe';
 
+export function getStripeId(resource: string | { id: string }): string {
+  if (typeof resource === 'object') {
+    return resource.id;
+  }
+
+  return resource;
+}
+
 /**
  * Auto pagination of Stripe list resources.
  * Stripe's Node.js SDK already has auto pagination but

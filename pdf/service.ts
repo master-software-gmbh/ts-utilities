@@ -1,5 +1,6 @@
 import { type Result, error, success } from '../result';
 import type { PdfServiceConfig } from './types';
+import type { ReadableStream } from 'node:stream/web';
 
 export class PdfService {
   private readonly config: PdfServiceConfig;
