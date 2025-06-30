@@ -1,3 +1,13 @@
+# [1.102.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.101.0...v1.102.0) (2025-06-30)
+
+
+### Features
+
+* add stripe id retrieval utility ([535d12a](https://github.com/master-software-gmbh/ts-utilities/commit/535d12ada74df94b6ad92d3dfca7f2b3ef0c5550))
+* send file attachments ([4545d86](https://github.com/master-software-gmbh/ts-utilities/commit/4545d86b55c80ee37cc91edd91c5f7e0f7b63d7c))
+* set file data after creation ([69200c0](https://github.com/master-software-gmbh/ts-utilities/commit/69200c071d12aa292a059457ef1f52a2a1fe5045))
+* update error message extraction ([4f5e763](https://github.com/master-software-gmbh/ts-utilities/commit/4f5e7630d4b7bdd9391376bc5be844516d14018e))
+
 # [1.101.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.100.0...v1.101.0) (2025-06-29)
 
 
