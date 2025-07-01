@@ -72,6 +72,7 @@
     "./result": "./result/index.ts",
     "./storage": "./storage/index.ts",
     "./stream": "./stream/index.ts",
+    "./string": "./string/index.ts",
     "./stripe": "./stripe/index.ts",
     "./time": "./time/index.ts",
     "./tsconfig/app": "./tsconfig/app.json",
