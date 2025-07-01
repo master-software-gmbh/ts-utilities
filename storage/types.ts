@@ -1,3 +1,5 @@
+import { ReplayableStream } from '../stream';
+
 export class Folder {
   segments: string[];
 
@@ -19,11 +21,15 @@ export class Folder {
 export class FileContent {
   readonly url?: string;
   readonly type?: string;
-  readonly stream: ReadableStream;
+  private readonly source: ReplayableStream;
+
+  get stream(): ReadableStream {
+    return this.source.getStream();
+  }
 
   constructor(source: ReadableStream, type?: string, url?: string) {
     this.url = url;
     this.type = type;
-    this.stream = source;
+    this.source = new ReplayableStream(source);
   }
 }

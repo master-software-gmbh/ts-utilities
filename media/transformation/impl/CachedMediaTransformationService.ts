@@ -1,6 +1,6 @@
 import type { Cache } from '../../../cache';
 import { type Result, success } from '../../../result';
-import { FileContent } from '../../../storage';
+import type { FileContent } from '../../../storage';
 import type { NestedRecord, Primitive } from '../../../types';
 import type { MediaTransformationService } from '../interface';
 
@@ -38,11 +38,8 @@ export class CachedMediaTransformationService<T, S extends MediaTransformationSe
       return result;
     }
 
-    // Split up stream for multiple consumers
-    const [first, second] = result.data.stream.tee();
+    this.cache.set(key, result.data);
 
-    await this.cache.set(key, new FileContent(first, result.data.type, result.data.url));
-
-    return success(new FileContent(second, result.data.type, result.data.url));
+    return success(result.data);
   }
 }

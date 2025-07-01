@@ -83,7 +83,7 @@ class BunSqliteConnection implements DatabaseConnection {
     });
   }
 
-  async *streamQuery() {
+  streamQuery<R>(): AsyncIterableIterator<QueryResult<R>> {
     throw new Error('Streaming query is not supported by SQLite driver.');
   }
 }
