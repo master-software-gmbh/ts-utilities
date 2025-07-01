@@ -10,11 +10,11 @@ export async function getRedirectMiddleware() {
   const { createMiddleware } = result.data;
 
   return createMiddleware(async (c, next) => {
-    const redirect = c.req.query('redirect');
+    await next();
 
-    if (redirect) {
-      await next();
+    const redirect = c.req.query('redirect') ?? c.req.bodyCache.parsedBody?.['redirect'];
 
+    if (typeof redirect === 'string') {
       c.res = undefined;
 
       c.res = new Response(null, {
@@ -27,7 +27,7 @@ export async function getRedirectMiddleware() {
       return;
     }
 
-    return next();
+    return;
   });
 }
 
