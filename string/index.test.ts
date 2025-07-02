@@ -57,4 +57,22 @@ describe('substitute', () => {
     expect(result.success).toBe(true);
     expect(result.data).toBe('echo echo echo');
   });
+
+  it('replaces variables with boolean values', () => {
+    const template = '${first} ${second}';
+    const context = { first: true, second: false };
+    const result = substitute(template, context);
+
+    expect(result.success).toBe(true);
+    expect(result.data).toBe('true false');
+  });
+
+  it('replaces variables with number values', () => {
+    const template = '${first} ${second}';
+    const context = { first: 1, second: -4 };
+    const result = substitute(template, context);
+
+    expect(result.success).toBe(true);
+    expect(result.data).toBe('1 -4');
+  });
 });

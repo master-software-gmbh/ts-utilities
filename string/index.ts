@@ -1,18 +1,19 @@
 import { getErrorMessage } from '../error';
 import { error, success, type Result } from '../result';
+import type { Primitive } from '../types';
 
 /**
  * Substitues variable in a template string with values from a context map.
  * Variables in the template are denoted by ${variableName}.
  */
-export function substitute(template: string, context: Record<string, string>): Result<string, 'missing_variable'> {
+export function substitute(template: string, context: Record<string, Primitive>): Result<string, 'missing_variable'> {
   try {
     const result = template.replace(/\$\{(\w+)\}/g, (_, key) => {
       if (context[key] === undefined) {
         throw new Error(key);
       }
 
-      return context[key];
+      return context[key].toString();
     });
 
     return success(result);
