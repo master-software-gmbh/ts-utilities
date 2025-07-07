@@ -1,5 +1,6 @@
 import type { Readable } from 'node:stream';
 import { ReadableStream, type ReadableStreamDefaultReader } from 'node:stream/web';
+import { logger } from '../logging';
 
 /**
  * Converts a Node.js Readable stream to a ReadableStream.
@@ -67,10 +68,14 @@ export class ReplayableStream<T = any> {
   getStream(): ReadableStream<T> {
     this.startReading();
 
-    return new ReadableStream<T>({
-      start: (controller) => {
-        let closed = false;
+    let closed = false;
 
+    return new ReadableStream<T>({
+      cancel: (reason) => {
+        logger.debug('Stream was canceled', { reason });
+        closed = true;
+      },
+      start: (controller) => {
         // Replay already-buffered chunks
         for (const chunk of this.buffer) {
           controller.enqueue(chunk);
