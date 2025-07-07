@@ -1,3 +1,4 @@
+import { MimeTypeToFileExtension } from '../../../file';
 import { CmsBlock } from './CmsBlock';
 import type { StandardBlock } from './StandardBlock';
 
@@ -41,5 +42,19 @@ export class FileBlock extends CmsBlock<'file-ref'> {
 
   get isAudioBlock(): boolean {
     return this.content.type.startsWith('audio/');
+  }
+
+  get normalizedName(): string {
+    const [extension] = MimeTypeToFileExtension[this.content.type] ?? [];
+
+    if (extension) {
+      const basename = this.content.name.includes('.')
+        ? (this.content.name.split('.') as [string, string])[0]
+        : this.content.name;
+
+      return `${basename}.${extension}`;
+    }
+
+    return this.content.name;
   }
 }
