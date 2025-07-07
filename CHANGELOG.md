@@ -1,3 +1,10 @@
+# [1.107.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.106.0...v1.107.0) (2025-07-07)
+
+
+### Features
+
+* track close state in replayable stream ([bb4b276](https://github.com/master-software-gmbh/ts-utilities/commit/bb4b2760e5277d4879b19b9eaf11cedbd1a87a54))
+
 # [1.106.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.105.0...v1.106.0) (2025-07-07)
 
 
