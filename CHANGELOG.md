@@ -1,3 +1,10 @@
+# [1.106.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.105.0...v1.106.0) (2025-07-07)
+
+
+### Features
+
+* add normalized name to file block ([ac9cdb9](https://github.com/master-software-gmbh/ts-utilities/commit/ac9cdb98acccc2bb4540a78294bd7331e7dd8864))
+
 # [1.105.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.104.0...v1.105.0) (2025-07-02)
 
 
