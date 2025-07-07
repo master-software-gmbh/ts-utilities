@@ -68,7 +68,9 @@ export class ReplayableStream<T = any> {
     this.startReading();
 
     return new ReadableStream<T>({
-      start: (controller) => {        
+      start: (controller) => {
+        let closed = false;
+
         // Replay already-buffered chunks
         for (const chunk of this.buffer) {
           controller.enqueue(chunk);
@@ -76,12 +78,16 @@ export class ReplayableStream<T = any> {
 
         if (this.done) {
           controller.close();
+          closed = true;
           return;
         }
 
         const push = (chunk: T | null) => {
+          if (closed) return;
+
           if (chunk === null) {
             controller.close();
+            closed = true;
           } else {
             controller.enqueue(chunk);
           }
