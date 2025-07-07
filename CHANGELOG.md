@@ -1,3 +1,10 @@
+# [1.105.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.104.0...v1.105.0) (2025-07-02)
+
+
+### Features
+
+* handle primitive types in substitution context ([e7e0ad7](https://github.com/master-software-gmbh/ts-utilities/commit/e7e0ad720edd530956a41c855960fe5b38515818))
+
 # [1.104.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.103.0...v1.104.0) (2025-07-01)
 
 
