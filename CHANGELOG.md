@@ -1,3 +1,10 @@
+## [1.107.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.107.0...v1.107.1) (2025-07-07)
+
+
+### Bug Fixes
+
+* handle stream cancelation ([7372181](https://github.com/master-software-gmbh/ts-utilities/commit/737218100c80800026c530ebfbc0577bbc3b556c))
+
 # [1.107.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.106.0...v1.107.0) (2025-07-07)
 
 
