@@ -1,7 +1,8 @@
+import { logger } from '../../logging';
 import { type Result, error, success } from '../../result';
-import { Folder, type StorageBackend } from '../../storage';
+import { FileContent, Folder, type StorageBackend } from '../../storage';
 import type { FileRepository } from './FileRepository';
-import { FileEntity, type FileInput } from './file';
+import { FileEntity, type FileInput } from './model/FileEntity';
 
 export class FileService {
   private readonly repository: FileRepository;
@@ -30,7 +31,13 @@ export class FileService {
       type: source.type,
     });
 
-    const file = new FileEntity({ id: id, key: key, name: source.name, type: source.type });
+    const file = new FileEntity({
+      id: id,
+      key: key,
+      name: source.name,
+      type: source.type,
+      data: new FileContent(source.stream(), source.type),
+    });
 
     await this.repository.insert(file);
 
@@ -53,11 +60,19 @@ export class FileService {
 
     const { data } = await backend.getFile(file.key);
 
-    if (data) {
-      file.data = data;
+    if (!data) {
+      logger.warn('File data not found', {
+        id: id,
+        key: file.key,
+      });
+
+      return null;
     }
 
-    return file;
+    return new FileEntity({
+      ...file,
+      data: data,
+    });
   }
 
   async deleteFile(id: string, folder = Folder.ROOT): Promise<Result<void, 'file_not_found'>> {

@@ -5,6 +5,7 @@ import { type Result, error, success } from '../../../result';
 import { FileContent } from '../../../storage';
 import type { ImageTransformationOptions } from '../dto/options';
 import type { ImageTransformationService } from '../interface';
+import type { ReadableStream } from 'node:stream/web';
 
 type SharpFunction = typeof import('sharp');
 

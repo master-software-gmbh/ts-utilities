@@ -6,6 +6,7 @@ import { type Result, error, success } from '../../../result';
 import { FileContent } from '../../../storage';
 import type { AudioTransformationOptions } from '../dto/options';
 import type { AudioTransformationService } from '../interface';
+import type { ReadableStream } from 'node:stream/web';
 
 type Ffmpeg = typeof import('fluent-ffmpeg');
 

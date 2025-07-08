@@ -1,8 +1,8 @@
 import type { Kysely, Selectable } from 'kysely';
 import { type Result, error, success } from '../../result';
 import type { FileRepository } from '../domain/FileRepository';
-import { FileEntity } from '../domain/file';
 import type { DB } from '../infrastructure/types';
+import type { FileRecord } from '../domain/dto/FileRecord';
 
 export class FileRepositoryImpl implements FileRepository {
   private readonly database: Kysely<DB>;
@@ -11,7 +11,7 @@ export class FileRepositoryImpl implements FileRepository {
     this.database = database;
   }
 
-  async insert(entity: FileEntity): Promise<void> {
+  async insert(entity: FileRecord): Promise<void> {
     await this.database
       .insertInto('file')
       .values({
@@ -24,7 +24,7 @@ export class FileRepositoryImpl implements FileRepository {
       .execute();
   }
 
-  async update(entity: FileEntity): Promise<void> {
+  async update(entity: FileRecord): Promise<void> {
     await this.database
       .updateTable('file')
       .set({
@@ -41,7 +41,7 @@ export class FileRepositoryImpl implements FileRepository {
     await this.database.deleteFrom('file').where('file.id', '=', id).execute();
   }
 
-  async findById(id: string): Promise<Result<FileEntity, 'entity_not_found' | 'mapping_error'>> {
+  async findById(id: string): Promise<Result<FileRecord, 'entity_not_found' | 'mapping_error'>> {
     const row = await this.database.selectFrom('file').selectAll().where('file.id', '=', id).executeTakeFirst();
 
     if (!row) {
@@ -51,20 +51,18 @@ export class FileRepositoryImpl implements FileRepository {
     return this.mapFile(row);
   }
 
-  async findAll(): Promise<Result<FileEntity, 'entity_not_found' | 'mapping_error'>[]> {
+  async findAll(): Promise<Result<FileRecord, 'entity_not_found' | 'mapping_error'>[]> {
     const rows = await this.database.selectFrom('file').selectAll().execute();
     return rows.map((row) => this.mapFile(row));
   }
 
-  private mapFile(row: Selectable<DB['file']>): Result<FileEntity, 'mapping_error'> {
-    return success(
-      new FileEntity({
-        id: row.id,
-        key: row.key,
-        name: row.name,
-        type: row.type,
-        createdAt: new Date(row.created_at),
-      }),
-    );
+  private mapFile(row: Selectable<DB['file']>): Result<FileRecord, 'mapping_error'> {
+    return success({
+      id: row.id,
+      key: row.key,
+      name: row.name,
+      type: row.type,
+      createdAt: new Date(row.created_at),
+    });
   }
 }

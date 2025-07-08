@@ -77,16 +77,7 @@ export class TransactionalEmailService {
 
   private async encodeAttachments(files: FileEntity[]) {
     return Promise.all(
-      await files.compactMapAsync(async (file) => {
-        if (!file.data?.stream) {
-          logger.warn('File data is missing', {
-            fileId: file.id,
-            fileName: file.name,
-          });
-
-          return null;
-        }
-
+      files.map(async (file) => {
         const data = await this.encodeFileStream(file.data.stream);
 
         return {

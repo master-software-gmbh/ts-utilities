@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { ReadableStream } from 'node:stream/web';
-import type { FileContent } from '../../storage';
+import type { FileContent } from '../../../storage';
 
 export interface FileInput {
   name: string;
@@ -14,7 +14,7 @@ export class FileEntity {
   name: string;
   type: string;
   createdAt: Date;
-  data: FileContent | null;
+  data: FileContent;
 
   constructor(data: {
     id?: string;
@@ -22,13 +22,13 @@ export class FileEntity {
     name: string;
     type: string;
     createdAt?: Date;
-    data?: FileContent | null;
+    data: FileContent;
   }) {
-    this.id = data.id ?? randomUUID();
     this.key = data.key;
     this.name = data.name;
     this.type = data.type;
-    this.data = data.data ?? null;
+    this.data = data.data;
+    this.id = data.id ?? randomUUID();
     this.createdAt = data.createdAt ?? new Date();
   }
 }

@@ -1,5 +1,5 @@
 export * from './application/FileRepositoryImpl';
-export * from './domain/file';
+export * from './domain/model/FileEntity';
 export * from './domain/FileRepository';
 export * from './domain/FileService';
 export * from './infrastructure/migrations';

@@ -1,4 +1,4 @@
 import type { Repository } from '../../domain';
-import type { FileEntity } from './file';
+import type { FileRecord } from './dto/FileRecord';
 
-export type FileRepository = Repository<FileEntity>;
+export type FileRepository = Repository<FileRecord>;

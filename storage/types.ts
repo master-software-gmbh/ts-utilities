@@ -1,4 +1,5 @@
 import { ReplayableStream } from '../stream';
+import type { ReadableStream } from 'node:stream/web';
 
 export class Folder {
   segments: string[];
