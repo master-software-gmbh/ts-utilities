@@ -1,3 +1,11 @@
+# [1.108.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.107.1...v1.108.0) (2025-07-08)
+
+
+### Features
+
+* improve file data handling ([43ee8ed](https://github.com/master-software-gmbh/ts-utilities/commit/43ee8ed6c2a943b94d6c02ccd736093160192acb))
+* update mime types ([eef5260](https://github.com/master-software-gmbh/ts-utilities/commit/eef5260d4193a76b97cdb1d77240962ad6920561))
+
 ## [1.107.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.107.0...v1.107.1) (2025-07-07)
 
 
