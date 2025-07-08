@@ -16,6 +16,7 @@ export const C = {
 export const MimeType = {
   applicationOctetStream: 'application/octet-stream',
   applicationPdf: 'application/pdf',
+  applicationRtf: 'application/rtf',
 
   audioAac: 'audio/aac',
   audioMpeg: 'audio/mpeg',
@@ -43,6 +44,7 @@ export const MimeTypeToFileExtension: {
   [type: string]: string[];
 } = {
   [MimeType.applicationPdf]: ['pdf'],
+  [MimeType.applicationRtf]: ['rtf'],
   [MimeType.audioAac]: ['aac'],
   [MimeType.audioMpeg]: ['mp3'],
   [MimeType.audioOgg]: ['ogg'],
