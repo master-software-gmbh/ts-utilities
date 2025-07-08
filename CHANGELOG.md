@@ -1,3 +1,10 @@
+# [1.109.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.108.0...v1.109.0) (2025-07-08)
+
+
+### Features
+
+* add terraform module ([f6767c7](https://github.com/master-software-gmbh/ts-utilities/commit/f6767c7b0b83fa054f075a5701b0add3397391f7))
+
 # [1.108.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.107.1...v1.108.0) (2025-07-08)
 
 
