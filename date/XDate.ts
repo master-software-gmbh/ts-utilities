@@ -84,7 +84,7 @@ export class XDate extends Date {
    * Returns a copy of the date set to the last day of the month
    */
   atMonthEnd(): XDate {
-    return this.addMonths(1).subtractDays(-1);
+    return this.atMonthStart().addMonths(1).subtractDays(1);
   }
 
   /**

@@ -46,4 +46,32 @@ describe('XDate', () => {
     expect(new XDate(2022, 0, 1).toISODateString()).toBe('2022-01-01');
     expect(new XDate(2030, 11, 31).toISODateString()).toBe('2030-12-31');
   });
+
+  it('atMonthStart', () => {
+    expect(new XDate(2025, 0, 15).atMonthStart() as Date).toEqual(new Date(2025, 0, 1));
+    expect(new XDate(2025, 1, 28).atMonthStart() as Date).toEqual(new Date(2025, 1, 1));
+    expect(new XDate(2025, 2, 31).atMonthStart() as Date).toEqual(new Date(2025, 2, 1));
+    expect(new XDate(2025, 11, 31).atMonthStart() as Date).toEqual(new Date(2025, 11, 1));
+    expect(new XDate(2025, 6, 15).atMonthStart() as Date).toEqual(new Date(2025, 6, 1));
+
+    expect(new XDate(2025, 0, 15, 4, 16, 58).atMonthStart() as Date).toEqual(new Date(2025, 0, 1));
+    expect(new XDate(2025, 1, 28, 4, 16, 58).atMonthStart() as Date).toEqual(new Date(2025, 1, 1));
+    expect(new XDate(2025, 2, 31, 4, 16, 58).atMonthStart() as Date).toEqual(new Date(2025, 2, 1));
+    expect(new XDate(2025, 11, 31, 4, 16, 58).atMonthStart() as Date).toEqual(new Date(2025, 11, 1));
+    expect(new XDate(2025, 6, 15, 4, 16, 58).atMonthStart() as Date).toEqual(new Date(2025, 6, 1));
+  });
+
+  it('atMonthEnd', () => {
+    expect(new XDate(2025, 0, 15).atMonthEnd() as Date).toEqual(new Date(2025, 0, 31));
+    expect(new XDate(2025, 1, 28).atMonthEnd() as Date).toEqual(new Date(2025, 1, 28));
+    expect(new XDate(2025, 2, 30).atMonthEnd() as Date).toEqual(new Date(2025, 2, 31));
+    expect(new XDate(2025, 11, 1).atMonthEnd() as Date).toEqual(new Date(2025, 11, 31));
+    expect(new XDate(2025, 6, 15).atMonthEnd() as Date).toEqual(new Date(2025, 6, 31));
+
+    expect(new XDate(2025, 0, 15, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 0, 31));
+    expect(new XDate(2025, 1, 28, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 1, 28));
+    expect(new XDate(2025, 2, 31, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 2, 31));
+    expect(new XDate(2025, 11, 1, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 11, 31));
+    expect(new XDate(2025, 6, 15, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 6, 31));
+  });
 });
