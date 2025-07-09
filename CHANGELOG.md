@@ -1,3 +1,10 @@
+## [1.110.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.110.0...v1.110.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* month end calculation ([2dd8529](https://github.com/master-software-gmbh/ts-utilities/commit/2dd8529910defd8be73fa5826a9b26adb6c3107b))
+
 # [1.110.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.109.0...v1.110.0) (2025-07-09)
 
 
