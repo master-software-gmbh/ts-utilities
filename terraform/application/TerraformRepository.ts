@@ -5,6 +5,10 @@ import { TerraformState } from '../domain/model/TerraformState';
 export class TerraformRepository {
   private readonly database: Kysely<DB>;
 
+  /**
+   * Creates a new repository instance.
+   * The Kysely `ParseJSONResultsPlugin` must not be used.
+   */
   constructor(database: Kysely<DB>) {
     this.database = database;
   }

@@ -12,24 +12,21 @@ export class TransactionalEmailService {
     this.config = config;
   }
 
-  async sendTransactionalEmail<T>(
+  async sendTransactionalEmail(
     to: string,
     subject: string,
-    content: {
-      payload: T;
-      renderText: (data: T) => string;
-      renderHtml?: (data: T) => string;
-    },
+    plainBody: string,
+    mjmlBody?: string,
     attachments: FileEntity[] = [],
   ) {
     let htmlBody: string | undefined;
 
-    if (content.renderHtml) {
+    if (mjmlBody) {
       const result = await loadModule<typeof import('mjml')>('mjml');
 
       if (result.success) {
         const mjml = result.data;
-        htmlBody = mjml(content.renderHtml(content.payload)).html;
+        htmlBody = mjml(mjmlBody).html;
       } else {
         logger.warn('Failed to load mjml module. Skipping HTML body.', {
           error: result.error,
@@ -43,9 +40,9 @@ export class TransactionalEmailService {
       to: [to],
       subject: subject,
       html_body: htmlBody,
+      plain_body: plainBody,
       from: this.config.fromAddress,
       attachments: convertedAttachments,
-      plain_body: content.renderText(content.payload),
     });
   }
 
