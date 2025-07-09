@@ -14,6 +14,7 @@ export const C = {
 };
 
 export const MimeType = {
+  applicationJson: 'application/json',
   applicationOctetStream: 'application/octet-stream',
   applicationPdf: 'application/pdf',
   applicationRtf: 'application/rtf',
