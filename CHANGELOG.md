@@ -1,3 +1,10 @@
+# [1.110.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.109.0...v1.110.0) (2025-07-09)
+
+
+### Features
+
+* update mime types ([6c58742](https://github.com/master-software-gmbh/ts-utilities/commit/6c587427292175230e1490698ff5053ac67d1ec2))
+
 # [1.109.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.108.0...v1.109.0) (2025-07-08)
 
 
