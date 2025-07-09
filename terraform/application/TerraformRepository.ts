@@ -57,9 +57,9 @@ export class TerraformRepository {
     return new TerraformState({
       id: row.id,
       name: row.name,
+      content: row.content,
       createdAt: new Date(row.created_at),
       updatedAt: new Date(row.updated_at),
-      content: JSON.stringify(row.content),
     });
   }
 }
