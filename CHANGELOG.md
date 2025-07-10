@@ -1,3 +1,10 @@
+# [1.111.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.110.2...v1.111.0) (2025-07-10)
+
+
+### Features
+
+* add composite migrator ([cfe0c1f](https://github.com/master-software-gmbh/ts-utilities/commit/cfe0c1f6b48a4ad03c749ecdf68c6f01e1a1f373))
+
 ## [1.110.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.110.1...v1.110.2) (2025-07-09)
 
 
