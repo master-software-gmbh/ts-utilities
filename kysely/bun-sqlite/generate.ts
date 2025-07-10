@@ -1,12 +1,22 @@
 import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { Kysely, type MigrationProvider, Migrator } from 'kysely';
-import * as codegen from 'kysely-codegen';
 import { runMigrations } from '../migrations/utils';
 import { BunSqliteDialect } from './dialect';
-import { BunSqliteGeneratorDialect } from './generator';
+import { loadModule } from '../../esm';
+import { error, success, type Result } from '../../result';
+import { getGeneratorDialect } from './generator';
 
-export async function adHocGeneration(dir: string, provider: MigrationProvider): Promise<void> {
+export async function adHocGeneration(
+  dir: string,
+  provider: MigrationProvider,
+): Promise<Result<void, 'missing_dependencies'>> {
+  const { data: module } = await loadModule<typeof import('kysely-codegen')>('kysely-codegen');
+
+  if (!module) {
+    return error('missing_dependencies');
+  }
+
   const database = resolve(dir, 'tmp.sqlite');
 
   const db = new Kysely({
@@ -22,11 +32,19 @@ export async function adHocGeneration(dir: string, provider: MigrationProvider):
     }),
   );
 
-  await codegen.generate({
+  const dialectResult = await getGeneratorDialect(module);
+
+  if (!dialectResult.success) {
+    return error(dialectResult.error);
+  }
+
+  await module.generate({
     db,
-    dialect: new BunSqliteGeneratorDialect(),
+    dialect: dialectResult.data,
     outFile: resolve(dir, 'types.d.ts'),
   });
 
   await rm(database);
+
+  return success();
 }

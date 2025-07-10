@@ -1,5 +1,25 @@
-import { type GeneratorDialect, SqliteAdapter, SqliteIntrospectorDialect } from 'kysely-codegen';
+import type { GeneratorDialect } from 'kysely-codegen';
+import { loadModule } from '../../esm';
+import { error, success, type Result } from '../../result';
 
-export class BunSqliteGeneratorDialect extends SqliteIntrospectorDialect implements GeneratorDialect {
-  readonly adapter = new SqliteAdapter();
+export async function getGeneratorDialect(
+  module?: typeof import('kysely-codegen'),
+): Promise<Result<GeneratorDialect, 'missing_dependencies'>> {
+  if (!module) {
+    const result = await loadModule<typeof import('kysely-codegen')>('kysely-codegen');
+
+    if (!result.success) {
+      return error('missing_dependencies');
+    }
+
+    module = result.data;
+  }
+
+  const adapter = module.SqliteAdapter;
+
+  class BunSqliteGeneratorDialect extends module.SqliteIntrospectorDialect implements GeneratorDialect {
+    readonly adapter = new adapter();
+  }
+
+  return success(new BunSqliteGeneratorDialect());
 }

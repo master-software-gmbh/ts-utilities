@@ -4,8 +4,8 @@ import { error, success, type Result } from '../../result';
 import { CompositeMigrationProvider } from '../migrations/provider';
 import { getErrorMessage } from '../../error';
 import { loadModule } from '../../esm';
-import { BunSqliteGeneratorDialect } from './generator';
 import { writeFile } from 'node:fs/promises';
+import { getGeneratorDialect } from './generator';
 
 export class CompositeMigrator {
   private readonly database: Kysely<any>;
@@ -40,9 +40,15 @@ export class CompositeMigrator {
       return error('missing_dependencies');
     }
 
+    const dialectResult = await getGeneratorDialect(module);
+
+    if (!dialectResult.success) {
+      return error(dialectResult.error);
+    }
+
     const result = await module.generate({
       db: this.database,
-      dialect: new BunSqliteGeneratorDialect(),
+      dialect: dialectResult.data,
     });
 
     const content = result.replace(/"/g, "'");
