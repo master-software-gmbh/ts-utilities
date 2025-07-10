@@ -1,3 +1,10 @@
+## [1.111.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.1...v1.111.2) (2025-07-10)
+
+
+### Bug Fixes
+
+* peer dependencies ([cd1c7f5](https://github.com/master-software-gmbh/ts-utilities/commit/cd1c7f5f1faff9def9c11e4e2e96b3cdff9b0834))
+
 ## [1.111.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.0...v1.111.1) (2025-07-10)
 
 # [1.111.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.110.2...v1.111.0) (2025-07-10)
