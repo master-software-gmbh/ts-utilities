@@ -1,4 +1,3 @@
-import { logger } from '../logging';
 import { type Result, error, success } from '../result';
 
 /**
@@ -17,7 +16,6 @@ export async function loadModule<T>(name: string): Promise<Result<T, 'module_not
 
     return success(module);
   } catch (e) {
-    logger.error('Failed to dynamically load module', { name, error: e });
     return error('module_not_loaded');
   }
 }
