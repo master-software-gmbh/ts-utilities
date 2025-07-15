@@ -79,6 +79,18 @@ describe('data', () => {
     });
   });
 
+  it('preserves string errors', () => {
+    const data = { message: 'hello', foo: 'bar', error: 'error message' };
+
+    expect(logger._data('message', 'info', data)).toEqual({
+      foo: 'bar',
+      level: 'info',
+      message: 'message',
+      data_message: 'hello',
+      error: 'error message',
+    });
+  });
+
   it('extracts error message and stack', () => {
     const error = new TypeError('Test error');
     const data = { message: 'hello', foo: 'bar', error };

@@ -45,6 +45,7 @@ export class LoggingService {
     const { message: data_message, level: data_level, error, ...remaining } = context;
 
     const updatedContext: Context = {
+      error,
       level,
       message,
       data_level,
