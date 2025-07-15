@@ -1,3 +1,10 @@
+## [1.111.5](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.4...v1.111.5) (2025-07-15)
+
+
+### Bug Fixes
+
+* error logging ([875aeb9](https://github.com/master-software-gmbh/ts-utilities/commit/875aeb965029f665c2359a0c94ef00852138b366))
+
 ## [1.111.4](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.3...v1.111.4) (2025-07-11)
 
 ## [1.111.3](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.2...v1.111.3) (2025-07-10)
