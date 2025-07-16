@@ -1,3 +1,10 @@
+# [1.112.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.5...v1.112.0) (2025-07-16)
+
+
+### Features
+
+* export result object ([95327e4](https://github.com/master-software-gmbh/ts-utilities/commit/95327e43717122e44a87ce5cab9112a95cd0399d))
+
 ## [1.111.5](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.4...v1.111.5) (2025-07-15)
 
 
