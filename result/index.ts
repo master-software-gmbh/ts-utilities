@@ -15,6 +15,11 @@ export function success<D>(data?: D, message?: string): Success<D | undefined> {
   return { success: true, data, message };
 }
 
+export const Result = {
+  error: error,
+  success: success,
+}
+
 export function successful<D, E extends string>(results: Result<D, E>[]): D[] {
   return results.compactMap((result) => {
     if (result.success) {
