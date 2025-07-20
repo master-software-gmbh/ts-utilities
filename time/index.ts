@@ -49,8 +49,6 @@ export async function withConstantTime<T>(operation: () => Promise<T>, minDurati
 
 /**
  * Creates a debounced version of the given function.
- * @param callback function to debounce
- * @param wait delay in milliseconds
  */
 export function debounce<T extends Array<unknown>, U>(callback: (...args: T) => U, wait: number) {
   let timeoutId: Timer | undefined;
@@ -60,5 +58,44 @@ export function debounce<T extends Array<unknown>, U>(callback: (...args: T) => 
     timeoutId = setTimeout(() => {
       callback(...args);
     }, wait);
+  };
+}
+
+/**
+ * Creates a throttled version of the given function.
+ */
+export function throttle(f: Function, delay: number) {
+  let ready = true;
+
+  return (...args: any[]) => {
+    if (!ready) {
+      return;
+    }
+
+    ready = false;
+    f(...args);
+    setTimeout(() => (ready = true), delay);
+  };
+}
+
+/**
+ * Creates a throttled and debounced version of the given function.
+ */
+export function throttleDebounce(f: Function, throttleDelay: number, debounceDelay: number) {
+  let lastCall = 0;
+  let timeout: NodeJS.Timeout | undefined;
+
+  return function(...args: any[]) {
+    const now = Date.now();
+
+    // Throttling
+    if (now - lastCall >= throttleDelay) {
+      f(...args);
+      lastCall = now;
+    }
+
+    // Debouncing
+    clearTimeout(timeout);
+    timeout = setTimeout(() => f(...args), debounceDelay);
   };
 }
