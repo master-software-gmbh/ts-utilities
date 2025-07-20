@@ -1,3 +1,10 @@
+# [1.113.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.112.0...v1.113.0) (2025-07-20)
+
+
+### Features
+
+* add throttle and throttleDebounce helpers ([46b3963](https://github.com/master-software-gmbh/ts-utilities/commit/46b396375fdaa471b77ce484041e912f3876124a))
+
 # [1.112.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.111.5...v1.112.0) (2025-07-16)
 
 
