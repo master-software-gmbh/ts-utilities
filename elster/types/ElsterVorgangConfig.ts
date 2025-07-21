@@ -4,5 +4,5 @@ import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungs
 export interface ElsterVorgangConfig {
   bearbeitungsFlag: ElsterBearbeitungsFlag;
   datenartVersion: string;
-  verschluesselungsParameter: ElsterVerschluesselungsParameter | null;
+  verschluesselung: ElsterVerschluesselungsParameter | null;
 }

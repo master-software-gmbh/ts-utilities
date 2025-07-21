@@ -2,6 +2,7 @@ export const ElsterVerfahren = {
   Bilanz: 'ElsterBilanz',
   Anmeldung: 'ElsterAnmeldung',
   Erklaerung: 'ElsterErklaerung',
+  SteuerlicheErfassung: 'ElsterFSE',
   Datenabholung: 'ElsterDatenabholung',
 } as const;
 

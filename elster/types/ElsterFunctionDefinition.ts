@@ -16,19 +16,19 @@ const EricPdfCallback = koffi.proto('PdfCallback', 'int', [
 ]);
 
 const eric_druck_parameter_t = koffi.struct('eric_druck_parameter_t', {
+  pdfName: 'str',
+  fussText: 'str',
   version: 'uint32_t',
   vorschau: 'uint32_t',
   duplexDruck: 'uint32_t',
-  pdfName: 'str',
-  fussText: 'str',
   pdfCallback: koffi.pointer(EricPdfCallback),
   pdfCallbackBenutzerdaten: EricPdfCallbackBenutzerdaten,
 } satisfies Record<keyof ElsterDruckParameter, string | koffi.IKoffiCType>);
 
 const eric_verschluesselungs_parameter_t = koffi.struct('eric_verschluesselungs_parameter_t', {
+  pin: 'str',
   version: 'uint32_t',
   zertifikatHandle: EricZertifikatHandleType,
-  pin: 'str',
 } satisfies Record<keyof ElsterVerschluesselungsParameter, string>);
 
 export class ElsterFunctionDefinition {

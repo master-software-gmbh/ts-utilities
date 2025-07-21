@@ -2,32 +2,37 @@ export const ElsterDatenart = {
   /**
    * Einkommensteuer
    */
-  est: 'ESt',
+  Est: 'ESt',
 
   /**
    * Gewerbesteuer
    */
-  gewst: 'GewSt',
+  Gewst: 'GewSt',
 
   /**
    * Umsatzsteuer
    */
-  ust: 'USt',
+  Ust: 'USt',
 
   /**
    * Körperschaftsteuer
    */
-  kst: 'KSt',
+  Kst: 'KSt',
 
   /**
    * Umsatzsteuervoranmeldung
    */
-  ustva: 'UStVA',
+  Ustva: 'UStVA',
 
   /**
    * Bilanz
    */
-  bilanz: 'Bilanz',
+  Bilanz: 'Bilanz',
+
+  /**
+   * Kapitalgesellschaft
+   */
+  Kapg: 'KapG',
 } as const;
 
 export type ElsterDatenart = (typeof ElsterDatenart)[keyof typeof ElsterDatenart];
