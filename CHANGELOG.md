@@ -1,3 +1,10 @@
+## [1.115.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.115.0...v1.115.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* elster function definition ([2c7332d](https://github.com/master-software-gmbh/ts-utilities/commit/2c7332d1b996e5189c545b28a16418e69ffe1a51))
+
 # [1.115.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.114.1...v1.115.0) (2025-07-21)
 
 
