@@ -12,9 +12,11 @@ export const DefaultNamespacePrefixes: Record<string, string> = {
   [XmlNamespaces.XmlSchemaInstance]: 'xsi',
   [XmlNamespaces.XmlLinking]: 'xlink',
   'http://www.elster.de/elsterxml/schema/v11': 'elster',
+  'http://finkonsens.de/elster/anhaenge/simple/v3': 'anhaenge',
   'http://rzf.fin-nrw.de/RMS/EBilanz/2016/XMLSchema': 'ebilanz',
+  'http://finkonsens.de/elster/elsterfse/kapg/v202301': 'fsE_KapG',
   'http://finkonsens.de/elster/elsteranmeldung/ustva/v2025': 'ustva',
   'http://finkonsens.de/elster/elstererklaerung/ust/e50/v2024': 'ust',
-  'http://finkonsens.de/elster/elstererklaerung/gewst/e20/v2024': 'gewst',
   'http://finkonsens.de/elster/elstererklaerung/kst/e30/v2024': 'kst',
+  'http://finkonsens.de/elster/elstererklaerung/gewst/e20/v2024': 'gewst',
 };
