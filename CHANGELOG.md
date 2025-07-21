@@ -1,3 +1,10 @@
+# [1.115.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.114.1...v1.115.0) (2025-07-21)
+
+
+### Features
+
+* add elster testmerker ([463fe31](https://github.com/master-software-gmbh/ts-utilities/commit/463fe3190b5f5c3316523d3466eef65d27a16bbc))
+
 ## [1.114.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.114.0...v1.114.1) (2025-07-21)
 
 # [1.114.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.113.0...v1.114.0) (2025-07-21)
