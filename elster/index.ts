@@ -2,6 +2,7 @@ export * from './ElsterRichClient';
 export * from './types/ElsterBearbeitungsFlag';
 export * from './types/ElsterConfig';
 export * from './types/ElsterDatenart';
+export * from './types/ElsterTestmerker';
 export * from './types/ElsterTransferHeaderConfig';
 export * from './types/ElsterUebertragungsart';
 export * from './types/ElsterVerfahren';
