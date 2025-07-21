@@ -1,3 +1,10 @@
+# [1.116.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.115.1...v1.116.0) (2025-07-21)
+
+
+### Features
+
+* update default namespace prefixes ([ca87461](https://github.com/master-software-gmbh/ts-utilities/commit/ca87461bde2cbbd856181c056fe6b0ff75d222ac))
+
 ## [1.115.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.115.0...v1.115.1) (2025-07-21)
 
 
