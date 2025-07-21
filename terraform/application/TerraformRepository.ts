@@ -1,6 +1,6 @@
 import type { Kysely, Selectable } from 'kysely';
-import type { DB } from './types';
 import { TerraformState } from '../domain/model/TerraformState';
+import type { DB } from './types';
 
 export class TerraformRepository {
   private readonly database: Kysely<DB>;

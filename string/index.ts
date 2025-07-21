@@ -1,5 +1,5 @@
 import { getErrorMessage } from '../error';
-import { error, success, type Result } from '../result';
+import { type Result, error, success } from '../result';
 import type { Primitive } from '../types';
 
 /**

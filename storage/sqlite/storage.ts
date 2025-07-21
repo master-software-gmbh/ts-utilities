@@ -1,3 +1,5 @@
+import { Blob } from 'node:buffer';
+import type { ReadableStream } from 'node:stream/web';
 import type { Kysely } from 'kysely';
 import { type Result, error, success } from '../../result';
 import { BaseStorageBackend } from '../base';

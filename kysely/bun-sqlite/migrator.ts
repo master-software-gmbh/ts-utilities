@@ -1,10 +1,10 @@
-import { Migrator, type Kysely } from 'kysely';
-import type { MigrationProvider } from '../migrations/types';
-import { error, success, type Result } from '../../result';
-import { CompositeMigrationProvider } from '../migrations/provider';
+import { writeFile } from 'node:fs/promises';
+import { type Kysely, Migrator } from 'kysely';
 import { getErrorMessage } from '../../error';
 import { loadModule } from '../../esm';
-import { writeFile } from 'node:fs/promises';
+import { type Result, error, success } from '../../result';
+import { CompositeMigrationProvider } from '../migrations/provider';
+import type { MigrationProvider } from '../migrations/types';
 import { getGeneratorDialect } from './generator';
 
 export class CompositeMigrator {

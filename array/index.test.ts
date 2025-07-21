@@ -149,12 +149,15 @@ describe('array', () => {
 
     it('should return slices of the specified size with a larger slice size', () => {
       const result = [1, 2, 3, 4, 5].slices(3);
-      expect([...result]).toEqual([[1, 2, 3], [4, 5]]);
+      expect([...result]).toEqual([
+        [1, 2, 3],
+        [4, 5],
+      ]);
     });
 
     it('should return slices of the specified size with a slice size equal to the array length', () => {
       const result = [1, 2, 3].slices(3);
       expect([...result]).toEqual([[1, 2, 3]]);
     });
-  })
+  });
 });

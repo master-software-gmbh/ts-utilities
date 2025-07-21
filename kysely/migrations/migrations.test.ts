@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
-import { inlineMigrations } from './utils';
 import { CompositeMigrationProvider } from './provider';
+import { inlineMigrations } from './utils';
 
 describe('CompositeMigrationProvider', () => {
   it('should provide migrations of one provider', async () => {

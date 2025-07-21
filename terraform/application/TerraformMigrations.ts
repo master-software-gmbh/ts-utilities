@@ -1,4 +1,4 @@
-import { adHocGeneration, type Migration, type MigrationProvider } from '../../kysely';
+import { type Migration, type MigrationProvider, adHocGeneration } from '../../kysely';
 
 export class TerraformMigrations implements MigrationProvider {
   async getMigrations(): Promise<Record<string, Migration>> {

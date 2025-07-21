@@ -1,4 +1,5 @@
 import { PassThrough, Readable } from 'node:stream';
+import type { ReadableStream } from 'node:stream/web';
 import type { FfmpegCommand } from 'fluent-ffmpeg';
 import { loadModule } from '../../../esm';
 import { MimeType } from '../../../file';
@@ -6,7 +7,6 @@ import { type Result, error, success } from '../../../result';
 import { FileContent } from '../../../storage';
 import type { AudioTransformationOptions } from '../dto/options';
 import type { AudioTransformationService } from '../interface';
-import type { ReadableStream } from 'node:stream/web';
 
 type Ffmpeg = typeof import('fluent-ffmpeg');
 

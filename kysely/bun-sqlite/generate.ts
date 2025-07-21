@@ -1,10 +1,10 @@
 import { rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { Kysely, type MigrationProvider, Migrator } from 'kysely';
+import { loadModule } from '../../esm';
+import { type Result, error, success } from '../../result';
 import { runMigrations } from '../migrations/utils';
 import { BunSqliteDialect } from './dialect';
-import { loadModule } from '../../esm';
-import { error, success, type Result } from '../../result';
 import { getGeneratorDialect } from './generator';
 
 export async function adHocGeneration(

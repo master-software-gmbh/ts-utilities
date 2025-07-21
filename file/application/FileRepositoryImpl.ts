@@ -1,8 +1,8 @@
 import type { Kysely, Selectable } from 'kysely';
 import { type Result, error, success } from '../../result';
 import type { FileRepository } from '../domain/FileRepository';
-import type { DB } from '../infrastructure/types';
 import type { FileRecord } from '../domain/dto/FileRecord';
+import type { DB } from '../infrastructure/types';
 
 export class FileRepositoryImpl implements FileRepository {
   private readonly database: Kysely<DB>;

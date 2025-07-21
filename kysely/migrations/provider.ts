@@ -1,4 +1,4 @@
-import type { MigrationProvider, Migration } from './types';
+import type { Migration, MigrationProvider } from './types';
 
 /**
  * A migration provider that combines multiple migration providers into a single provider.

@@ -85,7 +85,7 @@ export function throttleDebounce(f: Function, throttleDelay: number, debounceDel
   let lastCall = 0;
   let timeout: NodeJS.Timeout | undefined;
 
-  return function(...args: any[]) {
+  return (...args: any[]) => {
     const now = Date.now();
 
     // Throttling

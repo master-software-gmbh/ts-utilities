@@ -1,6 +1,6 @@
 import type { GeneratorDialect } from 'kysely-codegen';
 import { loadModule } from '../../esm';
-import { error, success, type Result } from '../../result';
+import { type Result, error, success } from '../../result';
 
 export async function getGeneratorDialect(
   module?: typeof import('kysely-codegen'),
