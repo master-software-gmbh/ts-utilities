@@ -3,7 +3,7 @@ import { type TypeSpec, pointer } from 'koffi';
 import type { ElsterDruckParameter } from './ElsterDruckParameter';
 import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungsParameter';
 
-const EricZertifikatHandleType = 'uint32_t';
+const EricZertifikatHandle = 'uint32_t';
 const EricTransferHandle = 'uint32_t';
 const EricReturnBufferApi = koffi.opaque('EricReturnBufferApi');
 const EricRueckgabepufferHandle = koffi.pointer('EricRueckgabepufferHandle', EricReturnBufferApi);
@@ -15,20 +15,22 @@ const EricPdfCallback = koffi.proto('PdfCallback', 'int', [
   EricPdfCallbackBenutzerdaten,
 ]);
 
+// Order is important
 const eric_druck_parameter_t = koffi.struct('eric_druck_parameter_t', {
-  pdfName: 'str',
-  fussText: 'str',
   version: 'uint32_t',
   vorschau: 'uint32_t',
   duplexDruck: 'uint32_t',
+  pdfName: 'str',
+  fussText: 'str',
   pdfCallback: koffi.pointer(EricPdfCallback),
   pdfCallbackBenutzerdaten: EricPdfCallbackBenutzerdaten,
 } satisfies Record<keyof ElsterDruckParameter, string | koffi.IKoffiCType>);
 
+// Order is important
 const eric_verschluesselungs_parameter_t = koffi.struct('eric_verschluesselungs_parameter_t', {
-  pin: 'str',
   version: 'uint32_t',
-  zertifikatHandle: EricZertifikatHandleType,
+  zertifikatHandle: EricZertifikatHandle,
+  pin: 'str',
 } satisfies Record<keyof ElsterVerschluesselungsParameter, string>);
 
 export class ElsterFunctionDefinition {
@@ -65,13 +67,13 @@ export class ElsterFunctionDefinition {
   ]);
 
   static readonly EricGetHandleToCertificate = new ElsterFunctionDefinition('EricGetHandleToCertificate', [
-    pointer(EricZertifikatHandleType),
+    pointer(EricZertifikatHandle),
     pointer('uint32_t'),
     'str',
   ]);
 
   static readonly EricCloseHandleToCertificate = new ElsterFunctionDefinition('EricCloseHandleToCertificate', [
-    EricZertifikatHandleType,
+    EricZertifikatHandle,
   ]);
 
   static readonly EricRueckgabepufferErzeugen = new ElsterFunctionDefinition(
