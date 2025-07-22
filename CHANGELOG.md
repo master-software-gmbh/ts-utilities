@@ -1,3 +1,10 @@
+# [1.118.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.117.0...v1.118.0) (2025-07-22)
+
+
+### Features
+
+* add elster namespaces ([c8b2f17](https://github.com/master-software-gmbh/ts-utilities/commit/c8b2f17702ede9ae2f530d30bb20f423d2529832))
+
 # [1.117.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.116.0...v1.117.0) (2025-07-22)
 
 
