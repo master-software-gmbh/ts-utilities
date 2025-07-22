@@ -1,3 +1,10 @@
+# [1.117.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.116.0...v1.117.0) (2025-07-22)
+
+
+### Features
+
+* add elster datenlieferant ([7b493ba](https://github.com/master-software-gmbh/ts-utilities/commit/7b493ba03a8975bc3d4f6460be57c64d2c79a1f5))
+
 # [1.116.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.115.1...v1.116.0) (2025-07-21)
 
 
