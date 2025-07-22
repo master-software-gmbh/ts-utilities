@@ -20,7 +20,7 @@ export class ElsterRichClient {
     this.config = config;
   }
 
-  initialisiere(detailedLog: boolean): void {
+  initialisiere(detailedLog?: boolean): void {
     this.callEricFunction(ElsterFunctionDefinition.EricInitialisiere, [null, this.config.logsDirectory]);
 
     if (detailedLog) {

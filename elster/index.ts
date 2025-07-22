@@ -9,3 +9,4 @@ export * from './types/ElsterUebertragungsart';
 export * from './types/ElsterVerfahren';
 export * from './types/ElsterVorgangConfig';
 export * from './types/ElsterVorgangErgebnis';
+export * from './types/XmlNamespaces';
