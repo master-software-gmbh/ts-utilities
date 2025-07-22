@@ -91,7 +91,7 @@ export class ElsterRichClient {
       config.uebertragungsart,
       config.testmerker,
       config.herstellerId,
-      config.datenLieferant,
+      config.datenlieferant,
       config.versionClient,
       null,
       xmlRueckgabePuffer,

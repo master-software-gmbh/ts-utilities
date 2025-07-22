@@ -3,11 +3,11 @@ import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungs
 export interface ElsterTransferHeaderConfig {
   datenart: string;
   verfahren: string;
-  versionClient: string;
   herstellerId: string;
-  datenLieferant: string;
+  datenlieferant: string;
   datenartVersion: string;
-  testmerker: string | null;
   uebertragungsart: string;
+  testmerker: string | null;
+  versionClient: string | null;
   verschluesselung: ElsterVerschluesselungsParameter;
 }
