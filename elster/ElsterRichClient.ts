@@ -3,11 +3,12 @@ import { logger } from '../logging';
 import type { ElsterConfig } from './types/ElsterConfig';
 import type { ElsterDruckParameter } from './types/ElsterDruckParameter';
 import { ElsterEinstellung } from './types/ElsterEinstellung';
-import { ElsterFunktion } from './types/ElsterFunktionen';
+import { ElsterFunktion, EricLogCallback } from './types/ElsterFunktionen';
 import type { ElsterTransferHeaderConfig } from './types/ElsterTransferHeaderConfig';
 import type { ElsterVorgangConfig } from './types/ElsterVorgangConfig';
 import type { ElsterVorgangErgebnis } from './types/ElsterVorgangErgebnis';
 import type { ElsterLogCallback } from './types/ElsterLogCallback';
+import type { IKoffiRegisteredCallback } from 'koffi';
 
 declare module 'koffi' {
   export function load(path: string, options?: { lazy?: boolean; global?: boolean }): IKoffiLib;
@@ -82,8 +83,15 @@ export class ElsterRichClient {
     this.callFunction(ElsterFunktion.EricRueckgabepufferFreigeben, [handle]);
   }
 
-  registriereLogCallback(funktion: ElsterLogCallback, writeLogFile: boolean): void {
-    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [funktion, writeLogFile ? 1 : 0]);
+  registriereLogCallback(funktion: ElsterLogCallback, writeLogFile?: boolean): IKoffiRegisteredCallback {
+    const callback = koffi.register(funktion, koffi.pointer(EricLogCallback));
+    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [callback, writeLogFile ? 1 : 0, null]);
+    return callback;
+  }
+
+  deregistriereLogCallback(callback: IKoffiRegisteredCallback): void {
+    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [null, 0, null]);
+    koffi.unregister(callback);
   }
 
   createTransferHeader(xml: string, config: ElsterTransferHeaderConfig): string {

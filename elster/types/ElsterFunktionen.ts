@@ -16,9 +16,9 @@ const EricPdfCallback = koffi.proto('PdfCallback', 'int', [
 ]);
 
 // typedef void(* EricLogCallback) (const char *kategorie, eric_log_level_t loglevel, const char *nachricht, void *benutzerdaten)
-const EricLogCallback = koffi.proto('LogCallback', 'void', [
+export const EricLogCallback = koffi.proto('LogCallback', 'void', [
   'str', // kategorie
-  'str', // loglevel
+  'int', // loglevel
   'str', // nachricht
   koffi.pointer('void') // benutzerdaten
 ]);
