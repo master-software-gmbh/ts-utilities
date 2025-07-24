@@ -1,3 +1,10 @@
+## [1.119.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.119.0...v1.119.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* eric log callback ([916cdf1](https://github.com/master-software-gmbh/ts-utilities/commit/916cdf15358df14a93176ec468fe743522146de6))
+
 # [1.119.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.118.1...v1.119.0) (2025-07-24)
 
 
