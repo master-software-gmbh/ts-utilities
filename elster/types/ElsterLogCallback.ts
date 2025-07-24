@@ -1,0 +1,1 @@
+export type ElsterLogCallback = (kategorie: string, loglevel: unknown, nachricht: string) => void;

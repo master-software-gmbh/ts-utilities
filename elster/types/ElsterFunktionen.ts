@@ -7,12 +7,20 @@ const EricZertifikatHandle = 'uint32_t';
 const EricTransferHandle = 'uint32_t';
 const EricReturnBufferApi = koffi.opaque('EricReturnBufferApi');
 const EricRueckgabepufferHandle = koffi.pointer('EricRueckgabepufferHandle', EricReturnBufferApi);
-const EricPdfCallbackBenutzerdaten = koffi.pointer('void');
+
 const EricPdfCallback = koffi.proto('PdfCallback', 'int', [
-  'str',
-  koffi.pointer('uint8_t'),
-  'uint32_t',
-  EricPdfCallbackBenutzerdaten,
+  'str', // pdfBezeichner
+  koffi.pointer('uint8_t'), // pdfDaten
+  'uint32_t', // pdfGroesse
+  koffi.pointer('void'), // benutzerDaten
+]);
+
+// typedef void(* EricLogCallback) (const char *kategorie, eric_log_level_t loglevel, const char *nachricht, void *benutzerdaten)
+const EricLogCallback = koffi.proto('LogCallback', 'void', [
+  'str', // kategorie
+  'str', // loglevel
+  'str', // nachricht
+  koffi.pointer('void') // benutzerdaten
 ]);
 
 // Order is important
@@ -23,7 +31,7 @@ const eric_druck_parameter_t = koffi.struct('eric_druck_parameter_t', {
   pdfName: 'str',
   fussText: 'str',
   pdfCallback: koffi.pointer(EricPdfCallback),
-  pdfCallbackBenutzerdaten: EricPdfCallbackBenutzerdaten,
+  pdfCallbackBenutzerdaten: koffi.pointer('void'),
 } satisfies Record<keyof ElsterDruckParameter, string | koffi.IKoffiCType>);
 
 // Order is important
@@ -33,7 +41,7 @@ const eric_verschluesselungs_parameter_t = koffi.struct('eric_verschluesselungs_
   pin: 'str',
 } satisfies Record<keyof ElsterVerschluesselungsParameter, string>);
 
-export class ElsterFunctionDefinition {
+export class ElsterFunktion {
   name: string;
   result: TypeSpec;
   arguments: TypeSpec[];
@@ -44,55 +52,61 @@ export class ElsterFunctionDefinition {
     this.result = result ?? 'int';
   }
 
-  static readonly EricInitialisiere = new ElsterFunctionDefinition('EricInitialisiere', [
+  static readonly EricInitialisiere = new ElsterFunktion('EricInitialisiere', [
     'str', // pluginPfad
     'str', // logPfad
   ]);
 
-  static readonly EricBeende = new ElsterFunctionDefinition('EricBeende');
+  static readonly EricBeende = new ElsterFunktion('EricBeende');
 
-  static readonly EricHoleFehlerText = new ElsterFunctionDefinition('EricHoleFehlerText', [
+  static readonly EricHoleFehlerText = new ElsterFunktion('EricHoleFehlerText', [
     'int', // fehlerkode
     EricRueckgabepufferHandle,
   ]);
 
-  static readonly EricEinstellungSetzen = new ElsterFunctionDefinition('EricEinstellungSetzen', [
+  static readonly EricEinstellungSetzen = new ElsterFunktion('EricEinstellungSetzen', [
     'str', // name
     'str', // wert
   ]);
 
-  static readonly EricEinstellungLesen = new ElsterFunctionDefinition('EricEinstellungLesen', [
+  static readonly EricEinstellungLesen = new ElsterFunktion('EricEinstellungLesen', [
     'str', // name
     EricRueckgabepufferHandle,
   ]);
 
-  static readonly EricGetHandleToCertificate = new ElsterFunctionDefinition('EricGetHandleToCertificate', [
+  static readonly EricGetHandleToCertificate = new ElsterFunktion('EricGetHandleToCertificate', [
     pointer(EricZertifikatHandle),
     pointer('uint32_t'),
     'str',
   ]);
 
-  static readonly EricCloseHandleToCertificate = new ElsterFunctionDefinition('EricCloseHandleToCertificate', [
+  static readonly EricCloseHandleToCertificate = new ElsterFunktion('EricCloseHandleToCertificate', [
     EricZertifikatHandle,
   ]);
 
-  static readonly EricRueckgabepufferErzeugen = new ElsterFunctionDefinition(
+  static readonly EricRueckgabepufferErzeugen = new ElsterFunktion(
     'EricRueckgabepufferErzeugen',
     [],
     EricRueckgabepufferHandle,
   );
 
-  static readonly EricRueckgabepufferInhalt = new ElsterFunctionDefinition(
+  static readonly EricRueckgabepufferInhalt = new ElsterFunktion(
     'EricRueckgabepufferInhalt',
     [EricRueckgabepufferHandle],
     'str',
   );
 
-  static readonly EricRueckgabepufferFreigeben = new ElsterFunctionDefinition('EricRueckgabepufferFreigeben', [
+  static readonly EricRueckgabepufferFreigeben = new ElsterFunktion('EricRueckgabepufferFreigeben', [
     EricRueckgabepufferHandle,
   ]);
 
-  static readonly EricCreateTH = new ElsterFunctionDefinition('EricCreateTH', [
+  static readonly EricRegistriereLogCallback = new ElsterFunktion('EricRegistriereLogCallback', [
+    koffi.pointer(EricLogCallback), // funktion
+    'uint32_t', // schreibeEricLogDatei
+    koffi.pointer('void'), // benutzerdaten
+  ], 'int');
+
+  static readonly EricCreateTH = new ElsterFunktion('EricCreateTH', [
     'str', // xml
     'str', // verfahren
     'str', // datenart
@@ -105,7 +119,7 @@ export class ElsterFunctionDefinition {
     EricRueckgabepufferHandle,
   ]);
 
-  static readonly EricBearbeiteVorgang = new ElsterFunctionDefinition('EricBearbeiteVorgang', [
+  static readonly EricBearbeiteVorgang = new ElsterFunktion('EricBearbeiteVorgang', [
     'str', // datenpuffer
     'str', // datenartVersion
     'uint32_t', // bearbeitungsFlags

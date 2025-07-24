@@ -3,10 +3,11 @@ import { logger } from '../logging';
 import type { ElsterConfig } from './types/ElsterConfig';
 import type { ElsterDruckParameter } from './types/ElsterDruckParameter';
 import { ElsterEinstellung } from './types/ElsterEinstellung';
-import { ElsterFunctionDefinition } from './types/ElsterFunctionDefinition';
+import { ElsterFunktion } from './types/ElsterFunktionen';
 import type { ElsterTransferHeaderConfig } from './types/ElsterTransferHeaderConfig';
 import type { ElsterVorgangConfig } from './types/ElsterVorgangConfig';
 import type { ElsterVorgangErgebnis } from './types/ElsterVorgangErgebnis';
+import type { ElsterLogCallback } from './types/ElsterLogCallback';
 
 declare module 'koffi' {
   export function load(path: string, options?: { lazy?: boolean; global?: boolean }): IKoffiLib;
@@ -21,7 +22,7 @@ export class ElsterRichClient {
   }
 
   initialisiere(detailedLog?: boolean): void {
-    this.callEricFunction(ElsterFunctionDefinition.EricInitialisiere, [null, this.config.logsDirectory]);
+    this.callFunction(ElsterFunktion.EricInitialisiere, [null, this.config.logsDirectory]);
 
     if (detailedLog) {
       this.einstellungSetzen(ElsterEinstellung.detailedLog, 'ja');
@@ -29,12 +30,12 @@ export class ElsterRichClient {
   }
 
   beende(): void {
-    this.callEricFunction(ElsterFunctionDefinition.EricBeende);
+    this.callFunction(ElsterFunktion.EricBeende);
   }
 
   holeFehlerText(errorCode: number): string {
     const handle = this.rueckgabepufferErzeugen();
-    this.callEricFunction(ElsterFunctionDefinition.EricHoleFehlerText, [errorCode, handle]);
+    this.callFunction(ElsterFunktion.EricHoleFehlerText, [errorCode, handle]);
 
     const text = this.rueckgabepufferInhalt(handle);
     this.rueckgabepufferFreigeben(handle);
@@ -43,12 +44,12 @@ export class ElsterRichClient {
   }
 
   einstellungSetzen(name: string, value: string): void {
-    this.callEricFunction(ElsterFunctionDefinition.EricEinstellungSetzen, [name, value]);
+    this.callFunction(ElsterFunktion.EricEinstellungSetzen, [name, value]);
   }
 
   einstellungLesen(name: string): string {
     const handle = this.rueckgabepufferErzeugen();
-    this.callEricFunction(ElsterFunctionDefinition.EricEinstellungLesen, [name, handle]);
+    this.callFunction(ElsterFunktion.EricEinstellungLesen, [name, handle]);
 
     const value = this.rueckgabepufferInhalt(handle);
     this.rueckgabepufferFreigeben(handle);
@@ -60,31 +61,35 @@ export class ElsterRichClient {
     const handle = this.getIntPointer();
     const pinInfo = this.getIntPointer();
 
-    this.callEricFunction(ElsterFunctionDefinition.EricGetHandleToCertificate, [handle, pinInfo, path]);
+    this.callFunction(ElsterFunktion.EricGetHandleToCertificate, [handle, pinInfo, path]);
 
     return this.getIntPointerValue(handle);
   }
 
   closeHandleToCertificate(handle: number) {
-    this.callEricFunction(ElsterFunctionDefinition.EricCloseHandleToCertificate, [handle]);
+    this.callFunction(ElsterFunktion.EricCloseHandleToCertificate, [handle]);
   }
 
   rueckgabepufferErzeugen(): object {
-    return this.callEricFunction(ElsterFunctionDefinition.EricRueckgabepufferErzeugen);
+    return this.callFunction(ElsterFunktion.EricRueckgabepufferErzeugen);
   }
 
   rueckgabepufferInhalt(handle: object): string {
-    return this.callEricFunction(ElsterFunctionDefinition.EricRueckgabepufferInhalt, [handle]);
+    return this.callFunction(ElsterFunktion.EricRueckgabepufferInhalt, [handle]);
   }
 
   rueckgabepufferFreigeben(handle: object): void {
-    this.callEricFunction(ElsterFunctionDefinition.EricRueckgabepufferFreigeben, [handle]);
+    this.callFunction(ElsterFunktion.EricRueckgabepufferFreigeben, [handle]);
+  }
+
+  registriereLogCallback(funktion: ElsterLogCallback, writeLogFile: boolean): void {
+    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [funktion, writeLogFile ? 1 : 0]);
   }
 
   createTransferHeader(xml: string, config: ElsterTransferHeaderConfig): string {
     const xmlRueckgabePuffer = this.rueckgabepufferErzeugen();
 
-    this.callEricFunction(ElsterFunctionDefinition.EricCreateTH, [
+    this.callFunction(ElsterFunktion.EricCreateTH, [
       xml,
       config.verfahren,
       config.datenart,
@@ -113,7 +118,7 @@ export class ElsterRichClient {
       pdfBuffer = data;
     });
 
-    this.callEricFunction(ElsterFunctionDefinition.EricBearbeiteVorgang, [
+    this.callFunction(ElsterFunktion.EricBearbeiteVorgang, [
       xml,
       config.datenartVersion,
       config.bearbeitungsFlag,
@@ -169,7 +174,7 @@ export class ElsterRichClient {
     return pointer[0];
   }
 
-  private callEricFunction(definition: ElsterFunctionDefinition, args = [] as unknown[]) {
+  private callFunction(definition: ElsterFunktion, args = [] as unknown[]) {
     const library = this.getEricLibrary();
     const func = library.func(definition.name, definition.result, definition.arguments);
 
