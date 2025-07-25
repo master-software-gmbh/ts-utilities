@@ -21,6 +21,16 @@ describe('substitute', () => {
     expect(result.message).toBe('place');
   });
 
+  it('returns error if a variable is null in context', () => {
+    const template = 'Hello, ${name}! Welcome to ${place}.';
+    const context = { name: null };
+    const result = substitute(template, context);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('missing_variable');
+    expect(result.message).toBe('name');
+  });
+
   it('returns the original string if there are no variables', () => {
     const template = 'Hello, world!';
     const context = { name: 'Alice' };

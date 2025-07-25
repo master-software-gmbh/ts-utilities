@@ -20,7 +20,7 @@ export const EricLogCallback = koffi.proto('LogCallback', 'void', [
   'str', // kategorie
   'int', // loglevel
   'str', // nachricht
-  koffi.pointer('void') // benutzerdaten
+  koffi.pointer('void'), // benutzerdaten
 ]);
 
 // Order is important
@@ -100,11 +100,15 @@ export class ElsterFunktion {
     EricRueckgabepufferHandle,
   ]);
 
-  static readonly EricRegistriereLogCallback = new ElsterFunktion('EricRegistriereLogCallback', [
-    koffi.pointer(EricLogCallback), // funktion
-    'uint32_t', // schreibeEricLogDatei
-    koffi.pointer('void'), // benutzerdaten
-  ], 'int');
+  static readonly EricRegistriereLogCallback = new ElsterFunktion(
+    'EricRegistriereLogCallback',
+    [
+      koffi.pointer(EricLogCallback), // funktion
+      'uint32_t', // schreibeEricLogDatei
+      koffi.pointer('void'), // benutzerdaten
+    ],
+    'int',
+  );
 
   static readonly EricCreateTH = new ElsterFunktion('EricCreateTH', [
     'str', // xml

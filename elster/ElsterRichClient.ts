@@ -1,14 +1,16 @@
 import * as koffi from 'koffi';
+import type { IKoffiRegisteredCallback } from 'koffi';
 import { logger } from '../logging';
+import { merge } from '../map';
 import type { ElsterConfig } from './types/ElsterConfig';
 import type { ElsterDruckParameter } from './types/ElsterDruckParameter';
 import { ElsterEinstellung } from './types/ElsterEinstellung';
 import { ElsterFunktion, EricLogCallback } from './types/ElsterFunktionen';
+import type { ElsterLogCallback } from './types/ElsterLogCallback';
+import type { ElsterLogsConfig } from './types/ElsterLogsConfig';
 import type { ElsterTransferHeaderConfig } from './types/ElsterTransferHeaderConfig';
 import type { ElsterVorgangConfig } from './types/ElsterVorgangConfig';
 import type { ElsterVorgangErgebnis } from './types/ElsterVorgangErgebnis';
-import type { ElsterLogCallback } from './types/ElsterLogCallback';
-import type { IKoffiRegisteredCallback } from 'koffi';
 
 declare module 'koffi' {
   export function load(path: string, options?: { lazy?: boolean; global?: boolean }): IKoffiLib;
@@ -22,10 +24,12 @@ export class ElsterRichClient {
     this.config = config;
   }
 
-  initialisiere(detailedLog?: boolean): void {
-    this.callFunction(ElsterFunktion.EricInitialisiere, [null, this.config.logsDirectory]);
+  initialisiere(config: Partial<ElsterLogsConfig>): void {
+    const mergedConfig = merge(config, this.config);
 
-    if (detailedLog) {
+    this.callFunction(ElsterFunktion.EricInitialisiere, [null, mergedConfig.logsDirectory]);
+
+    if (mergedConfig.detailedLog) {
       this.einstellungSetzen(ElsterEinstellung.detailedLog, 'ja');
     }
   }
@@ -153,7 +157,7 @@ export class ElsterRichClient {
       pdfName: null,
       duplexDruck: 0,
       pdfCallbackBenutzerdaten: null,
-      fussText: this.config.printFusstext ?? null,
+      fussText: this.config.printFusstext,
       pdfCallback: (_name, data, size) => {
         const decodedData = koffi.decode(data, koffi.array('uint8_t', size));
         callback(Buffer.from(decodedData));

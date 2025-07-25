@@ -9,7 +9,7 @@ import type { Primitive } from '../types';
 export function substitute(template: string, context: Record<string, Primitive>): Result<string, 'missing_variable'> {
   try {
     const result = template.replace(/\$\{(\w+)\}/g, (_, key) => {
-      if (context[key] === undefined) {
+      if (context[key] === undefined || context[key] === null) {
         throw new Error(key);
       }
 

@@ -1,7 +1,7 @@
-export type Primitive = string | number | boolean;
+export type Primitive = string | number | boolean | null;
 
 export type NestedRecord = {
-  [key: string]: Primitive | NestedRecord;
+  [key: string]: Primitive | NestedRecord | undefined;
 };
 
 export type DeepPartial<T> = T extends object

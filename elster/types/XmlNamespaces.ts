@@ -1,4 +1,4 @@
-import { XmlNamespace } from "../../xml";
+import { XmlNamespace } from '../../xml';
 
 export const XmlNamespaces = {
   ElsterAnhaenge: new XmlNamespace('http://finkonsens.de/elster/anhaenge/simple/v3'),

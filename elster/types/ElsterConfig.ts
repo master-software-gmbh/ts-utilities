@@ -1,5 +1,6 @@
-export interface ElsterConfig {
-  printFusstext?: string;
+import type { ElsterLogsConfig } from './ElsterLogsConfig';
+
+export type ElsterConfig = ElsterLogsConfig & {
   libraryFilepath: string;
-  logsDirectory: string | null;
-}
+  printFusstext: string | null;
+};

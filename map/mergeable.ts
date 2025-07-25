@@ -1,6 +1,13 @@
 import type { NestedRecord } from '../types';
 
-export function merge(primary: NestedRecord, secondary: NestedRecord) {
+type Merge<P, S> = {
+  [K in keyof (P & S)]: K extends keyof S ? S[K] : K extends keyof P ? P[K] : never;
+};
+
+/**
+ * Merges two records, prioritizing values from the primary record.
+ */
+export function merge<P extends NestedRecord, S extends NestedRecord>(primary: P, secondary: S) {
   const result: NestedRecord = {};
 
   for (const key of Object.keys(primary)) {
@@ -8,7 +15,12 @@ export function merge(primary: NestedRecord, secondary: NestedRecord) {
     const secondaryValue = secondary[key];
 
     if (key in secondary) {
-      if (typeof primaryValue === 'object' && typeof secondaryValue === 'object') {
+      if (
+        typeof primaryValue === 'object' &&
+        primaryValue !== null &&
+        typeof secondaryValue === 'object' &&
+        secondaryValue !== null
+      ) {
         result[key] = merge(primaryValue, secondaryValue);
       } else if (primaryValue !== undefined) {
         result[key] = primaryValue;
@@ -26,7 +38,7 @@ export function merge(primary: NestedRecord, secondary: NestedRecord) {
     }
   }
 
-  return result;
+  return result as Merge<P, S>;
 }
 
 export class Mergeable<T> {

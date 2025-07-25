@@ -6,7 +6,7 @@ import type { NestedRecord, Primitive } from '../types';
 export function hash(value: Primitive | NestedRecord): string {
   const resultingHash = crypto.createHash('sha256');
 
-  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' || value === null) {
     resultingHash.update(String(value));
   } else {
     const sortedKeys = Object.keys(value).sort((a, b) => a.localeCompare(b));

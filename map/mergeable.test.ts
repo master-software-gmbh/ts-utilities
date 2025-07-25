@@ -55,7 +55,38 @@ describe('mergeable', () => {
     const secondary = { b: 2, c: 3 };
     const expected = { a: 1, b: undefined, c: 3 };
 
-    // @ts-expect-error
+    expect(merge(primary, secondary)).toEqual(expected);
+  });
+
+  it('should handle null values', () => {
+    const primary = { a: 1, b: null };
+    const secondary = { b: 2, c: 3 };
+    const expected = { a: 1, b: null, c: 3 };
+
+    expect(merge(primary, secondary)).toEqual(expected);
+  });
+
+  it('should handle null values', () => {
+    const primary = { a: 1, b: null };
+    const secondary = { c: 3 };
+    const expected = { a: 1, b: null, c: 3 };
+
+    expect(merge(primary, secondary)).toEqual(expected);
+  });
+
+  it('should handle null values', () => {
+    const primary = { a: 1, b: 3 };
+    const secondary = { b: null, c: 3 };
+    const expected = { a: 1, b: 3, c: 3 };
+
+    expect(merge(primary, secondary)).toEqual(expected);
+  });
+
+  it('should handle null values', () => {
+    const primary = { a: 1, b: 3 };
+    const secondary = { b: null, c: null };
+    const expected = { a: 1, b: 3, c: null };
+
     expect(merge(primary, secondary)).toEqual(expected);
   });
 });
