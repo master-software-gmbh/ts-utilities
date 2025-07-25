@@ -1,3 +1,10 @@
+# [1.120.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.119.1...v1.120.0) (2025-07-25)
+
+
+### Features
+
+* overwrite eric config during initialisation ([c03ec54](https://github.com/master-software-gmbh/ts-utilities/commit/c03ec543c22dfad529a8422ccc71f0fefac18969))
+
 ## [1.119.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.119.0...v1.119.1) (2025-07-24)
 
 
