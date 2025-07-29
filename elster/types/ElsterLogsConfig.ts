@@ -1,4 +1,4 @@
 export type ElsterLogsConfig = {
-  detailedLog: boolean;
+  detailedLog?: boolean;
   logsDirectory: string | null;
 };

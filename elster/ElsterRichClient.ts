@@ -156,8 +156,8 @@ export class ElsterRichClient {
       vorschau: 0,
       pdfName: null,
       duplexDruck: 0,
+      fussText: null,
       pdfCallbackBenutzerdaten: null,
-      fussText: this.config.printFusstext,
       pdfCallback: (_name, data, size) => {
         const decodedData = koffi.decode(data, koffi.array('uint8_t', size));
         callback(Buffer.from(decodedData));
