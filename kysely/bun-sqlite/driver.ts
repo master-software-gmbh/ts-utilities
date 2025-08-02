@@ -1,7 +1,18 @@
 import { Database } from 'bun:sqlite';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { CompiledQuery, type DatabaseConnection, type Driver, type QueryResult } from 'kysely';
+import {
+  CompiledQuery,
+  type DatabaseConnection,
+  type Driver,
+  IdentifierNode,
+  type QueryCompiler,
+  type QueryResult,
+  RawNode,
+  SelectQueryNode,
+  type TransactionSettings,
+  createQueryId,
+} from 'kysely';
 import { logger } from '../../logging/index.ts';
 import type { BunSqliteDialectConfig } from './config.ts';
 
@@ -45,8 +56,12 @@ export class BunSqliteDriver implements Driver {
     return this.connection!;
   }
 
-  async beginTransaction(connection: DatabaseConnection): Promise<void> {
-    await connection.executeQuery(CompiledQuery.raw('begin'));
+  async beginTransaction(connection: DatabaseConnection, settings: TransactionSettings): Promise<void> {
+    if (settings.accessMode === 'read write') {
+      await connection.executeQuery(CompiledQuery.raw('begin immediate'));
+    } else {
+      await connection.executeQuery(CompiledQuery.raw('begin'));
+    }
   }
 
   async commitTransaction(connection: DatabaseConnection): Promise<void> {
@@ -57,6 +72,34 @@ export class BunSqliteDriver implements Driver {
     await connection.executeQuery(CompiledQuery.raw('rollback'));
   }
 
+  async savepoint(
+    connection: DatabaseConnection,
+    savepointName: string,
+    compileQuery: QueryCompiler['compileQuery'],
+  ): Promise<void> {
+    await connection.executeQuery(
+      compileQuery(this.parseSavepointCommand('savepoint', savepointName), createQueryId()),
+    );
+  }
+
+  async rollbackToSavepoint(
+    connection: DatabaseConnection,
+    savepointName: string,
+    compileQuery: QueryCompiler['compileQuery'],
+  ): Promise<void> {
+    await connection.executeQuery(
+      compileQuery(this.parseSavepointCommand('rollback to', savepointName), createQueryId()),
+    );
+  }
+
+  async releaseSavepoint(
+    connection: DatabaseConnection,
+    savepointName: string,
+    compileQuery: QueryCompiler['compileQuery'],
+  ): Promise<void> {
+    await connection.executeQuery(compileQuery(this.parseSavepointCommand('release', savepointName), createQueryId()));
+  }
+
   async releaseConnection(): Promise<void> {
     this.connectionMutex.unlock();
   }
@@ -64,6 +107,13 @@ export class BunSqliteDriver implements Driver {
   async destroy(): Promise<void> {
     logger.info('Closing SQLite database connection');
     this.db?.close();
+  }
+
+  private parseSavepointCommand(command: string, savepointName: string): RawNode {
+    return RawNode.createWithChildren([
+      RawNode.createWithSql(`${command} `),
+      IdentifierNode.create(savepointName), // ensures savepointName gets sanitized
+    ]);
   }
 }
 
@@ -79,12 +129,25 @@ class BunSqliteConnection implements DatabaseConnection {
     const stmt = this.#db.prepare(sql);
 
     return Promise.resolve({
-      rows: stmt.all(parameters as any) as O[],
+      rows: stmt.all(...(parameters as any[])) as O[],
     });
   }
 
-  streamQuery<R>(): AsyncIterableIterator<QueryResult<R>> {
-    throw new Error('Streaming query is not supported by SQLite driver.');
+  async *streamQuery<R>(compiledQuery: CompiledQuery, _chunkSize: number): AsyncIterableIterator<QueryResult<R>> {
+    const { sql, parameters, query } = compiledQuery;
+    const stmt = this.#db.prepare(sql);
+
+    if (SelectQueryNode.is(query)) {
+      const iter = stmt.iterate(...(parameters as any[])) as IterableIterator<R>;
+
+      for (const row of iter) {
+        yield {
+          rows: [row],
+        };
+      }
+    } else {
+      throw new Error('Sqlite driver only supports streaming of select queries');
+    }
   }
 }
 
