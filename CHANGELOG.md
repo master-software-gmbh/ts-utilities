@@ -1,3 +1,10 @@
+# [1.122.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.121.0...v1.122.0) (2025-08-12)
+
+
+### Features
+
+* update types and sqlite driver ([fe259cc](https://github.com/master-software-gmbh/ts-utilities/commit/fe259cc1f1b05f21a927e3c6a388124be84a3a42))
+
 # [1.121.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.120.1...v1.121.0) (2025-08-02)
 
 
