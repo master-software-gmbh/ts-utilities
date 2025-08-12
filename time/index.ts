@@ -81,11 +81,11 @@ export function throttle(f: Function, delay: number) {
 /**
  * Creates a throttled and debounced version of the given function.
  */
-export function throttleDebounce(f: Function, throttleDelay: number, debounceDelay: number) {
+export function throttleDebounce<T extends (...args: any) => any>(f: T, throttleDelay: number, debounceDelay: number) {
   let lastCall = 0;
   let timeout: NodeJS.Timeout | undefined;
 
-  return (...args: any[]) => {
+  return (...args: Parameters<T>) => {
     const now = Date.now();
 
     // Throttling

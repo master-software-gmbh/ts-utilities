@@ -1,5 +1,3 @@
-import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungsParameter';
-
 export interface ElsterTransferHeaderConfig {
   datenart: string;
   verfahren: string;
@@ -9,5 +7,4 @@ export interface ElsterTransferHeaderConfig {
   uebertragungsart: string;
   testmerker: string | null;
   versionClient: string | null;
-  verschluesselung: ElsterVerschluesselungsParameter;
 }

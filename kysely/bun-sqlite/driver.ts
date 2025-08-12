@@ -124,13 +124,23 @@ class BunSqliteConnection implements DatabaseConnection {
     this.#db = db;
   }
 
-  executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
+  async executeQuery<O>(compiledQuery: CompiledQuery): Promise<QueryResult<O>> {
     const { sql, parameters } = compiledQuery;
     const stmt = this.#db.prepare(sql);
 
-    return Promise.resolve({
-      rows: stmt.all(...(parameters as any[])) as O[],
-    });
+    if (stmt.columnNames.length > 0) {
+      return {
+        rows: stmt.all(parameters as any) as O[],
+      }
+    } else {
+      const { changes, lastInsertRowid } = stmt.run(parameters as any);
+
+      return {
+        rows: [],
+        numChangedRows: BigInt(changes),
+        insertId: BigInt(lastInsertRowid),
+      }
+    }
   }
 
   async *streamQuery<R>(compiledQuery: CompiledQuery, _chunkSize: number): AsyncIterableIterator<QueryResult<R>> {
@@ -138,12 +148,8 @@ class BunSqliteConnection implements DatabaseConnection {
     const stmt = this.#db.prepare(sql);
 
     if (SelectQueryNode.is(query)) {
-      const iter = stmt.iterate(...(parameters as any[])) as IterableIterator<R>;
-
-      for (const row of iter) {
-        yield {
-          rows: [row],
-        };
+      for await (const row of stmt.iterate(parameters as any)) {
+        yield { rows: [row as R] }
       }
     } else {
       throw new Error('Sqlite driver only supports streaming of select queries');
