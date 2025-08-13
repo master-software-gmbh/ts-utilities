@@ -1,3 +1,10 @@
+# [1.123.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.122.0...v1.123.0) (2025-08-13)
+
+
+### Features
+
+* update bun sqlite driver ([4246ccd](https://github.com/master-software-gmbh/ts-utilities/commit/4246ccdacb3799f77adcf51713802c4f7387f131))
+
 # [1.122.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.121.0...v1.122.0) (2025-08-12)
 
 

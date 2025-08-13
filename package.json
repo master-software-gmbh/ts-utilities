@@ -1,6 +1,6 @@
 {
   "name": "@master-software/ts-utilities",
-  "version": "1.122.0",
+  "version": "1.123.0",
   "type": "module",
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
