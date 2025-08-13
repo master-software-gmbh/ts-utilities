@@ -31,7 +31,9 @@ export class BunSqliteDriver implements Driver {
     // Set custom SQLite library path for macOS to support loading extensions.
     Database.setCustomSQLite('/opt/homebrew/opt/sqlite/lib/libsqlite3.dylib');
 
-    this.db = new Database(this.config.url);
+    this.db = new Database(this.config.url, {
+      strict: true,
+    });
 
     if (this.config.extensionsPath) {
       // Load all extensions at the specified folder
@@ -133,11 +135,18 @@ class BunSqliteConnection implements DatabaseConnection {
         rows: stmt.all(parameters as any) as O[],
       }
     } else {
+      /**
+       * Changes specifies the number of rows affected by the statement.
+       * It only counts rows that were actually modified.
+       */
       const { changes, lastInsertRowid } = stmt.run(parameters as any);
 
       return {
         rows: [],
-        numChangedRows: BigInt(changes),
+        /**
+         * For SQLite, `numAffectedRows` does *not* count all matched but only modified rows
+         */
+        numAffectedRows: BigInt(changes),
         insertId: BigInt(lastInsertRowid),
       }
     }
