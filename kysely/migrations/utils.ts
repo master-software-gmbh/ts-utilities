@@ -7,7 +7,7 @@ import {
   sql,
 } from 'kysely';
 import { logger } from '../../logging';
-import { configureForeignKeys } from '../sqlite';
+import { Pragma } from '../sqlite';
 import type { Migration, MigrationProvider } from './types';
 
 export function inlineMigrations(migrations: Record<string, Migration>): MigrationProvider {
@@ -49,7 +49,7 @@ export async function updateTable(
   newTable: (db: CreateTableBuilder<string, never>) => CreateTableBuilder<string, never>,
   convertRow?: (row: Record<string, unknown>) => Record<string, unknown>,
 ) {
-  await db.executeQuery(configureForeignKeys(false));
+  await db.executeQuery(Pragma.foreignKeys('OFF'));
 
   await db.transaction().execute(async (transaction) => {
     await newTable(transaction.schema.createTable(`${tableName}_tmp`)).execute();
@@ -65,7 +65,7 @@ export async function updateTable(
     await transaction.schema.alterTable(`${tableName}_tmp`).renameTo(tableName).execute();
   });
 
-  await db.executeQuery(configureForeignKeys(true));
+  await db.executeQuery(Pragma.foreignKeys('ON'));
 }
 
 declare module 'kysely' {
