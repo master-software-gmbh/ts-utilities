@@ -1,3 +1,10 @@
+# [1.125.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.124.0...v1.125.0) (2025-08-14)
+
+
+### Features
+
+* add pragma utility class ([d0aff72](https://github.com/master-software-gmbh/ts-utilities/commit/d0aff7294f066e546acc4e94e7714e7e06ef7095))
+
 # [1.124.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.123.0...v1.124.0) (2025-08-14)
 
 
