@@ -1,3 +1,10 @@
+## [1.125.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.125.0...v1.125.1) (2025-08-14)
+
+
+### Bug Fixes
+
+* update table helper ([30f2387](https://github.com/master-software-gmbh/ts-utilities/commit/30f2387b51e6b2abd3de5b5adfb135d9dac12a5d))
+
 # [1.125.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.124.0...v1.125.0) (2025-08-14)
 
 
