@@ -1,29 +1,48 @@
 import { CompiledQuery, type Expression, sql } from 'kysely';
 
-/**
- * Returns a query that configures foreign key constraints.
- */
-export function configureForeignKeys(on = true): CompiledQuery {
-  const value = on ? 'ON' : 'OFF';
-  return CompiledQuery.raw(`PRAGMA foreign_keys = ${value};`);
-}
-
-/**
- * Returns a query that enables Write-Ahead Logging (WAL) mode.
- */
-export function enableWalMode(schema?: string): CompiledQuery {
-  if (schema) {
-    return CompiledQuery.raw(`PRAGMA "${schema}".journal_mode = WAL;`);
+export class Pragma {
+  /**
+   * Creates a query to return one row for each database attached to the current database connection. 
+   */
+  static databaseList(): CompiledQuery {
+    return CompiledQuery.raw('PRAGMA database_list;');
   }
 
-  return CompiledQuery.raw('PRAGMA journal_mode = WAL;');
-}
+  /**
+   * Creates a query to set the enforcement of foreign key constraints.
+   */
+  static foreignKeys(value: 'ON' | 'OFF'): CompiledQuery {
+    return CompiledQuery.raw(`PRAGMA foreign_keys = ${value};`);
+  }
 
-/**
- * Returns a query that lists attached databases.
- */
-export function listDatabases(): CompiledQuery {
-  return CompiledQuery.raw('PRAGMA database_list;');
+  /**
+   * Creates a query to change the setting of the busy timeout in milliseconds.
+   */
+  static busyTimeout(value: number): CompiledQuery {
+    return CompiledQuery.raw(`PRAGMA busy_timeout = ${value}`);
+  }
+
+  /**
+   * Creates a query to set the journal mode for databases associated with the current database connection.
+   */
+  static journalMode(value: 'DELETE' | 'TRUNCATE' | 'PERSIST' | 'MEMORY' | 'WAL' | 'OFF', schema?: string): CompiledQuery {
+    if (schema) {
+      return CompiledQuery.raw(`PRAGMA "${schema}".journal_mode = ${value};`);
+    }
+
+    return CompiledQuery.raw(`PRAGMA journal_mode = ${value};`);
+  }
+
+  /**
+   * Creates a query to change the setting of the "synchronous" flag.
+   */
+  static synchronous(value: 'OFF' | 'NORMAL' | 'FULL' | 'EXTRA', schema?: string): CompiledQuery {
+    if (schema) {
+      return CompiledQuery.raw(`PRAGMA "${schema}".synchronous = ${value};`);
+    }
+
+    return CompiledQuery.raw(`PRAGMA synchronous = ${value};`);
+  }
 }
 
 /**
