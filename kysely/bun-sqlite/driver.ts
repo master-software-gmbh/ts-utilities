@@ -28,27 +28,20 @@ export class BunSqliteDriver implements Driver {
   }
 
   async init(): Promise<void> {
-    // Set custom SQLite library path for macOS to support loading extensions.
-    Database.setCustomSQLite('/opt/homebrew/opt/sqlite/lib/libsqlite3.dylib');
+    if (this.config.libraryFilepath) {
+      Database.setCustomSQLite(this.config.libraryFilepath);
+    }
 
     this.db = new Database(this.config.url, {
       strict: true,
     });
 
-    if (this.config.extensionsPath) {
-      // Load all extensions at the specified folder
-      for (const filename of await readdir(this.config.extensionsPath)) {
-        const filepath = join(this.config.extensionsPath, filename);
-        logger.info(`Loading SQLite extension from ${filepath}`);
-        this.db.loadExtension(filepath);
-      }
+    if (this.config.extensionsFolder) {
+      await this.loadExtensions(this.db, this.config.extensionsFolder);
     }
 
     this.connection = new BunSqliteConnection(this.db);
-
-    if (this.config.onCreateConnection) {
-      await this.config.onCreateConnection(this.connection);
-    }
+    await this.config.onCreateConnection?.(this.connection);
   }
 
   async acquireConnection(): Promise<DatabaseConnection> {
@@ -109,6 +102,14 @@ export class BunSqliteDriver implements Driver {
   async destroy(): Promise<void> {
     logger.info('Closing SQLite database connection');
     this.db?.close();
+  }
+
+  private async loadExtensions(db: Database, folder: string): Promise<void> {
+    for (const filename of await readdir(folder)) {
+      const filepath = join(folder, filename);
+      logger.info(`Loading SQLite extension from ${filepath}`);
+      db.loadExtension(filepath);
+    }
   }
 
   private parseSavepointCommand(command: string, savepointName: string): RawNode {
