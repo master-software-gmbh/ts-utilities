@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import type { StandardSchemaV1 } from '@standard-schema/spec';
 import { SchemaError } from '@standard-schema/utils';
 
-export async function validate<T>(schema: StandardSchemaV1<T>, data: unknown): Promise<T> {
+export async function validate<I, O>(schema: StandardSchemaV1<I, O>, data: unknown): Promise<O> {
   const result = await schema['~standard'].validate(data);
 
   if (result.issues) {
@@ -12,15 +12,15 @@ export async function validate<T>(schema: StandardSchemaV1<T>, data: unknown): P
   return result.value;
 }
 
-export async function getAppConfig<E extends { CONFIG_FILEPATH: string }, F>(
-  envSchema: StandardSchemaV1<E>,
+export async function getAppConfig<E extends { CONFIG_FILEPATH: string }, EO extends { CONFIG_FILEPATH: string }, F>(
+  envSchema: StandardSchemaV1<E, EO>,
   fileSchema: StandardSchemaV1<F>,
-): Promise<E & F>;
-export async function getAppConfig<E, F>(envSchema: StandardSchemaV1<E>, fileSchema?: never): Promise<E>;
-export async function getAppConfig<E extends { CONFIG_FILEPATH?: string }, F>(
-  envSchema: StandardSchemaV1<E>,
+): Promise<EO & F>;
+export async function getAppConfig<E, EO, F>(envSchema: StandardSchemaV1<E, EO>, fileSchema?: never): Promise<EO>;
+export async function getAppConfig<E extends { CONFIG_FILEPATH?: string }, EO extends { CONFIG_FILEPATH?: string }, F>(
+  envSchema: StandardSchemaV1<E, EO>,
   fileSchema?: StandardSchemaV1<F>,
-): Promise<(E & F) | E> {
+): Promise<(EO & F) | EO> {
   const envConfig = await validate(envSchema, process.env);
   let fileConfig: F | undefined;
 
