@@ -1,3 +1,10 @@
+## [1.125.2](https://github.com/master-software-gmbh/ts-utilities/compare/v1.125.1...v1.125.2) (2025-08-16)
+
+
+### Bug Fixes
+
+* schema generic types ([fc97dd5](https://github.com/master-software-gmbh/ts-utilities/commit/fc97dd56aa59a59a0efe17d4b286c23fd97e2a45))
+
 ## [1.125.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.125.0...v1.125.1) (2025-08-14)
 
 
