@@ -1,3 +1,10 @@
+## [1.127.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.0...v1.127.1) (2025-08-17)
+
+
+### Bug Fixes
+
+* xml declaration ([66f3942](https://github.com/master-software-gmbh/ts-utilities/commit/66f3942a6dc0a02c019f7714687b5cdbb271bb4a))
+
 # [1.127.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.126.0...v1.127.0) (2025-08-17)
 
 
