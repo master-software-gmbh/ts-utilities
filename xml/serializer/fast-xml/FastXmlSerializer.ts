@@ -40,8 +40,10 @@ export class FastXmlSerializer implements XmlSerializer {
     const namespaces: NamespaceMap = {};
     const obj: XmlObject = {
       '?xml': {
-        'version': '1.0',
-        'encoding': 'utf-8'
+        [this.attributesGroupName]: {
+          'version': '1.0',
+          'encoding': 'utf-8'
+        },
       },
     };
 
