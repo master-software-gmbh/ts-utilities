@@ -36,9 +36,14 @@ export class FastXmlSerializer implements XmlSerializer {
       attributesGroupName: this.attributesGroupName,
       attributeNamePrefix: this.attributeNamePrefix,
     });
-
-    const obj: XmlObject = {};
+    
     const namespaces: NamespaceMap = {};
+    const obj: XmlObject = {
+      '?xml': {
+        'version': '1.0',
+        'encoding': 'utf-8'
+      },
+    };
 
     for (const declaration of document.declarations) {
       namespaces[declaration.namespace.uri] = declaration.prefix;
