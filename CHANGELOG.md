@@ -1,3 +1,10 @@
+# [1.127.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.126.0...v1.127.0) (2025-08-17)
+
+
+### Features
+
+* add xml declaration to fast xml serializer ([b5a95fa](https://github.com/master-software-gmbh/ts-utilities/commit/b5a95fa297ed45a7e45f1f9865736613a4642b54))
+
 # [1.126.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.125.2...v1.126.0) (2025-08-17)
 
 
