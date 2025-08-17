@@ -1,8 +1,7 @@
 import * as koffi from 'koffi';
 import type { IKoffiRegisteredCallback } from 'koffi';
 import { logger } from '../logging';
-import { merge } from '../map';
-import type { ElsterConfig } from './types/ElsterConfig';
+import type { ElsterRichClientConfig } from './types/ElsterRichClientConfig';
 import type { ElsterDruckParameter } from './types/ElsterDruckParameter';
 import { ElsterEinstellung } from './types/ElsterEinstellung';
 import { ElsterFunktion, EricLogCallback } from './types/ElsterFunktionen';
@@ -18,18 +17,16 @@ declare module 'koffi' {
 
 export class ElsterRichClient {
   private ericLibrary?: koffi.IKoffiLib;
-  private readonly config: ElsterConfig;
+  private readonly config: ElsterRichClientConfig;
 
-  constructor(config: ElsterConfig) {
+  constructor(config: ElsterRichClientConfig) {
     this.config = config;
   }
 
-  initialisiere(config: Partial<ElsterLogsConfig>): void {
-    const mergedConfig = merge(config, this.config);
+  initialisiere(config: ElsterLogsConfig): void {
+    this.callFunction(ElsterFunktion.EricInitialisiere, [null, config.logsDirectory]);
 
-    this.callFunction(ElsterFunktion.EricInitialisiere, [null, mergedConfig.logsDirectory]);
-
-    if (mergedConfig.detailedLog) {
+    if (config.detailedLog) {
       this.einstellungSetzen(ElsterEinstellung.detailedLog, 'ja');
     }
   }

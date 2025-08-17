@@ -1,6 +1,6 @@
 export * from './ElsterRichClient';
 export * from './types/ElsterBearbeitungsFlag';
-export * from './types/ElsterConfig';
+export * from './types/ElsterRichClientConfig';
 export * from './types/ElsterDatenart';
 export * from './types/ElsterDatenlieferant';
 export * from './types/ElsterTestmerker';
