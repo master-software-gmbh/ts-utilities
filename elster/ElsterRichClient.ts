@@ -102,7 +102,7 @@ export class ElsterRichClient {
       xml,
       config.verfahren,
       config.datenart,
-      config.uebertragungsart,
+      config.vorgangsart,
       config.testmerker,
       config.herstellerId,
       config.datenlieferant,
