@@ -5,7 +5,7 @@ export * from './types/ElsterDatenart';
 export * from './types/ElsterDatenlieferant';
 export * from './types/ElsterTestmerker';
 export * from './types/ElsterTransferHeaderConfig';
-export * from './types/ElsterUebertragungsart';
+export * from './types/ElsterVorgangsart';
 export * from './types/ElsterVerfahren';
 export * from './types/ElsterVorgangConfig';
 export * from './types/ElsterVorgangErgebnis';
