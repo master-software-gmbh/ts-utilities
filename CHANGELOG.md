@@ -1,3 +1,10 @@
+# [1.128.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.4...v1.128.0) (2025-08-18)
+
+
+### Features
+
+* add pragma command ([576b598](https://github.com/master-software-gmbh/ts-utilities/commit/576b598619b95a0cbda42ff1c23846221a7047a0))
+
 ## [1.127.4](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.3...v1.127.4) (2025-08-18)
 
 ## [1.127.3](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.2...v1.127.3) (2025-08-18)
