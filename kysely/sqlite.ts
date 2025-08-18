@@ -43,6 +43,17 @@ export class Pragma {
 
     return CompiledQuery.raw(`PRAGMA synchronous = ${value};`);
   }
+
+  /**
+   * Creates a query that attempts to optimize the database.
+   */
+  static optimize(mask?: string): CompiledQuery {
+    if (mask) {
+      return CompiledQuery.raw(`PRAGMA optimize=${mask};`);
+    }
+    
+    return CompiledQuery.raw('PRAGMA optimize;');
+  }
 }
 
 /**
