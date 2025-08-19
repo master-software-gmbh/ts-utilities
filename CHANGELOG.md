@@ -1,3 +1,5 @@
+## [1.128.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.128.0...v1.128.1) (2025-08-19)
+
 # [1.128.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.4...v1.128.0) (2025-08-18)
 
 
