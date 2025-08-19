@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     utilities.url = "github:master-software-gmbh/nixos-utilities";
     utilities.inputs.nixpkgs.follows = "nixpkgs";
   };
