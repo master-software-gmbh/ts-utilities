@@ -15,6 +15,8 @@ export class XsRestriction {
   children: Children;
   element: XmlElement;
 
+  targetNamespace?: string;
+
   constructor(element: XmlElement, children: Children, attributes: Attributes) {
     this.element = element;
     this.id = attributes.id;

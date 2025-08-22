@@ -4,6 +4,7 @@ import type { QName } from '../model/qualified-name';
 import { XmlNamespace } from '../model/xml/namespace';
 import { XsComplexType } from '../model/xs/complex-type';
 import { XsElement } from '../model/xs/element';
+import { XsRestriction } from '../model/xs/restriction';
 import type { XsSchema } from '../model/xs/schema';
 import { XsSimpleType } from '../model/xs/simple-type';
 
@@ -162,7 +163,7 @@ export class NormalizedSchema {
 
   private setTargetNamespace(targetNamespace: string | undefined, ...elements: unknown[]) {
     for (const element of elements) {
-      if (element instanceof XsElement) {
+      if (element instanceof XsElement || element instanceof XsRestriction) {
         element.targetNamespace = targetNamespace;
       }
 

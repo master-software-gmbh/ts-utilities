@@ -127,9 +127,9 @@ export class ElsterFunktion {
     'str', // datenpuffer
     'str', // datenartVersion
     'uint32_t', // bearbeitungsFlags
-    pointer(eric_druck_parameter_t),
-    pointer(eric_verschluesselungs_parameter_t),
-    pointer(EricTransferHandle),
+    pointer(eric_druck_parameter_t), // druckParameter
+    pointer(eric_verschluesselungs_parameter_t), // cryptoParameter
+    pointer(EricTransferHandle), // transferHandle
     EricRueckgabepufferHandle, // rueckgabeXmlPuffer
     EricRueckgabepufferHandle, // serverantwortXmlPuffer
   ]);

@@ -59,6 +59,10 @@ export class ElsterRichClient {
     return value;
   }
 
+  getTransferHandle(): Uint32Array {
+    return this.getIntPointer();
+  }
+
   getHandleToCertificate(path: string): number | undefined {
     const handle = this.getIntPointer();
     const pinInfo = this.getIntPointer();
@@ -133,7 +137,7 @@ export class ElsterRichClient {
       config.bearbeitungsFlag,
       druckParameter,
       config.verschluesselung,
-      null,
+      config.transferHandle,
       rueckgabeXmlBuffer,
       serverantwortXmlBuffer,
     ]);

@@ -1,7 +1,10 @@
 export const ElsterTestmerker = {
   /**
    * Testfall, der sofort nach dem Empfang im jeweiligen Rechenzentrum des Bundeslandes gelöscht wird. Es erfolgt keine weitere Verarbeitung. Dient zum Test der Leitungsverbindung.
+   * 
    * Dieser Testmerker ist auch zu verwenden, um die Rückmeldung zu Anhängen mit dem Verfahren `ElsterDatenabholung` zu testen.
+   * 
+   * **Die Verwendung dieses Testmerks kann zu technischen Problemen bei der Verarbeitung durch die Bundesländer kommen. Er ist eigentlich zur internen Verwendung durch die ELSTER-Abteilung gedacht.**
    */
   TestLeitungsverbindung: '700000001',
   /**
