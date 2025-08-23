@@ -1,3 +1,10 @@
+# [1.129.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.128.1...v1.129.0) (2025-08-22)
+
+
+### Features
+
+* add transfer handle support to eric ([fe5b109](https://github.com/master-software-gmbh/ts-utilities/commit/fe5b1090154edf0a3d1d117da6e0093cdf2a105d))
+
 ## [1.128.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.128.0...v1.128.1) (2025-08-19)
 
 # [1.128.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.127.4...v1.128.0) (2025-08-18)
