@@ -33,6 +33,21 @@ export const ElsterDatenart = {
    * Kapitalgesellschaft
    */
   Kapg: 'KapG',
+
+  /**
+   * Postfach-Anfrage
+   */
+  PostfachAnfrage: 'PostfachAnfrage',
+
+  /**
+   * Postfach-Bestätigung
+   */
+  PostfachBestaetigung: 'PostfachBestaetigung',
+
+  /**
+   * Postfach-Status
+   */
+  PostfachStatus: 'PostfachStatus',
 } as const;
 
 export type ElsterDatenart = (typeof ElsterDatenart)[keyof typeof ElsterDatenart];
