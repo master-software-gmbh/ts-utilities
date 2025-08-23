@@ -1,3 +1,10 @@
+# [1.130.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.129.0...v1.130.0) (2025-08-23)
+
+
+### Features
+
+* update elster datenart ([040f6ab](https://github.com/master-software-gmbh/ts-utilities/commit/040f6ab0b67b353f9480742fa25074e3766ba13f))
+
 # [1.129.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.128.1...v1.129.0) (2025-08-22)
 
 
