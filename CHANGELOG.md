@@ -1,3 +1,10 @@
+# [1.132.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.131.1...v1.132.0) (2025-08-26)
+
+
+### Features
+
+* add throttled task queue ([d9321f5](https://github.com/master-software-gmbh/ts-utilities/commit/d9321f57a65951970b178b22e133e29fc2861ec5))
+
 ## [1.131.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.131.0...v1.131.1) (2025-08-26)
 
 
