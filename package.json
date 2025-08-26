@@ -70,6 +70,7 @@
     "./oauth": "./oauth/index.ts",
     "./pdf": "./pdf/index.ts",
     "./process": "./process/index.ts",
+    "./queue": "./queue/index.ts",
     "./result": "./result/index.ts",
     "./schema": "./schema/index.ts",
     "./storage": "./storage/index.ts",
