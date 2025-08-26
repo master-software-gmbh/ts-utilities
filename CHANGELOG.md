@@ -1,3 +1,10 @@
+# [1.131.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.130.0...v1.131.0) (2025-08-25)
+
+
+### Features
+
+* update XArray ([c50c7b6](https://github.com/master-software-gmbh/ts-utilities/commit/c50c7b6358f395673f37a2fbf1b515405ec7b8eb))
+
 # [1.130.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.129.0...v1.130.0) (2025-08-23)
 
 
