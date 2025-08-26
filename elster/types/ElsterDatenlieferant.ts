@@ -8,7 +8,7 @@ export class ElsterDatenlieferant {
   hausnummer: string | null;
   adresszusatz: string | null;
   postleitzahl: string | null;
-  hausnummerzusatz: string | null;
+  hausnummernzusatz: string | null;
 
   constructor(data: {
     ort?: string | null;
@@ -20,7 +20,7 @@ export class ElsterDatenlieferant {
     hausnummer?: string | null;
     adresszusatz?: string | null;
     postleitzahl?: string | null;
-    hausnummerzusatz?: string | null;
+    hausnummernzusatz?: string | null;
   }) {
     this.ort = data.ort ?? null;
     this.land = data.land ?? null;
@@ -31,7 +31,7 @@ export class ElsterDatenlieferant {
     this.hausnummer = data.hausnummer ?? null;
     this.adresszusatz = data.adresszusatz ?? null;
     this.postleitzahl = data.postleitzahl ?? null;
-    this.hausnummerzusatz = data.hausnummerzusatz ?? null;
+    this.hausnummernzusatz = data.hausnummernzusatz ?? null;
   }
 
   toString(): string {
@@ -39,7 +39,7 @@ export class ElsterDatenlieferant {
       this.name,
       this.strasse,
       this.hausnummer,
-      this.hausnummerzusatz,
+      this.hausnummernzusatz,
       this.adresszusatz,
       this.postleitzahl,
       this.ort,
