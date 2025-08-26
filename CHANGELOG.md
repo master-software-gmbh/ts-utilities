@@ -1,3 +1,10 @@
+## [1.131.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.131.0...v1.131.1) (2025-08-26)
+
+
+### Bug Fixes
+
+* spelling ([6d27ee7](https://github.com/master-software-gmbh/ts-utilities/commit/6d27ee7c1496a44dc78faaa9727be281ecf88c10))
+
 # [1.131.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.130.0...v1.131.0) (2025-08-25)
 
 
