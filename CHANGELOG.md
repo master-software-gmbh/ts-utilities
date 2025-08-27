@@ -1,3 +1,10 @@
+# [1.133.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.132.1...v1.133.0) (2025-08-27)
+
+
+### Features
+
+* add overlay color option to image transformation ([08864e2](https://github.com/master-software-gmbh/ts-utilities/commit/08864e2b31db834d56ca9ff99078df2ab8d9cb58))
+
 ## [1.132.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.132.0...v1.132.1) (2025-08-26)
 
 # [1.132.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.131.1...v1.132.0) (2025-08-26)
