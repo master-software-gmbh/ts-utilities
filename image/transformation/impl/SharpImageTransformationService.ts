@@ -87,7 +87,7 @@ export class SharpImageTransformationService implements ImageTransformationServi
         width: overlayWidth,
         height: overlayHeight,
         fontfile: options.overlay_font_path,
-        text: `<span color="#FFFFFFB3" background="#FFFFFF01">${options.overlay_text}</span>`,
+        text: `<span color="${options.overlay_color}" background="#FFFFFF01">${options.overlay_text}</span>`,
       },
     })
       .rotate(-45, {
