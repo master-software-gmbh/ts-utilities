@@ -49,4 +49,16 @@ describe('XArray', () => {
       expect(result).toEqual(expected);
     });
   });
-})
+
+  describe('joinDefined', () => {
+    it('should skip null or undefined values', () => {
+      const array = new XArray([null, 'abc', 'def', undefined]);
+      expect(array.joinDefined()).toEqual('abc def');
+    });
+    
+    it('should use a custom separator', () => {
+      const array = new XArray([null, 'abc', 'def', undefined]);
+      expect(array.joinDefined(', ')).toEqual('abc, def');
+    });
+  });
+});

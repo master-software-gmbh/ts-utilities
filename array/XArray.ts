@@ -28,4 +28,11 @@ export class XArray<T> {
       yield this.array.slice(i, i + size);
     }
   }
+
+  /**
+   * Adds all defined elements of the array into a string, separated by the specified separator.
+   */
+  joinDefined(separator = ' '): string {
+    return this.compactMap((part) => part).join(separator);
+  }
 }
