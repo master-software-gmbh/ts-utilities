@@ -1,3 +1,10 @@
+# [1.134.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.133.1...v1.134.0) (2025-09-02)
+
+
+### Features
+
+* extend XArray ([e6f9c37](https://github.com/master-software-gmbh/ts-utilities/commit/e6f9c377b3ebd54f40d3eca82e3f2b7cfd4dab31))
+
 ## [1.133.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.133.0...v1.133.1) (2025-08-28)
 
 # [1.133.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.132.1...v1.133.0) (2025-08-27)
