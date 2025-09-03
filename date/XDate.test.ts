@@ -74,4 +74,18 @@ describe('XDate', () => {
     expect(new XDate(2025, 11, 1, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 11, 31));
     expect(new XDate(2025, 6, 15, 4, 16, 58).atMonthEnd() as Date).toEqual(new Date(2025, 6, 31));
   });
+
+  it('atYearStart', () => {
+    expect(new XDate(2024, 0, 1).atYearStart() as Date).toEqual(new Date(2024, 0, 1));
+    expect(new XDate(2024, 0, 2).atYearStart() as Date).toEqual(new Date(2024, 0, 1));
+    expect(new XDate(2025, 8, 3).atYearStart() as Date).toEqual(new Date(2025, 0, 1));
+    expect(new XDate(2025, 11, 31).atYearStart() as Date).toEqual(new Date(2025, 0, 1));
+  });
+
+  it('atYearEnd', () => {
+    expect(new XDate(2024, 0, 1).atYearEnd() as Date).toEqual(new Date(2024, 11, 31));
+    expect(new XDate(2024, 0, 2).atYearEnd() as Date).toEqual(new Date(2024, 11, 31));
+    expect(new XDate(2025, 8, 3).atYearEnd() as Date).toEqual(new Date(2025, 11, 31));
+    expect(new XDate(2025, 11, 31).atYearEnd() as Date).toEqual(new Date(2025, 11, 31));
+  });
 });

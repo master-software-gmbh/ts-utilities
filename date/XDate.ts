@@ -88,6 +88,34 @@ export class XDate extends Date {
   }
 
   /**
+   * Returns a copy of the date set to the first day of the year
+   */
+  atYearStart(): XDate {
+    return this.copy({
+      day: 1,
+      month: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+  }
+
+  /**
+   * Returns a copy of the date set to the last day of the year
+   */
+  atYearEnd(): XDate {
+    return this.copy({
+      day: 31,
+      hours: 0,
+      month: 11,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+  }
+
+  /**
    * Returns a copy of the date with the applied overrides
    */
   copy(overrides?: {
