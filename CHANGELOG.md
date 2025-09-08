@@ -1,3 +1,10 @@
+# [1.135.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.134.0...v1.135.0) (2025-09-03)
+
+
+### Features
+
+* extend XDate ([48809ca](https://github.com/master-software-gmbh/ts-utilities/commit/48809ca22e6ec438936817ffcc59e8f9e54018e7))
+
 # [1.134.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.133.1...v1.134.0) (2025-09-02)
 
 
