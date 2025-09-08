@@ -5,6 +5,8 @@ export const ElsterTestmerker = {
    * Dieser Testmerker ist auch zu verwenden, um die Rückmeldung zu Anhängen mit dem Verfahren `ElsterDatenabholung` zu testen.
    * 
    * **Die Verwendung dieses Testmerks kann zu technischen Problemen bei der Verarbeitung durch die Bundesländer kommen. Er ist eigentlich zur internen Verwendung durch die ELSTER-Abteilung gedacht.**
+   * 
+   * @deprecated
    */
   TestLeitungsverbindung: '700000001',
   /**

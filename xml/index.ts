@@ -7,6 +7,7 @@ export * from './visitor/schema/xs-to-xml';
 export * from './model/xml/document';
 export * from './model/xml/namespace';
 export * from './model/xml/element';
+export * from './model/xml/attribute';
 export { XsElement } from './model/xs/element';
 export { XsComplexType } from './model/xs/complex-type';
 export { XsChoice } from './model/xs/choice';
