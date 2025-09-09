@@ -1,3 +1,10 @@
+# [1.136.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.135.0...v1.136.0) (2025-09-08)
+
+
+### Features
+
+* update testmerker and module exports ([460a1f2](https://github.com/master-software-gmbh/ts-utilities/commit/460a1f2a239e9736a94fcbdd95e649eef8186dcc))
+
 # [1.135.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.134.0...v1.135.0) (2025-09-03)
 
 
