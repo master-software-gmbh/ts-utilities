@@ -6,7 +6,7 @@ import type { XmlNamespaceDeclaration } from '../../model/xml/declaration';
 import { XmlDocument } from '../../model/xml/document';
 import type { XmlElement } from '../../model/xml/element';
 import type { XmlNamespace } from '../../model/xml/namespace';
-import type { XmlSerializable, XmlSerializer } from '../interface';
+import type { XmlSerializer } from '../interface';
 import { DefaultNamespacePrefixes, type NamespaceMap, type XmlObject } from '../types';
 
 export class FastXmlSerializer implements XmlSerializer {
@@ -14,13 +14,7 @@ export class FastXmlSerializer implements XmlSerializer {
   private readonly attributeNamePrefix = '';
   private readonly attributesGroupName = ':@';
 
-  async serialize(object: XmlSerializable): Promise<Result<string, 'xml_conversion_failed' | 'missing_dependencies'>> {
-    let { data: document } = await object.toXML();
-
-    if (!document) {
-      return error('xml_conversion_failed');
-    }
-
+  async serialize(object: XmlElement | XmlDocument): Promise<Result<string, 'missing_dependencies'>> {
     const { data: module } = await loadModule<typeof import('fast-xml-parser')>('fast-xml-parser');
 
     if (!module) {
@@ -47,15 +41,15 @@ export class FastXmlSerializer implements XmlSerializer {
       },
     };
 
-    for (const declaration of document.declarations) {
+    for (const declaration of object.declarations) {
       namespaces[declaration.namespace.uri] = declaration.prefix;
     }
 
-    if (document instanceof XmlDocument) {
-      document = document.root;
+    if (object instanceof XmlDocument) {
+      object = object.root;
     }
 
-    this.serializeElement(obj, document, namespaces);
+    this.serializeElement(obj, object, namespaces);
 
     return success(fastXmlBuilder.build(obj));
   }

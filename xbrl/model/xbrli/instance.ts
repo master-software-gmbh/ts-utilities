@@ -1,5 +1,5 @@
 import { type Result, error, success } from '../../../result';
-import { XmlDocument, type XmlElement, XmlNamespace, XmlSchemaToXmlVisitor, type XmlSerializable } from '../../../xml';
+import { XmlDocument, XmlNamespace, XmlSchemaToXmlVisitor } from '../../../xml';
 import { XmlNamespaces } from '../../../xml/model/namespaces';
 import type { Context } from '../../../xml/visitor/schema/xs-to-xml';
 import { XbrlInstanceSerializer } from '../../serializer/instance';
@@ -11,7 +11,7 @@ import type { XbrlUnit } from './unit';
 
 export type DataMap = { [key: string]: string | DataMap | undefined };
 
-export class XbrlInstance implements XmlSerializable {
+export class XbrlInstance {
   private readonly dtd: Dtd;
   readonly schemaRefs: LinkSchemaRef[];
   private readonly factsMap: Map<string, XbrlFact>;
@@ -26,7 +26,7 @@ export class XbrlInstance implements XmlSerializable {
     this.contextsMap = new Map();
   }
 
-  async toXML(): Promise<Result<XmlElement | XmlDocument, 'xml_conversion_failed'>> {
+  async toXML(): Promise<Result<XmlDocument, 'xml_conversion_failed'>> {
     const instanceContext = this.getContext();
 
     const root = this.dtd.schema.getElement({
