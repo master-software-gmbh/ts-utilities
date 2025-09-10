@@ -1,30 +1,16 @@
 import * as koffi from 'koffi';
-import type { IKoffiRegisteredCallback } from 'koffi';
-import { logger } from '../logging';
-import type { ElsterRichClientConfig } from './types/ElsterRichClientConfig';
 import type { ElsterDruckParameter } from './types/ElsterDruckParameter';
 import { ElsterEinstellung } from './types/ElsterEinstellung';
-import { ElsterFunktion, EricLogCallback } from './types/ElsterFunktionen';
-import type { ElsterLogCallback } from './types/ElsterLogCallback';
+import ElsterFunctions from './types/ElsterFunctions';
 import type { ElsterLogsConfig } from './types/ElsterLogsConfig';
 import type { ElsterTransferHeaderConfig } from './types/ElsterTransferHeaderConfig';
 import type { ElsterVorgangConfig } from './types/ElsterVorgangConfig';
 import type { ElsterVorgangErgebnis } from './types/ElsterVorgangErgebnis';
+import { SharedLibrary } from './SharedLibrary';
 
-declare module 'koffi' {
-  export function load(path: string, options?: { lazy?: boolean; global?: boolean }): IKoffiLib;
-}
-
-export class ElsterRichClient {
-  private ericLibrary?: koffi.IKoffiLib;
-  private readonly config: ElsterRichClientConfig;
-
-  constructor(config: ElsterRichClientConfig) {
-    this.config = config;
-  }
-
+export class ElsterRichClient extends SharedLibrary {
   initialisiere(config: ElsterLogsConfig): void {
-    this.callFunction(ElsterFunktion.EricInitialisiere, [null, config.logsDirectory]);
+    this.callFunction(ElsterFunctions.EricInitialisiere, [null, config.logsDirectory]);
 
     if (config.detailedLog) {
       this.einstellungSetzen(ElsterEinstellung.detailedLog, 'ja');
@@ -32,12 +18,12 @@ export class ElsterRichClient {
   }
 
   beende(): void {
-    this.callFunction(ElsterFunktion.EricBeende);
+    this.callFunction(ElsterFunctions.EricBeende);
   }
 
   holeFehlerText(errorCode: number): string {
     const handle = this.rueckgabepufferErzeugen();
-    this.callFunction(ElsterFunktion.EricHoleFehlerText, [errorCode, handle]);
+    this.callFunction(ElsterFunctions.EricHoleFehlerText, [errorCode, handle]);
 
     const text = this.rueckgabepufferInhalt(handle);
     this.rueckgabepufferFreigeben(handle);
@@ -46,12 +32,12 @@ export class ElsterRichClient {
   }
 
   einstellungSetzen(name: string, value: string): void {
-    this.callFunction(ElsterFunktion.EricEinstellungSetzen, [name, value]);
+    this.callFunction(ElsterFunctions.EricEinstellungSetzen, [name, value]);
   }
 
   einstellungLesen(name: string): string {
     const handle = this.rueckgabepufferErzeugen();
-    this.callFunction(ElsterFunktion.EricEinstellungLesen, [name, handle]);
+    this.callFunction(ElsterFunctions.EricEinstellungLesen, [name, handle]);
 
     const value = this.rueckgabepufferInhalt(handle);
     this.rueckgabepufferFreigeben(handle);
@@ -60,49 +46,38 @@ export class ElsterRichClient {
   }
 
   getTransferHandle(): Uint32Array {
-    return this.getIntPointer();
+    return this.getPointer();
   }
 
   getHandleToCertificate(path: string): number | undefined {
-    const handle = this.getIntPointer();
-    const pinInfo = this.getIntPointer();
+    const handle = this.getPointer();
+    const pinInfo = this.getPointer();
 
-    this.callFunction(ElsterFunktion.EricGetHandleToCertificate, [handle, pinInfo, path]);
+    this.callFunction(ElsterFunctions.EricGetHandleToCertificate, [handle, pinInfo, path]);
 
-    return this.getIntPointerValue(handle);
+    return this.getPointerValue(handle);
   }
 
   closeHandleToCertificate(handle: number) {
-    this.callFunction(ElsterFunktion.EricCloseHandleToCertificate, [handle]);
+    this.callFunction(ElsterFunctions.EricCloseHandleToCertificate, [handle]);
   }
 
   rueckgabepufferErzeugen(): object {
-    return this.callFunction(ElsterFunktion.EricRueckgabepufferErzeugen);
+    return this.callFunction(ElsterFunctions.EricRueckgabepufferErzeugen);
   }
 
   rueckgabepufferInhalt(handle: object): string {
-    return this.callFunction(ElsterFunktion.EricRueckgabepufferInhalt, [handle]);
+    return this.callFunction(ElsterFunctions.EricRueckgabepufferInhalt, [handle]);
   }
 
   rueckgabepufferFreigeben(handle: object): void {
-    this.callFunction(ElsterFunktion.EricRueckgabepufferFreigeben, [handle]);
-  }
-
-  registriereLogCallback(funktion: ElsterLogCallback, writeLogFile?: boolean): IKoffiRegisteredCallback {
-    const callback = koffi.register(funktion, koffi.pointer(EricLogCallback));
-    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [callback, writeLogFile ? 1 : 0, null]);
-    return callback;
-  }
-
-  deregistriereLogCallback(callback: IKoffiRegisteredCallback): void {
-    this.callFunction(ElsterFunktion.EricRegistriereLogCallback, [null, 0, null]);
-    koffi.unregister(callback);
+    this.callFunction(ElsterFunctions.EricRueckgabepufferFreigeben, [handle]);
   }
 
   createTransferHeader(xml: string, config: ElsterTransferHeaderConfig): string {
     const xmlRueckgabePuffer = this.rueckgabepufferErzeugen();
 
-    this.callFunction(ElsterFunktion.EricCreateTH, [
+    this.callFunction(ElsterFunctions.EricCreateTH, [
       xml,
       config.verfahren,
       config.datenart,
@@ -131,7 +106,7 @@ export class ElsterRichClient {
       pdfBuffer = data;
     });
 
-    this.callFunction(ElsterFunktion.EricBearbeiteVorgang, [
+    this.callFunction(ElsterFunctions.EricBearbeiteVorgang, [
       xml,
       config.datenartVersion,
       config.bearbeitungsFlag,
@@ -165,38 +140,5 @@ export class ElsterRichClient {
         return 0;
       },
     };
-  }
-
-  private getEricLibrary(): koffi.IKoffiLib {
-    if (!this.ericLibrary) {
-      logger.info('Loading shared ERiC library');
-
-      this.ericLibrary = koffi.load(this.config.libraryFilepath, {
-        global: true,
-      });
-    }
-
-    return this.ericLibrary;
-  }
-
-  private getIntPointer(): Uint32Array {
-    return new Uint32Array([0]);
-  }
-
-  private getIntPointerValue(pointer: Uint32Array): number | undefined {
-    return pointer[0];
-  }
-
-  private callFunction(definition: ElsterFunktion, args = [] as unknown[]) {
-    const library = this.getEricLibrary();
-    const func = library.func(definition.name, definition.result, definition.arguments);
-
-    const result = func(...args);
-
-    if (definition.result === 'int') {
-      logger.info(`Function ${definition.name} returned code ${result}`);
-    } else {
-      return result;
-    }
   }
 }

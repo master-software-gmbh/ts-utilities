@@ -1,7 +1,8 @@
 import * as koffi from 'koffi';
-import { type TypeSpec, pointer } from 'koffi';
+import { pointer } from 'koffi';
 import type { ElsterDruckParameter } from './ElsterDruckParameter';
 import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungsParameter';
+import { SharedLibraryFunction } from '../SharedLibraryFunction';
 
 const EricZertifikatHandle = 'uint32_t';
 const EricTransferHandle = 'uint32_t';
@@ -16,7 +17,7 @@ const EricPdfCallback = koffi.proto('PdfCallback', 'int', [
 ]);
 
 // typedef void(* EricLogCallback) (const char *kategorie, eric_log_level_t loglevel, const char *nachricht, void *benutzerdaten)
-export const EricLogCallback = koffi.proto('LogCallback', 'void', [
+const EricLogCallback = koffi.proto('LogCallback', 'void', [
   'str', // kategorie
   'int', // loglevel
   'str', // nachricht
@@ -41,66 +42,56 @@ const eric_verschluesselungs_parameter_t = koffi.struct('eric_verschluesselungs_
   pin: 'str',
 } satisfies Record<keyof ElsterVerschluesselungsParameter, string>);
 
-export class ElsterFunktion {
-  name: string;
-  result: TypeSpec;
-  arguments: TypeSpec[];
-
-  constructor(name: string, args?: TypeSpec[], result?: TypeSpec) {
-    this.name = name;
-    this.arguments = args ?? [];
-    this.result = result ?? 'int';
-  }
-
-  static readonly EricInitialisiere = new ElsterFunktion('EricInitialisiere', [
+export default {
+  EricInitialisiere: new SharedLibraryFunction('EricInitialisiere', [
     'str', // pluginPfad
     'str', // logPfad
-  ]);
+  ]),
 
-  static readonly EricBeende = new ElsterFunktion('EricBeende');
+  EricBeende: new SharedLibraryFunction('EricBeende'),
 
-  static readonly EricHoleFehlerText = new ElsterFunktion('EricHoleFehlerText', [
+  EricHoleFehlerText: new SharedLibraryFunction('EricHoleFehlerText', [
     'int', // fehlerkode
     EricRueckgabepufferHandle,
-  ]);
+  ]),
 
-  static readonly EricEinstellungSetzen = new ElsterFunktion('EricEinstellungSetzen', [
+  EricEinstellungSetzen: new SharedLibraryFunction('EricEinstellungSetzen', [
     'str', // name
     'str', // wert
-  ]);
+  ]),
 
-  static readonly EricEinstellungLesen = new ElsterFunktion('EricEinstellungLesen', [
+  EricEinstellungLesen: new SharedLibraryFunction('EricEinstellungLesen', [
     'str', // name
     EricRueckgabepufferHandle,
-  ]);
+  ]),
 
-  static readonly EricGetHandleToCertificate = new ElsterFunktion('EricGetHandleToCertificate', [
+  EricGetHandleToCertificate: new SharedLibraryFunction('EricGetHandleToCertificate', [
     pointer(EricZertifikatHandle),
     pointer('uint32_t'),
     'str',
-  ]);
+  ]),
 
-  static readonly EricCloseHandleToCertificate = new ElsterFunktion('EricCloseHandleToCertificate', [
+  EricCloseHandleToCertificate: new SharedLibraryFunction('EricCloseHandleToCertificate', [
     EricZertifikatHandle,
-  ]);
+  ]),
 
-  static readonly EricRueckgabepufferErzeugen = new ElsterFunktion(
+  EricRueckgabepufferErzeugen: new SharedLibraryFunction(
     'EricRueckgabepufferErzeugen',
     [],
     EricRueckgabepufferHandle,
-  );
+  ),
 
-  static readonly EricRueckgabepufferInhalt = new ElsterFunktion(
+  EricRueckgabepufferInhalt: new SharedLibraryFunction(
     'EricRueckgabepufferInhalt',
     [EricRueckgabepufferHandle],
     'str',
-  );
+  ),
 
-  static readonly EricRueckgabepufferFreigeben = new ElsterFunktion('EricRueckgabepufferFreigeben', [
+  EricRueckgabepufferFreigeben: new SharedLibraryFunction('EricRueckgabepufferFreigeben', [
     EricRueckgabepufferHandle,
-  ]);
+  ]),
 
-  static readonly EricRegistriereLogCallback = new ElsterFunktion(
+  EricRegistriereLogCallback: new SharedLibraryFunction(
     'EricRegistriereLogCallback',
     [
       koffi.pointer(EricLogCallback), // funktion
@@ -108,9 +99,9 @@ export class ElsterFunktion {
       koffi.pointer('void'), // benutzerdaten
     ],
     'int',
-  );
+  ),
 
-  static readonly EricCreateTH = new ElsterFunktion('EricCreateTH', [
+  EricCreateTH: new SharedLibraryFunction('EricCreateTH', [
     'str', // xml
     'str', // verfahren
     'str', // datenart
@@ -121,9 +112,9 @@ export class ElsterFunktion {
     'str', // versionClient
     'str', // publicKey
     EricRueckgabepufferHandle,
-  ]);
+  ]),
 
-  static readonly EricBearbeiteVorgang = new ElsterFunktion('EricBearbeiteVorgang', [
+  EricBearbeiteVorgang: new SharedLibraryFunction('EricBearbeiteVorgang', [
     'str', // datenpuffer
     'str', // datenartVersion
     'uint32_t', // bearbeitungsFlags
@@ -132,5 +123,5 @@ export class ElsterFunktion {
     pointer(EricTransferHandle), // transferHandle
     EricRueckgabepufferHandle, // rueckgabeXmlPuffer
     EricRueckgabepufferHandle, // serverantwortXmlPuffer
-  ]);
+  ]),
 }
