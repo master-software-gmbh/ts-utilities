@@ -1,3 +1,10 @@
+## [1.137.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.137.0...v1.137.1) (2025-09-10)
+
+
+### Bug Fixes
+
+* export otto client ([1a8a671](https://github.com/master-software-gmbh/ts-utilities/commit/1a8a671758f6141d88ab66ffd4ab8ad583839456))
+
 # [1.137.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.136.1...v1.137.0) (2025-09-10)
 
 
