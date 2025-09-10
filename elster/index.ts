@@ -1,3 +1,4 @@
+export * from './OttoClient';
 export * from './ElsterRichClient';
 export * from './types/ElsterBearbeitungsFlag';
 export * from './types/ElsterDatenart';
