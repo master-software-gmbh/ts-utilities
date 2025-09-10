@@ -17,4 +17,4 @@ jobs:
 
       - id: semantic-release
         name: Create semantic release
-        uses: master-software-gmbh/semantic-release-action@v1
+        uses: master-software-gmbh/semantic-release-action@v2
