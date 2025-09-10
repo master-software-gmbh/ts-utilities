@@ -1,3 +1,10 @@
+# [1.137.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.136.1...v1.137.0) (2025-09-10)
+
+
+### Features
+
+* add elster otto client ([e226e71](https://github.com/master-software-gmbh/ts-utilities/commit/e226e71a3e4973e349e81f4d043678803ec3ca68))
+
 ## [1.136.1](https://github.com/master-software-gmbh/ts-utilities/compare/v1.136.0...v1.136.1) (2025-09-09)
 
 # [1.136.0](https://github.com/master-software-gmbh/ts-utilities/compare/v1.135.0...v1.136.0) (2025-09-08)
