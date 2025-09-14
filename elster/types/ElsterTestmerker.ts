@@ -18,3 +18,5 @@ export const ElsterTestmerker = {
    */
   TestElsterInfo: '010000001',
 } as const;
+
+export type ElsterTestmerker = (typeof ElsterTestmerker)[keyof typeof ElsterTestmerker];

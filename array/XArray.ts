@@ -35,4 +35,8 @@ export class XArray<T> {
   joinDefined(separator = ' '): string {
     return this.compactMap((part) => part).join(separator);
   }
+
+  exclude(...elements: T[]): T[] {
+    return this.array.filter((_) => !elements.includes(_));
+  }
 }

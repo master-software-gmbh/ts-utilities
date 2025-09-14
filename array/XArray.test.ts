@@ -61,4 +61,11 @@ describe('XArray', () => {
       expect(array.joinDefined(', ')).toEqual('abc, def');
     });
   });
+
+  describe('exclude', () => {
+    it('should filter out elements', () => {
+      const array = new XArray([1, 2, 3, '4', '5', '6']);
+      expect(array.exclude(1, 2, '4')).toEqual([3, '5', '6']);
+    });
+  });
 });
