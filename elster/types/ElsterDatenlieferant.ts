@@ -1,3 +1,5 @@
+import { XArray } from "../../array/XArray";
+
 export class ElsterDatenlieferant {
   ort: string | null;
   land: string | null;
@@ -32,6 +34,20 @@ export class ElsterDatenlieferant {
     this.adresszusatz = data.adresszusatz ?? null;
     this.postleitzahl = data.postleitzahl ?? null;
     this.hausnummernzusatz = data.hausnummernzusatz ?? null;
+  }
+
+  get adresszeile(): string | null {
+    if (!this.strasse) {
+      return null;
+    }
+
+    const parts = [
+      this.strasse,
+      this.hausnummer,
+      this.hausnummernzusatz,
+    ];
+
+    return new XArray(parts).joinDefined();
   }
 
   toString(): string {
