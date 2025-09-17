@@ -174,7 +174,7 @@ export class XbrlInstanceSerializer {
     }
 
     if (fact.concept.name) {
-      const targetNamespace = fact.concept.element.targetNamespace;
+      const targetNamespace = fact.concept.targetNamespace;
 
       if (targetNamespace) {
         return new XmlElement(fact.concept.name, new XmlNamespace(targetNamespace), attributes, children);

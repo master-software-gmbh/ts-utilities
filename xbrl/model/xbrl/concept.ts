@@ -4,19 +4,22 @@ import { HgbrefNotPermittedFor } from '../../../xml/model/hgbref/not-permitted-f
 import { ReferenceName } from '../../../xml/model/hgbref/reference-name';
 import { XmlNamespaces } from '../../../xml/model/namespaces';
 import { XsDate } from '../../../xml/model/xs/date';
-import type { XsElement } from '../../../xml/model/xs/element';
 import type { XbrlLabel } from './label';
 import type { XbrlReference } from './reference';
 
 export class XbrlConcept {
-  element: XsElement;
+  id: string | undefined;
+  name: string | undefined;
+  targetNamespace: string | undefined;
   labels: XbrlLabel[];
   references: XbrlReference[];
 
-  constructor(element: XsElement) {
+  constructor(id: string | undefined, name: string | undefined, targetNamespace: string | undefined) {
+    this.id = id;
+    this.name = name;
     this.labels = [];
     this.references = [];
-    this.element = element;
+    this.targetNamespace = targetNamespace;
   }
 
   addLabel(label: XbrlLabel) {
@@ -25,14 +28,6 @@ export class XbrlConcept {
 
   addReference(reference: XbrlReference) {
     this.references.push(reference);
-  }
-
-  get id(): string | undefined {
-    return this.element.id;
-  }
-
-  get name(): string | undefined {
-    return this.element.name;
   }
 
   getReferencesByRole(...roles: string[]): XbrlReference[] {

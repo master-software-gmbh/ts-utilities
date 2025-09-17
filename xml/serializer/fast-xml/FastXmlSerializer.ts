@@ -3,7 +3,6 @@ import { logger } from '../../../logging';
 import { type Result, error, success } from '../../../result';
 import type { XmlAttribute } from '../../model/xml/attribute';
 import type { XmlNamespaceDeclaration } from '../../model/xml/declaration';
-import { XmlDocument } from '../../model/xml/document';
 import type { XmlElement } from '../../model/xml/element';
 import type { XmlNamespace } from '../../model/xml/namespace';
 import type { XmlSerializer } from '../interface';
@@ -14,7 +13,7 @@ export class FastXmlSerializer implements XmlSerializer {
   private readonly attributeNamePrefix = '';
   private readonly attributesGroupName = ':@';
 
-  async serialize(object: XmlElement | XmlDocument): Promise<Result<string, 'missing_dependencies'>> {
+  async serialize(object: XmlElement): Promise<Result<string, 'missing_dependencies'>> {
     const { data: module } = await loadModule<typeof import('fast-xml-parser')>('fast-xml-parser');
 
     if (!module) {
@@ -43,10 +42,6 @@ export class FastXmlSerializer implements XmlSerializer {
 
     for (const declaration of object.declarations) {
       namespaces[declaration.namespace.uri] = declaration.prefix;
-    }
-
-    if (object instanceof XmlDocument) {
-      object = object.root;
     }
 
     this.serializeElement(obj, object, namespaces);

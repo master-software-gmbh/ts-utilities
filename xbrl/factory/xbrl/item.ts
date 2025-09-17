@@ -25,6 +25,6 @@ export class XbrlItemFactory extends BaseFactory<XsElement, XbrlItem> {
       return error('validation_failed');
     }
 
-    return success(new XbrlItem(source, balanceResult.data, periodTypeResult.data));
+    return success(new XbrlItem(source.id, source.name, source.targetNamespace, balanceResult.data, periodTypeResult.data));
   }
 }

@@ -159,7 +159,7 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
       if (element.substitutionGroup === 'xbrli:item') {
         result = this.itemFactory.map(element);
       } else if (element.substitutionGroup === 'xbrli:tuple') {
-        result = success(new XbrlTuple(element));
+        result = success(new XbrlTuple(element.id, element.name, element.targetNamespace));
       } else if (element.substitutionGroup) {
         // Assume it's a substitution group for items
         result = this.itemFactory.map(element);
