@@ -8,18 +8,28 @@ import type { XbrlLabel } from './label';
 import type { XbrlReference } from './reference';
 
 export class XbrlConcept {
-  id: string | undefined;
-  name: string | undefined;
-  targetNamespace: string | undefined;
+  nillable: boolean;
+  id: string | null;
+  name: string | null;
+  type: string | null;
+  targetNamespace: string | null;
   labels: XbrlLabel[];
   references: XbrlReference[];
 
-  constructor(id: string | undefined, name: string | undefined, targetNamespace: string | undefined) {
-    this.id = id;
-    this.name = name;
+  constructor(data: {
+    id: string | null;
+    name: string | null;
+    type: string | null;
+    nillable: boolean;
+    targetNamespace: string | null
+  }) {
     this.labels = [];
+    this.id = data.id;
     this.references = [];
-    this.targetNamespace = targetNamespace;
+    this.name = data.name;
+    this.type = data.type;
+    this.nillable = data.nillable;
+    this.targetNamespace = data.targetNamespace;
   }
 
   addLabel(label: XbrlLabel) {

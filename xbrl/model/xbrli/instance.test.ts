@@ -101,7 +101,14 @@ describe('XbrlInstance', () => {
 
     instance.addUnit(unit);
 
-    const concept = new XbrlConcept('de-gaap-ci_bs.eqLiab.equity', 'bs.eqLiab.equity', 'http://www.xbrl.de/taxonomies/de-gaap-ci-2024-04-01');
+    const concept = new XbrlConcept({
+      nillable: true,
+      name: 'bs.eqLiab.equity',
+      type: 'xbrli:monetaryItemType',
+      id: 'de-gaap-ci_bs.eqLiab.equity',
+      targetNamespace: 'http://www.xbrl.de/taxonomies/de-gaap-ci-2024-04-01'
+    });
+
     const fact = new XbrlFact(false, ['7000.00'], concept, context, unit, 2);
 
     instance.addFact(fact);

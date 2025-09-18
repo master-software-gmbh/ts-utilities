@@ -6,9 +6,17 @@ export class XbrlItem extends XbrlConcept {
   balance?: XbrliBalance;
   periodType?: XbrliPeriodType;
 
-  constructor(id?: string, name?: string, targetNamespace?: string, balance?: XbrliBalance, periodType?: XbrliPeriodType) {
-    super(id, name, targetNamespace);
-    this.balance = balance;
-    this.periodType = periodType;
+  constructor(data: {
+    id: string | null;
+    name: string | null;
+    type: string | null;
+    nillable: boolean;
+    balance?: XbrliBalance,
+    periodType?: XbrliPeriodType,
+    targetNamespace: string | null,
+  }) {
+    super(data);
+    this.balance = data.balance;
+    this.periodType = data.periodType;
   }
 }
