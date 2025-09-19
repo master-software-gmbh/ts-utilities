@@ -164,6 +164,7 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
           name: element.name ?? null,
           type: element.type ?? null,
           nillable: element.nillable,
+          children: element.children,
           targetNamespace: element.targetNamespace ?? null,
           substitutionGroup: element.substitutionGroup ?? null,
         }));
