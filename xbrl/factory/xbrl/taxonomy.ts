@@ -165,6 +165,7 @@ export class XbrlTaxonomyFactory extends BaseFactory<Dtd, XbrlTaxonomy> {
           type: element.type ?? null,
           nillable: element.nillable,
           targetNamespace: element.targetNamespace ?? null,
+          substitutionGroup: element.substitutionGroup ?? null,
         }));
       } else if (element.substitutionGroup) {
         // Assume it's a substitution group for items

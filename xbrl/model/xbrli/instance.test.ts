@@ -105,6 +105,7 @@ describe('XbrlInstance', () => {
       nillable: true,
       name: 'bs.eqLiab.equity',
       type: 'xbrli:monetaryItemType',
+      substitutionGroup: 'xbrli:item',
       id: 'de-gaap-ci_bs.eqLiab.equity',
       targetNamespace: 'http://www.xbrl.de/taxonomies/de-gaap-ci-2024-04-01'
     });

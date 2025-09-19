@@ -12,16 +12,18 @@ export class XbrlConcept {
   id: string | null;
   name: string | null;
   type: string | null;
-  targetNamespace: string | null;
   labels: XbrlLabel[];
   references: XbrlReference[];
+  targetNamespace: string | null;
+  substitutionGroup: string | null;
 
   constructor(data: {
     id: string | null;
     name: string | null;
     type: string | null;
     nillable: boolean;
-    targetNamespace: string | null
+    targetNamespace: string | null;
+    substitutionGroup: string | null;
   }) {
     this.labels = [];
     this.id = data.id;
@@ -30,6 +32,7 @@ export class XbrlConcept {
     this.type = data.type;
     this.nillable = data.nillable;
     this.targetNamespace = data.targetNamespace;
+    this.substitutionGroup = data.substitutionGroup;
   }
 
   addLabel(label: XbrlLabel) {

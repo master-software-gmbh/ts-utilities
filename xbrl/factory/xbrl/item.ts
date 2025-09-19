@@ -33,6 +33,7 @@ export class XbrlItemFactory extends BaseFactory<XsElement, XbrlItem> {
       balance: balanceResult.data,
       periodType: periodTypeResult.data,
       targetNamespace: source.targetNamespace ?? null,
+      substitutionGroup: source.substitutionGroup ?? null,
     }));
   }
 }

@@ -11,9 +11,10 @@ export class XbrlItem extends XbrlConcept {
     name: string | null;
     type: string | null;
     nillable: boolean;
-    balance?: XbrliBalance,
-    periodType?: XbrliPeriodType,
-    targetNamespace: string | null,
+    balance?: XbrliBalance;
+    periodType?: XbrliPeriodType;
+    targetNamespace: string | null;
+    substitutionGroup: string | null;
   }) {
     super(data);
     this.balance = data.balance;
