@@ -8,8 +8,9 @@ import type { XbrlLabel } from './label';
 import type { XbrlReference } from './reference';
 
 export class XbrlConcept {
-  nillable: boolean;
   id: string | null;
+  nillable: boolean;
+  abstract: boolean;
   name: string | null;
   type: string | null;
   labels: XbrlLabel[];
@@ -19,9 +20,10 @@ export class XbrlConcept {
 
   constructor(data: {
     id: string | null;
+    nillable: boolean;
+    abstract: boolean;
     name: string | null;
     type: string | null;
-    nillable: boolean;
     targetNamespace: string | null;
     substitutionGroup: string | null;
   }) {
@@ -31,6 +33,7 @@ export class XbrlConcept {
     this.name = data.name;
     this.type = data.type;
     this.nillable = data.nillable;
+    this.abstract = data.abstract;
     this.targetNamespace = data.targetNamespace;
     this.substitutionGroup = data.substitutionGroup;
   }

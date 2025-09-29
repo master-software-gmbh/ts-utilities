@@ -11,6 +11,7 @@ export class XbrlItem extends XbrlConcept {
     name: string | null;
     type: string | null;
     nillable: boolean;
+    abstract: boolean;
     balance?: XbrliBalance;
     periodType?: XbrliPeriodType;
     targetNamespace: string | null;

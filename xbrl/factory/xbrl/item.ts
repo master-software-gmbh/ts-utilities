@@ -30,6 +30,7 @@ export class XbrlItemFactory extends BaseFactory<XsElement, XbrlItem> {
       name: source.name ?? null,
       type: source.type ?? null,
       nillable: source.nillable,
+      abstract: source.abstract,
       balance: balanceResult.data,
       periodType: periodTypeResult.data,
       targetNamespace: source.targetNamespace ?? null,

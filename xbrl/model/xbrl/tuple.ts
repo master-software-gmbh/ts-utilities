@@ -6,6 +6,7 @@ export class XbrlTuple extends XbrlConcept {
   constructor(data: {
     id: string | null;
     nillable: boolean;
+    abstract: boolean;
     name: string | null;
     type: string | null;
     children: unknown[];

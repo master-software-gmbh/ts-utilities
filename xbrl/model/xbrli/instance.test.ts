@@ -103,6 +103,7 @@ describe('XbrlInstance', () => {
 
     const concept = new XbrlConcept({
       nillable: true,
+      abstract: false,
       name: 'bs.eqLiab.equity',
       type: 'xbrli:monetaryItemType',
       substitutionGroup: 'xbrli:item',
