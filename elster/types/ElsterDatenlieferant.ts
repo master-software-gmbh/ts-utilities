@@ -64,6 +64,6 @@ export class ElsterDatenlieferant {
       this.email,
     ];
 
-    return parts.map((part) => (part !== null ? part : '')).join('; ');
+    return parts.map((part) => (part !== null ? part : '')).join(';');
   }
 }
