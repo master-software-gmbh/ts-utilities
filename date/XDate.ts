@@ -1,15 +1,25 @@
 import { Quarter } from './Quarter';
 
-export class XDate extends Date {
+export class XDate {
+  readonly day: number;
+  readonly year: number;
+  readonly month: number;
+
+  constructor(year?: number, month?: number, day?: number) {
+    const now = new Date();
+
+    this.day = day ?? now.getDate();
+    this.year = year ?? now.getFullYear();
+    this.month = month ?? now.getMonth() + 1;
+  }
+
   /**
    * Returns the quarter the given month is a part of
    * @param month The month as a number between 0 and 11. Defaults to the current month
    */
-  static getQuarter(date = new Date()): Quarter {
-    const year = date.getFullYear();
-    const index = Math.floor(date.getMonth() / 3);
-
-    return new Quarter(year, index as 0 | 1 | 2 | 3);
+  static getQuarter(date = new XDate()): Quarter {
+    const number = Math.floor((date.month - 1) / 3) + 1;
+    return new Quarter(date.year, number as 1 | 2 | 3 | 4);
   }
 
   /**
@@ -24,7 +34,7 @@ export class XDate extends Date {
    */
   addMonths(months: number): XDate {
     return this.copy({
-      month: this.getMonth() + months,
+      month: this.month + months,
     });
   }
 
@@ -40,7 +50,16 @@ export class XDate extends Date {
    */
   addDays(days: number): XDate {
     return this.copy({
-      day: this.getDate() + days,
+      day: this.day + days,
+    });
+  }
+
+  /**
+   * Returns a copy of the date with the number of years added
+   */
+  addYears(years: number): XDate {
+    return this.copy({
+      year: this.year + years,
     });
   }
 
@@ -52,31 +71,11 @@ export class XDate extends Date {
   }
 
   /**
-   * Returns a copy of the date with the number of hours added
-   */
-  addHours(hours: number): XDate {
-    return this.copy({
-      hours: this.getHours() + hours,
-    });
-  }
-
-  /**
-   * Returns a copy of the date with the number of hours subtracted
-   */
-  subtractHours(hours: number): XDate {
-    return this.addHours(-hours);
-  }
-
-  /**
    * Returns a copy of the date set to the first day of the month
    */
   atMonthStart(): XDate {
     return this.copy({
       day: 1,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
     });
   }
 
@@ -93,11 +92,7 @@ export class XDate extends Date {
   atYearStart(): XDate {
     return this.copy({
       day: 1,
-      month: 0,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
+      month: 1,
     });
   }
 
@@ -107,11 +102,7 @@ export class XDate extends Date {
   atYearEnd(): XDate {
     return this.copy({
       day: 31,
-      hours: 0,
-      month: 11,
-      minutes: 0,
-      seconds: 0,
-      milliseconds: 0,
+      month: 12,
     });
   }
 
@@ -122,21 +113,11 @@ export class XDate extends Date {
     day?: number;
     year?: number;
     month?: number;
-    hours?: number;
-    minutes?: number;
-    seconds?: number;
-    milliseconds?: number;
   }): XDate {
-    return new XDate(
-      new Date(
-        overrides?.year !== undefined ? overrides.year : this.getFullYear(),
-        overrides?.month !== undefined ? overrides.month : this.getMonth(),
-        overrides?.day !== undefined ? overrides.day : this.getDate(),
-        overrides?.hours !== undefined ? overrides.hours : this.getHours(),
-        overrides?.minutes !== undefined ? overrides.minutes : this.getMinutes(),
-        overrides?.seconds !== undefined ? overrides.seconds : this.getSeconds(),
-        overrides?.milliseconds !== undefined ? overrides.milliseconds : this.getMilliseconds(),
-      ),
+    return this.normalize(
+      overrides?.year !== undefined ? overrides.year : this.year,
+      overrides?.month !== undefined ? overrides.month : this.month,
+      overrides?.day !== undefined ? overrides.day : this.day,
     );
   }
 
@@ -144,10 +125,15 @@ export class XDate extends Date {
    * Returns the date in ISO format (YYYY-MM-DD)
    */
   toISODateString(): string {
-    const YYYY = this.getFullYear();
-    const MM = (this.getMonth() + 1).toString().padStart(2, '0');
-    const DD = this.getDate().toString().padStart(2, '0');
+    const YYYY = this.year;
+    const MM = this.month.toString().padStart(2, '0');
+    const DD = this.day.toString().padStart(2, '0');
 
     return `${YYYY}-${MM}-${DD}`;
+  }
+
+  private normalize(year: number, month: number, day: number): XDate {
+    const normalizedDate = new Date(year, month - 1, day);
+    return new XDate(normalizedDate.getFullYear(), normalizedDate.getMonth() + 1, normalizedDate.getDate());
   }
 }

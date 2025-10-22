@@ -3,22 +3,18 @@ import { XDate } from './XDate';
 
 export class Quarter {
   year: number;
-  index: 0 | 1 | 2 | 3;
+  number: 1 | 2 | 3 | 4;
 
-  constructor(year: number, index: 0 | 1 | 2 | 3) {
+  constructor(year: number, number: 1 | 2 | 3 | 4) {
     this.year = year;
-    this.index = index;
-  }
-
-  get number(): number {
-    return this.index + 1;
+    this.number = number;
   }
 
   /**
    * Inclusive start date of the quarter
    */
   get startDate(): XDate {
-    return new XDate(this.year, this.number * 3 - 3, 1);
+    return new XDate(this.year, this.number * 3 - 2, 1);
   }
 
   /**
