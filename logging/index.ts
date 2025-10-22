@@ -1,6 +1,6 @@
 import { stringify } from './logfmt';
 
-type Context = { [key: string]: unknown };
+type Context = { [key: string]: unknown; message?: undefined; level?: undefined };
 type Format = 'json' | 'logfmt';
 
 export class LoggingService {
@@ -11,23 +11,23 @@ export class LoggingService {
   }
 
   debug(message: string, context: Context = {}): void {
-    console.debug(this._serialize(message, 'debug', context));
+    console.debug(this._serialize('debug', message, context));
   }
 
   info(message: string, context: Context = {}): void {
-    console.info(this._serialize(message, 'info', context));
+    console.info(this._serialize('info',  message, context));
   }
 
   warn(message: string, context: Context = {}): void {
-    console.warn(this._serialize(message, 'warn', context));
+    console.warn(this._serialize('warn',  message, context));
   }
 
   error(message: string, context: Context = {}): void {
-    console.error(this._serialize(message, 'error', context));
+    console.error(this._serialize('error', message, context));
   }
 
-  _serialize(message: string, level: string, context: Context = {}): string {
-    const data = this._data(message, level, context);
+  _serialize(level: string, message: string, context: Context = {}): string {
+    const data = this._data(level, message, context);
 
     switch (this.format) {
       case 'json':
@@ -41,23 +41,18 @@ export class LoggingService {
     }
   }
 
-  _data(message: string, level: string, context: Context = {}): { [key: string]: unknown } {
-    const { message: data_message, level: data_level, error, ...remaining } = context;
-
-    const updatedContext: Context = {
-      error,
+  _data(level: string, message: string, context: Context = {}): { [key: string]: unknown } {  
+    const updatedContext: { [key: string]: unknown } = {
       level,
       message,
-      data_level,
-      data_message,
-      ...remaining,
+      ...context,
     };
 
-    if (error && error instanceof Error) {
+    if (context['error'] instanceof Error) {
       updatedContext['error'] = {
-        name: error.name,
-        stack: error.stack,
-        message: error.message,
+        name: context['error'].name,
+        stack: context['error'].stack,
+        message: context['error'].message,
       };
     }
 

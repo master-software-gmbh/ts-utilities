@@ -14,7 +14,7 @@ describe('ElsterDatenlieferant', () => {
 
   it('should return string', () => {
     expect(datenlieferant.toString()).toEqual(
-      'Max Mustermann; Musterstraße; 52; ; ; 12345; Musterstadt; ; +49 1234 5678; max@mustermann.de',
+      'Max Mustermann;Musterstraße;52;;;12345;Musterstadt;;+49 1234 5678;max@mustermann.de',
     );
   });
 

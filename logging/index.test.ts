@@ -65,41 +65,37 @@ const logger = new LoggingService('logfmt');
 describe('data', () => {
   it('simple key value pairs', () => {
     const data = { foo: 'bar', a: 14 };
-    expect(logger._data('message', 'info', data)).toEqual({ message: 'message', level: 'info', foo: 'bar', a: 14 });
+    expect(logger._data('info', 'message', data)).toEqual({ message: 'message', level: 'info', foo: 'bar', a: 14 });
   });
 
   it('transforms message and level', () => {
-    const data = { message: 'hello', level: 'world', foo: 'bar' };
-    expect(logger._data('message', 'info', data)).toEqual({
+    const data = { foo: 'bar' };
+    expect(logger._data('info', 'message', data)).toEqual({
       message: 'message',
       level: 'info',
       foo: 'bar',
-      data_message: 'hello',
-      data_level: 'world',
     });
   });
 
   it('preserves string errors', () => {
-    const data = { message: 'hello', foo: 'bar', error: 'error message' };
+    const data = { foo: 'bar', error: 'error message' };
 
-    expect(logger._data('message', 'info', data)).toEqual({
+    expect(logger._data('info', 'message', data)).toEqual({
       foo: 'bar',
       level: 'info',
       message: 'message',
-      data_message: 'hello',
       error: 'error message',
     });
   });
 
   it('extracts error message and stack', () => {
     const error = new TypeError('Test error');
-    const data = { message: 'hello', foo: 'bar', error };
+    const data = { foo: 'bar', error };
 
-    expect(logger._data('message', 'info', data)).toEqual({
+    expect(logger._data('info', 'message', data)).toEqual({
       foo: 'bar',
       level: 'info',
       message: 'message',
-      data_message: 'hello',
       error: {
         name: error.name,
         stack: error.stack,
