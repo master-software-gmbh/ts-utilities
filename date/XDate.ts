@@ -14,6 +14,16 @@ export class XDate {
   }
 
   /**
+   * Parses an ISO date string (YYYY-MM-DD) into an XDate
+   */
+  static fromISO(isoString: string): XDate {
+    const [match, yearStr, monthStr, dayStr] = isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/) ?? [];
+    if (!match) throw new Error(`Invalid ISO date: ${isoString}`);
+
+    return new XDate(Number(yearStr), Number(monthStr), Number(dayStr));
+  }
+
+  /**
    * Returns the quarter the given month is a part of
    * @param month The month as a number between 0 and 11. Defaults to the current month
    */

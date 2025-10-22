@@ -2,6 +2,11 @@ import { describe, expect, it } from 'bun:test';
 import { XDate } from './XDate';
 
 describe('XDate', () => {
+  it('fromISO', () => {
+    expect(XDate.fromISO('2020-01-01')).toEqual(new XDate(2020, 1, 1));
+    expect(XDate.fromISO('2025-06-23')).toEqual(new XDate(2025, 6, 23));
+  });
+
   it('addMonths', () => {
     expect(new XDate(2025, 1, 1).addMonths(1)).toEqual(new XDate(2025, 2, 1));
     expect(new XDate(2025, 2, 1).addMonths(1)).toEqual(new XDate(2025, 3, 1));
