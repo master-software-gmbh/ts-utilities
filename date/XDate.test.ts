@@ -94,4 +94,10 @@ describe('XDate', () => {
     expect(new XDate(2025, 8, 3).atYearEnd()).toEqual(new XDate(2025, 12, 31));
     expect(new XDate(2025, 11, 31).atYearEnd()).toEqual(new XDate(2025, 12, 31));
   });
+
+  it('format', () => {
+    expect(new XDate(2024, 5, 5).format()).toEqual('05.05.2024');
+    expect(new XDate(2025, 1, 1).format()).toEqual('01.01.2025');
+    expect(new XDate(2025, 12, 31).format()).toEqual('31.12.2025');
+  })
 });

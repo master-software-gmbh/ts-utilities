@@ -142,6 +142,14 @@ export class XDate {
     return `${YYYY}-${MM}-${DD}`;
   }
 
+  format(): string {
+    const YYYY = this.year;
+    const MM = this.month.toString().padStart(2, '0');
+    const DD = this.day.toString().padStart(2, '0');
+
+    return `${DD}.${MM}.${YYYY}`;
+  }
+
   private normalize(year: number, month: number, day: number): XDate {
     const normalizedDate = new Date(year, month - 1, day);
     return new XDate(normalizedDate.getFullYear(), normalizedDate.getMonth() + 1, normalizedDate.getDate());
