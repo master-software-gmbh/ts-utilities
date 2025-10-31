@@ -97,13 +97,13 @@ export class ElsterRichClient extends SharedLibrary {
   }
 
   async bearbeiteVorgang(xml: string, config: ElsterVorgangConfig): Promise<ElsterVorgangErgebnis> {
-    let pdfBuffer: Buffer | null = null;
+    let pdfData: Uint8Array<ArrayBuffer> | null = null;
 
     const rueckgabeXmlBuffer = this.rueckgabepufferErzeugen();
     const serverantwortXmlBuffer = this.rueckgabepufferErzeugen();
 
     const druckParameter = this.getDruckParameter((data) => {
-      pdfBuffer = data;
+      pdfData = data;
     });
 
     this.callFunction(ElsterFunctions.EricBearbeiteVorgang, [
@@ -123,10 +123,10 @@ export class ElsterRichClient extends SharedLibrary {
     const serverantwortXml = this.rueckgabepufferInhalt(serverantwortXmlBuffer);
     this.rueckgabepufferFreigeben(serverantwortXmlBuffer);
 
-    return { xml, rueckgabeXml, serverantwortXml, pdf: pdfBuffer };
+    return { xml, rueckgabeXml, serverantwortXml, pdf: pdfData };
   }
 
-  getDruckParameter(callback: (data: Buffer) => void): ElsterDruckParameter {
+  getDruckParameter(callback: (data: Uint8Array<ArrayBuffer>) => void): ElsterDruckParameter {
     return {
       version: 4,
       vorschau: 0,
@@ -135,8 +135,8 @@ export class ElsterRichClient extends SharedLibrary {
       fussText: null,
       pdfCallbackBenutzerdaten: null,
       pdfCallback: (_name, data, size) => {
-        const decodedData = koffi.decode(data, koffi.array('uint8_t', size));
-        callback(Buffer.from(decodedData));
+        const decodedData: Uint8Array<ArrayBuffer> = koffi.decode(data, koffi.array('uint8_t', size));
+        callback(decodedData);
         return 0;
       },
     };
