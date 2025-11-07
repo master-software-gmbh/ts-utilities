@@ -67,6 +67,6 @@ describe('FastXmlSerializer', () => {
 </DatenTeil>
 `;
 
-    expect(result.data).toEqualIgnoringWhitespace(expected);
+    expect(result).toEqualIgnoringWhitespace(expected);
   })
 })

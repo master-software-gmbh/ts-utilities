@@ -1,6 +1,4 @@
-import { loadModule } from '../../../esm';
 import { logger } from '../../../logging';
-import { type Result, error, success } from '../../../result';
 import type { XmlAttribute } from '../../model/xml/attribute';
 import type { XmlNamespaceDeclaration } from '../../model/xml/declaration';
 import type { XmlElement } from '../../model/xml/element';
@@ -13,12 +11,8 @@ export class FastXmlSerializer implements XmlSerializer {
   private readonly attributeNamePrefix = '';
   private readonly attributesGroupName = ':@';
 
-  async serialize(object: XmlElement): Promise<Result<string, 'missing_dependencies'>> {
-    const { data: module } = await loadModule<typeof import('fast-xml-parser')>('fast-xml-parser');
-
-    if (!module) {
-      return error('missing_dependencies');
-    }
+  async serialize(object: XmlElement): Promise<string> {
+    const module = await import('fast-xml-parser');
 
     const fastXmlBuilder = new module.XMLBuilder({
       format: true,
@@ -46,7 +40,7 @@ export class FastXmlSerializer implements XmlSerializer {
 
     this.serializeElement(obj, object, namespaces);
 
-    return success(fastXmlBuilder.build(obj));
+    return fastXmlBuilder.build(obj);
   }
 
   private serializeElement(object: XmlObject, element: XmlElement, namespaces: NamespaceMap) {

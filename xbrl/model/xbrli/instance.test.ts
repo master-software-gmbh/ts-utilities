@@ -44,7 +44,7 @@ describe('XbrlInstance', () => {
       </xbrli:xbrl>
     `;
 
-    expect(xmlString.data).toEqualIgnoringWhitespace(expected)
+    expect(xmlString).toEqualIgnoringWhitespace(expected)
   });
 
   it('should serialize an xbrl schema ref', async () => {
@@ -62,7 +62,7 @@ describe('XbrlInstance', () => {
       </xbrli:xbrl>
     `;
 
-    expect(xmlString.data).toEqualIgnoringWhitespace(expected)
+    expect(xmlString).toEqualIgnoringWhitespace(expected)
   });
 
   it('should serialize an xbrl unit', async () => {
@@ -84,7 +84,7 @@ describe('XbrlInstance', () => {
       </xbrli:xbrl>
     `;
 
-    expect(xmlString.data).toEqualIgnoringWhitespace(expected)
+    expect(xmlString).toEqualIgnoringWhitespace(expected)
   });
 
   it('should serialize an xbrl fact', async () => {
@@ -136,6 +136,6 @@ describe('XbrlInstance', () => {
       </xbrli:xbrl>
     `;
 
-    expect(xmlString.data).toEqualIgnoringWhitespace(expected)
+    expect(xmlString).toEqualIgnoringWhitespace(expected)
   });
 })
