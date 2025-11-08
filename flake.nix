@@ -9,12 +9,11 @@
     pkgs = import nixpkgs { inherit system; overlays = [
       (utilities.lib.bun.overlay1_2_8 system)
     ]; };
-    biome = utilities.lib.biome pkgs;
   in {
     devShells.default = pkgs.mkShell {
       buildInputs = [
         pkgs.bun
-      ] ++ biome;
+      ];
     };
   });
 }
