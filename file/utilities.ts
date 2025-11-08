@@ -7,6 +7,41 @@ import { loadModule } from '../esm';
 import { logger } from '../logging';
 import { type Result, error, success } from '../result';
 
+export function kilobytes(number: number) {
+  return {
+    get inBytes() {
+      return number * 1000;
+    }
+  }
+}
+
+export function megabytes(number: number) {
+  return {
+    ...kilobytes(number * 1000),
+    get inKilobytes() {
+      return number * 1000;
+    }
+  }
+}
+
+export function gigabytes(number: number) {
+  return {
+    ...megabytes(number * 1000),
+    get inMegabytes() {
+      return number * 1000;
+    }
+  }
+}
+
+export function terabytes(number: number) {
+  return {
+    ...gigabytes(number * 1000),
+    get inGigabytes() {
+      return number * 1000;
+    }
+  }
+}
+
 export const C = {
   kbToBytes: (kb: number) => kb * 1024,
   mbToBytes: (mb: number) => mb * 1024 * 1024,
