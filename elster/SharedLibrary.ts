@@ -10,6 +10,10 @@ export abstract class SharedLibrary {
     this.libraryFilepath = libraryFilepath;
   }
 
+  decode(data: unknown, groesse: number): Uint8Array<ArrayBuffer> {
+    return koffi.decode(data, koffi.array('uint8', groesse));
+  }
+
   protected callFunction(definition: SharedLibraryFunction, args = [] as unknown[]) {
     const library = this.getSharedLibrary();
     const func = library.func(definition.name, definition.result, definition.arguments);
@@ -23,11 +27,11 @@ export abstract class SharedLibrary {
     }
   }
 
-  protected getPointer(): Uint32Array {
-    return new Uint32Array([0]);
+  protected getPointer(): BigUint64Array {
+    return new BigUint64Array([0n]);
   }
 
-  protected getPointerValue(pointer: Uint32Array): number | undefined {
+  protected getPointerValue(pointer: BigUint64Array): bigint | undefined {
     return pointer[0];
   }
 

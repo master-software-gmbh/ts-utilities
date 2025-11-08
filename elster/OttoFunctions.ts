@@ -4,12 +4,6 @@ import { SharedLibraryFunction } from './SharedLibraryFunction';
 const OttoInstanz = koffi.opaque('OttoInstanz');
 const OttoInstanzHandle = koffi.pointer(OttoInstanz);
 
-const OttoZertifikat = koffi.opaque('OttoZertifikat');
-const OttoZertifikatHandle = koffi.pointer(OttoZertifikat);
-
-const OttoEmpfang = koffi.opaque('OttoEmpfang');
-const OttoEmpfangHandle = koffi.pointer(OttoEmpfang);
-
 const OttoRueckgabepuffer = koffi.opaque('OttoRueckgabepuffer');
 const OttoRueckgabepufferHandle = koffi.pointer(OttoRueckgabepuffer);
 
@@ -18,7 +12,7 @@ export default {
     'str',
     koffi.pointer('void'),
     koffi.pointer('void'),
-    koffi.out(koffi.pointer(OttoInstanzHandle)),
+    koffi.out(OttoInstanzHandle),
   ]),
 
   OttoInstanzFreigeben: new SharedLibraryFunction('OttoInstanzFreigeben', [
@@ -36,20 +30,9 @@ export default {
     OttoRueckgabepufferHandle, // abholDaten
   ]),
 
-  OttoZertifikatOeffnen: new SharedLibraryFunction('OttoZertifikatOeffnen', [
-    OttoInstanzHandle, // instanz
-    'str', // zertifikatsPfad
-    'str', // zertifikatsPasswort
-    koffi.out(koffi.pointer(OttoZertifikatHandle)), // zertifikat
-  ]),
-
-  OttoZertifikatSchliessen: new SharedLibraryFunction('OttoZertifikatSchliessen', [
-    OttoZertifikatHandle,
-  ]),
-
   OttoRueckgabepufferErzeugen: new SharedLibraryFunction('OttoRueckgabepufferErzeugen', [
     OttoInstanzHandle, // instanz
-    koffi.out(koffi.pointer(OttoRueckgabepufferHandle)), // rueckgabepuffer
+    koffi.out(OttoRueckgabepufferHandle), // rueckgabepuffer
   ]),
 
   OttoRueckgabepufferInhalt: new SharedLibraryFunction('OttoRueckgabepufferInhalt', [
@@ -62,22 +45,5 @@ export default {
 
   OttoRueckgabepufferFreigeben: new SharedLibraryFunction('OttoRueckgabepufferFreigeben', [
     OttoRueckgabepufferHandle, // rueckgabepuffer
-  ]),
-
-  OttoEmpfangBeginnen: new SharedLibraryFunction('OttoEmpfangBeginnen', [
-    OttoInstanzHandle, // instanz
-    'str', // objektId
-    OttoZertifikatHandle, // zertifikat
-    'str', // herstellerId
-    koffi.out(koffi.pointer(OttoEmpfangHandle)), // empfang
-  ]),
-
-  OttoEmpfangFortsetzen: new SharedLibraryFunction('OttoEmpfangFortsetzen', [
-    OttoEmpfangHandle, // empfang
-    OttoRueckgabepufferHandle, // datenBlock
-  ]),
-
-  OttoEmpfangBeenden: new SharedLibraryFunction('OttoEmpfangBeenden', [
-    OttoEmpfangHandle, // empfang
   ]),
 }
