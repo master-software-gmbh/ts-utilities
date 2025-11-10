@@ -99,5 +99,12 @@ describe('XDate', () => {
     expect(new XDate(2024, 5, 5).format()).toEqual('05.05.2024');
     expect(new XDate(2025, 1, 1).format()).toEqual('01.01.2025');
     expect(new XDate(2025, 12, 31).format()).toEqual('31.12.2025');
-  })
+  });
+
+  it('should implement comparison operators', () => {
+    expect(new XDate(2025, 6, 1) > new XDate(2025, 6, 2)).toBeFalse();
+    expect(new XDate(2025, 6, 1) > new XDate(2025, 6, 1)).toBeFalse();
+    expect(new XDate(2025, 6, 1) >= new XDate(2025, 6, 1)).toBeTrue();
+    expect(new XDate(2025, 6, 1) < new XDate(2025, 5, 30)).toBeFalse();
+  });
 });

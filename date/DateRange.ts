@@ -31,8 +31,8 @@ class DateRangeIterator implements Iterator<XDate> {
   private end: XDate;
 
   constructor(range: DateRange) {
-    this.current = new XDate(range.from.getFullYear(), range.from.getMonth(), range.from.getDate());
-    this.end = new XDate(range.until.getFullYear(), range.until.getMonth(), range.until.getDate());
+    this.current = range.from;
+    this.end = range.until;
   }
 
   next(): IteratorResult<XDate> {
