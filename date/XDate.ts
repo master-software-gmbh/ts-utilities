@@ -150,6 +150,10 @@ export class XDate {
     return `${DD}.${MM}.${YYYY}`;
   }
 
+  valueOf(): number {
+    return this.year * 10000 + this.month * 100 + this.day;
+  }
+
   private normalize(year: number, month: number, day: number): XDate {
     const normalizedDate = new Date(year, month - 1, day);
     return new XDate(normalizedDate.getFullYear(), normalizedDate.getMonth() + 1, normalizedDate.getDate());

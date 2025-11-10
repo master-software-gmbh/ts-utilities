@@ -45,11 +45,11 @@ export class ElsterRichClient extends SharedLibrary {
     return value;
   }
 
-  getTransferHandle(): Uint32Array {
+  getTransferHandle(): BigUint64Array {
     return this.getPointer();
   }
 
-  getHandleToCertificate(path: string): number | undefined {
+  getHandleToCertificate(path: string): bigint | undefined {
     const handle = this.getPointer();
     const pinInfo = this.getPointer();
 
