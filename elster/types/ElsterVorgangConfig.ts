@@ -3,7 +3,7 @@ import type { ElsterVerschluesselungsParameter } from './ElsterVerschluesselungs
 
 export interface ElsterVorgangConfig {
   datenartVersion: string;
-  transferHandle: Uint32Array | null;
+  transferHandle: BigUint64Array | null;
   bearbeitungsFlag: ElsterBearbeitungsFlag;
   verschluesselung: ElsterVerschluesselungsParameter | null;
 }

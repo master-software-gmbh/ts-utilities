@@ -58,7 +58,7 @@ export class ElsterRichClient extends SharedLibrary {
     return this.getPointerValue(handle);
   }
 
-  closeHandleToCertificate(handle: number) {
+  closeHandleToCertificate(handle: bigint) {
     this.callFunction(ElsterFunctions.EricCloseHandleToCertificate, [handle]);
   }
 
